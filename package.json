@@ -2,10 +2,10 @@
     "name": "lowww",
     "description": "WebGL2 Engine",
     "scripts": {
-        "build:core": "rollup -c rollup/core.js",
-        "build:controls": "rollup -c rollup/controls.js",
-        "build:geometries": "rollup -c rollup/geometries.js",
-        "build:postprocessing": "rollup -c rollup/postprocessing.js",
+        "build:core": "rollup -c scripts/rollup.core.js",
+        "build:controls": "rollup -c scripts/rollup.controls.js",
+        "build:geometries": "rollup -c scripts/rollup.geometries.js",
+        "build:postprocessing": "rollup -c scripts/rollup.postprocessing.js",
         "build:all": "npm run build:core&&npm run build:controls&&npm run build:geometries&&npm run build:postprocessing",
         "start": "npm run build:all"
     },
