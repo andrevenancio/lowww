@@ -1,0 +1,16 @@
+{
+    "name": "lowww",
+    "description": "WebGL2 Engine",
+    "scripts": {
+        "build:core": "rollup -c rollup/core.js",
+        "build:controls": "rollup -c rollup/controls.js",
+        "build:geometries": "rollup -c rollup/geometries.js",
+        "build:postprocessing": "rollup -c rollup/postprocessing.js",
+        "build:all": "npm run build:core&&npm run build:controls&&npm run build:geometries&&npm run build:postprocessing",
+        "start": "npm run build:all"
+    },
+    "devDependencies": {
+        "rollup": "^0.58.2"
+    },
+    "dependencies": {}
+}
