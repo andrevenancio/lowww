@@ -2,7 +2,7 @@
     "name": "lowww",
     "description": "WebGL2 Engine",
     "author": "Andre Venancio (info@andrevenancio.com)",
-    "version": "1.1.0",
+    "version": "1.0.82",
     "license": "MIT",
     "repository": "git@github.com:andrevenancio/lowww.git",
     "scripts": {
@@ -16,6 +16,8 @@
         "dev:geometries": "rollup -c scripts/rollup.geometries.js -w -m inline",
         "dev:postprocessing": "rollup -c scripts/rollup.postprocessing.js -w -m inline",
         "dev:all": "concurrently --kill-others --names \"rollup-controls,rollup-core,rollup-geometries,rollup-postprocessing,http-server\" -c \"black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite\" \"npm run dev:core\" \"npm run dev:controls\" \"npm run dev:geometries\" \"npm run dev:postprocessing\" \"npm run server\"",
+        "publish:gh": "git subtree push --prefix build origin gh-pages",
+        "publish:npm": "npm run build:all&&npm publish ./packages/core/",
         "server": "./node_modules/.bin/http-server ./ -s & opener http://localhost:8080/examples",
         "start": "npm run build:all",
         "test": "echo \"no test specified\" && exit 0"

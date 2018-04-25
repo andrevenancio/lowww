@@ -1,12 +1,12 @@
+<p align="center">
+    <img src="https://cdn.rawgit.com/andrevenancio/lowww/master/logo.svg" width="60px" alt="icon" />
+</p>
+<p align="center">lowww engine</p>
+
 <a href="https://github.com/andrevenancio/lowww/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="licence"/></a>
 <a href="https://travis-ci.org/andrevenancio/lowww"><img src="https://travis-ci.org/andrevenancio/lowww.svg" alt="Travis Status"></a>
 <a href="https://david-dm.org/andrevenancio/lowww"><img src="https://david-dm.org/andrevenancio/lowww.svg" alt="Dependency Status"></a>
 <a href="https://david-dm.org/andrevenancio/lowww/?type=dev"><img src="https://david-dm.org/andrevenancio/lowww/dev-status.svg" alt="devDependency Status"></a>
-
-<p align="center">
-    <img src="https://cdn.rawgit.com/andrevenancio/lowww/master/logo.svg" width="60px" alt="icon" />
-</p>
-<p align="center">lowww webgl2 rendering engine</p>
 
 lowww is a `WebGL 2.0` 3D engine. This is an experimental project focused in the advantages of `WebGL 2.0` and `GLSL ES 3.0`. It falls back to `WebGL` for devices that don't yet support `WebGL 2.0`, but this functionality will be removed as soon as `WebGL 2.0` becomes standard.
 
@@ -28,3 +28,8 @@ To run a specific dev task you will need to enable the server manually like `npm
 
 ## Production
 run `npm build:all` to run all the build tasks and generate documentation.
+
+
+
+## delete me
+`npm unpublish lowww-core@1.1.0`
