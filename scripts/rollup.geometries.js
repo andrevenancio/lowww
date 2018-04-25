@@ -1,4 +1,6 @@
 import path from 'path';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
+import pkg from '../package.json';
 
 import {
     PATH,
@@ -12,14 +14,35 @@ export default {
             format: 'umd',
             name: NAMESPACE.GEOMETRIES,
             file: path.join(PATH.GEOMETRIES.BUILD, `${NAMESPACE.GEOMETRIES}.js`),
-            indent: '\t'
         },
 
         {
             format: 'es',
             name: NAMESPACE.GEOMETRIES,
             file: path.join(PATH.GEOMETRIES.BUILD, `${NAMESPACE.GEOMETRIES}.module.js`),
-            indent: '\t'
         },
+    ],
+    watch: {
+        include: path.join(PATH.GEOMETRIES.SRC, '**'),
+    },
+    plugins: [
+        generatePackageJson({
+            outputFolder: path.join(PATH.GEOMETRIES.ROOT),
+            baseContents: {
+                name: "lowww-geometries",
+                description: "WebGL 2 Engine",
+                author: pkg.author,
+                version: pkg.version,
+                main: 'src/index.js',
+                module: `build/${NAMESPACE.GEOMETRIES}.module.js`,
+                scripts: {
+                    test: "echo \"Error: no test specified\" && exit 1"
+                },
+                devDependencies: {},
+                dependencies: {
+                    "gl-matrix": "^2.4.1"
+                }
+            },
+        }),
     ]
 };

@@ -1,4 +1,6 @@
 import path from 'path';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
+import pkg from '../package.json';
 
 import {
     PATH,
@@ -12,14 +14,35 @@ export default {
             format: 'umd',
             name: NAMESPACE.CORE,
             file: path.join(PATH.CORE.BUILD, `${NAMESPACE.CORE}.js`),
-            indent: '\t'
         },
 
         {
             format: 'es',
             name: NAMESPACE.CORE,
             file: path.join(PATH.CORE.BUILD, `${NAMESPACE.CORE}.module.js`),
-            indent: '\t'
         },
+    ],
+    watch: {
+        include: path.join(PATH.CORE.SRC, '**'),
+    },
+    plugins: [
+        generatePackageJson({
+            outputFolder: path.join(PATH.CORE.ROOT),
+            baseContents: {
+                name: "lowww-core",
+                description: "WebGL 2 Engine",
+                author: pkg.author,
+                version: pkg.version,
+                main: 'src/index.js',
+                module: `build/${NAMESPACE.CORE}.module.js`,
+                scripts: {
+                    test: "echo \"Error: no test specified\" && exit 1"
+                },
+                devDependencies: {},
+                dependencies: {
+                    "gl-matrix": "^2.4.1"
+                }
+            },
+        }),
     ]
 };

@@ -1,16 +1,31 @@
 {
     "name": "lowww",
     "description": "WebGL2 Engine",
+    "author": "Andre Venancio (info@andrevenancio.com)",
+    "version": "1.1.0",
+    "license": "MIT",
+    "repository": "git@github.com:andrevenancio/lowww.git",
     "scripts": {
         "build:core": "rollup -c scripts/rollup.core.js",
         "build:controls": "rollup -c scripts/rollup.controls.js",
         "build:geometries": "rollup -c scripts/rollup.geometries.js",
         "build:postprocessing": "rollup -c scripts/rollup.postprocessing.js",
         "build:all": "npm run build:core&&npm run build:controls&&npm run build:geometries&&npm run build:postprocessing",
-        "start": "npm run build:all"
+        "dev:core": "rollup -c scripts/rollup.core.js -w -m inline",
+        "dev:controls": "rollup -c scripts/rollup.controls.js -w -m inline",
+        "dev:geometries": "rollup -c scripts/rollup.geometries.js -w -m inline",
+        "dev:postprocessing": "rollup -c scripts/rollup.postprocessing.js -w -m inline",
+        "dev:all": "concurrently --kill-others --names \"rollup-controls,rollup-core,rollup-geometries,rollup-postprocessing,http-server\" -c \"black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite\" \"npm run dev:core\" \"npm run dev:controls\" \"npm run dev:geometries\" \"npm run dev:postprocessing\" \"npm run server\"",
+        "server": "./node_modules/.bin/http-server ./ -s & opener http://localhost:8080/examples",
+        "start": "npm run build:all",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "devDependencies": {
-        "rollup": "^0.58.2"
+        "concurrently": "^3.5.1",
+        "http-server": "^0.11.1",
+        "opener": "^1.4.3",
+        "rollup": "^0.58.2",
+        "rollup-plugin-generate-package-json": "^2.0.1"
     },
     "dependencies": {}
 }

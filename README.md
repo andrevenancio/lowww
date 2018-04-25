@@ -15,7 +15,16 @@ All functionality is separated per package, each one in its own npm module.
 ## Packages
 | name | package  | description
 |--------|-------|------------
+| `controls` | [npmjs](https://www.npmjs.com/package/lowww-controls) | Camera control utilities.
 | `core` | [npmjs](https://www.npmjs.com/package/lowww) | Handles all core functionality of the engine.
 | `geometries` | [npmjs](https://www.npmjs.com/package/lowww-geometries) | A collection of platonic solids and other geometries with `positions`, `indices`, `uvs` and `normals`.
-| `controls` | [npmjs](https://www.npmjs.com/package/lowww-controls) | Camera control utilities.
 | `postprocessing` | [npmjs](https://www.npmjs.com/package/lowww-postprocessing) | Postprocessing effects to use with build in `Composer` and `Pass`.
+
+
+## Development
+run `npm run dev:all` to run all dev tasks concurrently with an `http-server`.
+To run a specific dev task you will need to enable the server manually like `npm run dev:geometries & npm run server`
+
+
+## Production
+run `npm build:all` to run all the build tasks and generate documentation.
