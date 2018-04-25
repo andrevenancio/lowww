@@ -18,7 +18,7 @@
         "dev:all": "concurrently --kill-others --names \"rollup-controls,rollup-core,rollup-geometries,rollup-postprocessing,http-server\" -c \"black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite\" \"npm run dev:core\" \"npm run dev:controls\" \"npm run dev:geometries\" \"npm run dev:postprocessing\" \"npm run server\"",
         "server": "./node_modules/.bin/http-server ./ -s & opener http://localhost:8080/examples",
         "start": "npm run build:all",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"no test specified\" && exit 0"
     },
     "devDependencies": {
         "concurrently": "^3.5.1",
