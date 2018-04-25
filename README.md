@@ -28,8 +28,3 @@ To run a specific dev task you will need to enable the server manually like `npm
 
 ## Production
 run `npm build:all` to run all the build tasks and generate documentation.
-
-
-
-## delete me
-`npm unpublish lowww-core@1.1.0`

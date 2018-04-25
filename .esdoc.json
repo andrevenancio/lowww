@@ -1,0 +1,9 @@
+{
+  "source": "./packages",
+  "destination": "./docs",
+  "excludes": ["^controls/build", "^geometries/build", "^postprocessing/build", "^core/build"],
+  "plugins": [
+      { "name": "esdoc-standard-plugin" },
+      { "name": "esdoc-ecmascript-proposal-plugin", "option": { "all": true }}
+  ]
+}

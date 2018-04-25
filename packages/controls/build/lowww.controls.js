@@ -4,6 +4,9 @@
     (global.lowww = global.lowww || {}, global.lowww.controls = factory());
 }(this, (function () { 'use strict';
 
+    /**
+     * this is lowww-controls.
+     */
     var index = {
         version: 'controls',
     };
