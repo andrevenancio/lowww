@@ -1,5 +1,3 @@
 import Orbit from './orbit';
 
-export {
-    Orbit,
-};
+export { Orbit };

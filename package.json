@@ -40,6 +40,11 @@
         "server": "./node_modules/.bin/http-server ./ -s & opener http://localhost:8080/examples",
         "start": "npm run dev:all",
         "publish:npm": "npm start&&npm publish ./packages/controls/&&npm publish ./packages/core/&&npm publish ./packages/geometries/&&npm publish ./packages/postproduction/",
+        "lint:controls": "eslint packages/controls/**/*.js --quiet",
+        "lint:core": "eslint packages/core/**/*.js --quiet",
+        "lint:geometries": "eslint packages/geometries/**/*.js --quiet",
+        "lint:postprocessing": "eslint packages/postprocessing/**/*.js --quiet",
+        "lint:all": "npm run lint:core&&npm run lint:controls&&npm run lint:geometries&&npm run lint:postprocessing",
         "test": "echo \"no test specified\" && exit 0"
     },
     "devDependencies": {
