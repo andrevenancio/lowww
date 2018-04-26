@@ -68,7 +68,7 @@ class Renderer {
                 const args = [
                     `%c${library} - %cversion: %c${version} %crunning: %c${gl.getParameter(gl.VERSION)}`,
                     lib, parameters, values, parameters, values,
-               ];
+                ];
 
                 console.log(...args);
             }
