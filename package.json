@@ -11,32 +11,27 @@
         "es5:geometries": "export PACKAGE=geometries&&rollup -c scripts/rollup.es5.js -m inline",
         "es5:postprocessing": "export PACKAGE=postprocessing&&rollup -c scripts/rollup.es5.js -m inline",
         "es5:all": "npm run es5:core&&npm run es5:controls&&npm run es5:geometries&&npm run es5:postprocessing",
-
         "es6:controls": "export PACKAGE=controls&&rollup -c scripts/rollup.es6.js -m inline",
         "es6:core": "export PACKAGE=core&&rollup -c scripts/rollup.es6.js -m inline",
         "es6:geometries": "export PACKAGE=geometries&&rollup -c scripts/rollup.es6.js -m inline",
         "es6:postprocessing": "export PACKAGE=postprocessing&&rollup -c scripts/rollup.es6.js -m inline",
         "es6:all": "npm run es6:core&&npm run es6:controls&&npm run es6:geometries&&npm run es6:postprocessing",
-
         "minify:controls": "export PACKAGE=controls&&node scripts/minify-options.js&&uglifyjs packages/controls/build/controls.js --config-file=\"scripts/minify-options.json\" > packages/controls/build/controls.min.js",
         "minify:core": "export PACKAGE=core&&node scripts/minify-options.js&&uglifyjs packages/core/build/core.js --config-file=\"scripts/minify-options.json\" > packages/core/build/core.min.js",
         "minify:geometries": "export PACKAGE=geometries&&node scripts/minify-options.js&&uglifyjs packages/geometries/build/geometries.js --config-file=\"scripts/minify-options.json\" > packages/geometries/build/geometries.min.js",
         "minify:postprocessing": "export PACKAGE=postprocessing&&node scripts/minify-options.js&&uglifyjs packages/postprocessing/build/postprocessing.js --config-file=\"scripts/minify-options.json\" > packages/postprocessing/build/postprocessing.min.js",
         "minify:all": "npm run minify:core&&npm run minify:controls&&npm run minify:geometries&&npm run minify:postprocessing",
-
         "package:controls": "export PACKAGE=controls&& node scripts/generate-packages.js",
         "package:core": "export PACKAGE=core&& node scripts/generate-packages.js",
         "package:geometries": "export PACKAGE=geometries&& node scripts/generate-packages.js",
         "package:postprocessing": "export PACKAGE=postprocessing&& node scripts/generate-packages.js",
         "package:all": "npm run package:core&&npm run package:controls&&npm run package:geometries&&npm run package:postprocessing",
-
         "dev:controls": "export PACKAGE=controls&&rollup -c scripts/rollup.es5.js -w -m inline",
         "dev:core": "export PACKAGE=core&&rollup -c scripts/rollup.es5.js -w -m inline",
         "dev:geometries": "export PACKAGE=geometries&&rollup -c scripts/rollup.es5.js -w -m inline",
         "dev:postprocessing": "export PACKAGE=postprocessing&&rollup -c scripts/rollup.es5.js -w -m inline",
         "dev:all": "concurrently --kill-others --names \"rollup-controls,rollup-core,rollup-geometries,rollup-postprocessing,http-server\" -c \"black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite\" \"npm run dev:core\" \"npm run dev:controls\" \"npm run dev:geometries\" \"npm run dev:postprocessing\" \"npm run server\"",
-
-        "build": "npm run es5:all&&npm run es6:all&&npm run minify:all&&npm run packages:all",
+        "build": "npm run es5:all&&npm run es6:all&&npm run minify:all&&npm run package:all",
         "server": "./node_modules/.bin/http-server ./ -s & opener http://localhost:8080/examples",
         "start": "npm run dev:all",
         "publish:npm": "npm start&&npm publish ./packages/controls/&&npm publish ./packages/core/&&npm publish ./packages/geometries/&&npm publish ./packages/postproduction/",
