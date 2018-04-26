@@ -1,6 +1,8 @@
-/**
- * this is lowww-controls.
- */
-export default {
-    version: 'controls',
-};
+class Test {
+    constructor() {
+        const name = __LIBRARY__;
+        this.name = name;
+    }
+}
+
+export default Test;

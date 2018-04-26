@@ -22,9 +22,9 @@ All functionality is separated per package, each one in its own npm module.
 
 
 ## Development
-run `npm run dev:all` to run all dev tasks concurrently with an `http-server`.
+run `npm run dev:all` or `npm start` to run all dev tasks concurrently with an `http-server`.
 To run a specific dev task you will need to enable the server manually like `npm run dev:geometries & npm run server`
 
 
 ## Production
-run `npm build:all` to run all the build tasks and generate documentation.
+run `npm build:all` to run all the build tasks. Generates ES5, ES6, package.json (for each package with the latest version)

@@ -1,1 +1,0 @@
-{"name":"lowww-core","description":"WebGL 2 Engine","author":"Andre Venancio (info@andrevenancio.com)","version":"1.1.0","main":"src/index.js","module":"build/lowww.core.module.js","scripts":{"test":"echo \"Error: no test specified\" && exit 1"},"dependencies":{"gl-matrix":"^2.4.1"}}

@@ -1,6 +1,0 @@
-var index = {
-    version: 'postprocessing',
-};
-
-export default index;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibG93d3cucG9zdHByb2Nlc3NpbmcubW9kdWxlLmpzIiwic291cmNlcyI6WyIuLi9zcmMvaW5kZXguanMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQge1xuICAgIHZlcnNpb246ICdwb3N0cHJvY2Vzc2luZycsXG59O1xuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLFlBQWU7SUFDWCxPQUFPLEVBQUUsZ0JBQWdCO0NBQzVCLENBQUM7Ozs7In0=
