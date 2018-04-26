@@ -1,8 +1,5 @@
-class Test {
-    constructor() {
-        const name = __LIBRARY__;
-        this.name = name;
-    }
-}
+import Orbit from './orbit';
 
-export default Test;
+export {
+    Orbit,
+};

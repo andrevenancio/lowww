@@ -1,6 +1,7 @@
+import babel from 'rollup-plugin-babel';
 import path from 'path';
-import resolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
+import resolve from 'rollup-plugin-node-resolve';
 
 import pkg from '../package.json';
 
@@ -24,5 +25,6 @@ export default {
             __VERSION__: packageVersion,
         }),
         resolve(),
+        babel(), // allows arrow functions
     ],
 };

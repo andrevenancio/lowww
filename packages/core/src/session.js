@@ -1,7 +1,7 @@
 import { CONTEXT } from './constants';
 
-const library = __LIBRARY__ || 'lowww';
-const version = __VERSION__ || 'dev';
+const library = `lowww-${__LIBRARY__}`;
+const version = __VERSION__;
 
 // per session
 let gl = null;

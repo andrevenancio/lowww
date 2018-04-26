@@ -1,0 +1,29 @@
+{
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "globals": {
+        "window": true,
+        "requestAnimationFrame": true,
+        "__LIBRARY__": true,
+        "__VERSION__": true,
+        "document": true,
+        "Image": true,
+        "lowww": true
+    },
+    "rules": {
+        "arrow-body-style": [0],
+        "class-methods-use-this": [0],
+        "global-require": [0],
+        "guard-for-in": [0],
+        "import/prefer-default-export": [0],
+        "indent": [2, 4],
+        "no-bitwise": [0],
+        "no-console": [0],
+        "no-param-reassign": [0],
+        "no-plusplus": [0],
+        "no-restricted-syntax": [2, 'DebuggerStatement'],
+        "no-return-assign": [0],
+        "no-underscore-dangle": [0],
+        "prefer-destructuring": ["error", { "array": false, "object": true }, { "enforceForRenamedProperties": false }]
+    }
+}

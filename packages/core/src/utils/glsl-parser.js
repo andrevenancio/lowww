@@ -87,6 +87,19 @@ const VERTEX_RULES = [...GENERIC, ...VERTEX];
 const FRAGMENT_RULES = [...GENERIC, ...FRAGMENT];
 
 /**
+ *
+ */
+const transform = (code) => {
+    return code
+        // removes //
+        .replace(/[ \t]*\/\/.*\n/g, '')
+        // remove /* */
+        .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '')
+        // removes multiple white spaces
+        .replace(/^\s+|\s+$|\s+(?=\s)/g, '');
+};
+
+/**
  * Replaces es300 syntax to es100
  */
 export default function parse(shader, shaderType) {
@@ -103,5 +116,5 @@ export default function parse(shader, shaderType) {
         }
     });
 
-    return shader; // .replace(/^\s+|\s+$/gm, '');
+    return transform(shader);
 }
