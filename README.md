@@ -1,14 +1,15 @@
 <p align="center">
-    <img src="https://cdn.rawgit.com/andrevenancio/lowww/master/logo.svg" width="60px" alt="icon" />
+    <img src="https://cdn.rawgit.com/andrevenancio/lowww/master/src/logo.svg" width="60px" alt="icon" />
 </p>
-<p align="center">lowww engine</p>
+<p align="center">lowww `WebGL2.0` engine</p>
 
+lowww
+===
 <a href="https://github.com/andrevenancio/lowww/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="licence"/></a>
 <a href="https://travis-ci.org/andrevenancio/lowww"><img src="https://travis-ci.org/andrevenancio/lowww.svg" alt="Travis Status"></a>
 <a href="https://david-dm.org/andrevenancio/lowww"><img src="https://david-dm.org/andrevenancio/lowww.svg" alt="Dependency Status"></a>
 <a href="https://david-dm.org/andrevenancio/lowww/?type=dev"><img src="https://david-dm.org/andrevenancio/lowww/dev-status.svg" alt="devDependency Status"></a>
 
-## About this project
 lowww is a `WebGL 2.0` Javascript 3D engine. This is an experimental project focused in the advantages of `WebGL 2.0` and `GLSL ES 3.0`. It falls back to `WebGL` for devices that don't yet support `WebGL 2.0`.
 
 

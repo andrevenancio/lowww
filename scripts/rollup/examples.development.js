@@ -2,8 +2,9 @@ import babel from 'rollup-plugin-babel';
 import glob from 'glob';
 import path from 'path';
 import resolve from 'rollup-plugin-node-resolve';
-import copy from './plugins/copy';
-import html from './plugins/html';
+
+import copy from './rollup-plugins/copy';
+import html from './rollup-plugins/html';
 
 // 1)
 // look through all files on the src folder
@@ -31,17 +32,17 @@ const examples = files.map((entry) => {
         input: path.join(SRC, name, 'index.js'),
         output: {
             format: 'umd',
-            name,
+            name: 'example',
             file: path.join(DEV, 'js', `${name}.js`),
         },
         watch: {
             include: path.join(SRC, name, '**'),
         },
         plugins: [
-            babel(),
             resolve(),
+            babel(),
             copy([
-                { from: path.join(SRC, 'style.css'), to: path.join(DEV, 'css', 'style.css') },
+                { from: path.join(SRC, 'static'), to: path.join(DEV) },
             ]),
             html({
                 output: path.join(DEV, `${name}.html`),

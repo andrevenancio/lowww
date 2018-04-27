@@ -51,12 +51,15 @@ export default function replace(options = {}) {
 
     html.push('   </head>');
     html.push('   <body>');
+    html.push('       <a href="./" class="back">back</a>');
+    html.push(`       <a href="https://github.com/andrevenancio/lowww/blob/master/src/${metadata.title}/index.js" class="source">source</a>`);
 
     // inject array of javascript files
     js.forEach((file) => {
         html.push(`       <script src="${file}"></script>`);
     });
 
+    html.push('       <script>var example = new example.Main();</script>');
     html.push('   </body>');
     html.push('</html>');
 
