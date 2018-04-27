@@ -1,0 +1,49 @@
+html, body {
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 14px;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+canvas {
+    display: block;
+}
+
+a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    line-height: 20px;
+}
+
+a:hover {
+    color: #fff;
+}
+
+a.back,
+a.source {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+a.back:hover,
+a.source:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+a.back {
+    top: 20px;
+    left: 20px;
+}
+
+a.source {
+    bottom: 20px;
+    right: 20px;
+}

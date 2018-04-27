@@ -9,7 +9,7 @@ import html from './rollup-plugins/html';
 // 1)
 // look through all files on the src folder
 const SRC = path.join(process.cwd(), 'src');
-const DEV = path.join(process.cwd(), 'dev');
+const DEV = path.join(process.cwd(), 'site');
 
 const files = glob.sync(path.join(SRC, '**/*.js')).filter((entry) => {
     const temp = entry.replace(SRC, '').split('/');
