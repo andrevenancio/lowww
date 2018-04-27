@@ -174,7 +174,7 @@
     });
 
     var library = "lowww-" + "core";
-    var version = "1.1.0";
+    var version = "1.1.1";
 
     // per session
     var gl = null;

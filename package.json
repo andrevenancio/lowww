@@ -2,7 +2,7 @@
     "name": "lowww",
     "description": "WebGL2 Engine",
     "author": "Andre Venancio (info@andrevenancio.com)",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "license": "MIT",
     "repository": "git@github.com:andrevenancio/lowww.git",
     "keywords": [
@@ -39,7 +39,7 @@
         "build": "npm run es5:all&&npm run es6:all&&npm run minify:all&&npm run package:all",
         "server": "./node_modules/.bin/http-server ./ -s & opener http://localhost:8080/examples",
         "start": "npm run dev:all",
-        "publish:npm": "npm start&&npm publish ./packages/controls/&&npm publish ./packages/core/&&npm publish ./packages/geometries/&&npm publish ./packages/postproduction/",
+        "publish:npm": "npm run build&&npm publish ./packages/controls/&&npm publish ./packages/core/&&npm publish ./packages/geometries/&&npm publish ./packages/postproduction/",
         "lint:controls": "eslint packages/controls/**/*.js --quiet",
         "lint:core": "eslint packages/core/**/*.js --quiet",
         "lint:geometries": "eslint packages/geometries/**/*.js --quiet",

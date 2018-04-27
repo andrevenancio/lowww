@@ -14,6 +14,7 @@ fs.readFile('package.json', 'utf8', (error, text) => {
         version: pkg.version,
         main: 'src/index.js',
         module: `build/${process.env.PACKAGE}.module.js`,
+        repository: 'git@github.com:andrevenancio/lowww.git',
         scripts: {
             test: 'echo \'Error: no test specified\' && exit 0',
         },
