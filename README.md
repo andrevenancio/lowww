@@ -8,23 +8,22 @@
 <a href="https://david-dm.org/andrevenancio/lowww"><img src="https://david-dm.org/andrevenancio/lowww.svg" alt="Dependency Status"></a>
 <a href="https://david-dm.org/andrevenancio/lowww/?type=dev"><img src="https://david-dm.org/andrevenancio/lowww/dev-status.svg" alt="devDependency Status"></a>
 
-lowww is a `WebGL 2.0` 3D engine. This is an experimental project focused in the advantages of `WebGL 2.0` and `GLSL ES 3.0`. It falls back to `WebGL` for devices that don't yet support `WebGL 2.0`, but this functionality will be removed as soon as `WebGL 2.0` becomes standard.
+## About this project
+lowww is a `WebGL 2.0` Javascript 3D engine. This is an experimental project focused in the advantages of `WebGL 2.0` and `GLSL ES 3.0`. It falls back to `WebGL` for devices that don't yet support `WebGL 2.0`.
 
-All functionality is separated per package, each one in its own npm module.
 
-## Packages
-| name | package  | description
-|--------|-------|------------
-| `controls` | [npmjs](https://www.npmjs.com/package/lowww-controls) | Camera control utilities.
-| `core` | [npmjs](https://www.npmjs.com/package/lowww) | Handles all core functionality of the engine.
-| `geometries` | [npmjs](https://www.npmjs.com/package/lowww-geometries) | A collection of platonic solids and other geometries with `positions`, `indices`, `uvs` and `normals`.
-| `postprocessing` | [npmjs](https://www.npmjs.com/package/lowww-postprocessing) | Postprocessing effects to use with build in `Composer` and `Pass`.
+## About this repository
+This is a monorepo where all packages are separated in the `packages/` folder and they can be imported independently as a npm module. There are several [npm scripts](https://github.com/andrevenancio/lowww/blob/master/package.json#L13) to allow you to build each module independently.
+
+A brief explanation of the content within this monorepo can be seen below:
+* `src/` - contains the source code for the website which include the examples. This is where you should add any specific example you might want to contribute.
+* `packages/` - contains all the packages part of the engine. Each package is a separate npm module.
+* `scripts/` - contains all the build scripts necessary to compile the website, examples, documentation and each individual package.
 
 
 ## Development
-run `npm run dev:all` or `npm start` to run all dev tasks concurrently with an `http-server`.
-To run a specific dev task you will need to enable the server manually like `npm run dev:geometries & npm run server`
+`npm start`
 
 
 ## Production
-run `npm build:all` to run all the build tasks. Generates ES5, ES6, package.json (for each package with the latest version)
+`npm build:all`

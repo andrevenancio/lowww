@@ -1,26 +1,44 @@
-lowww-geometries
-===
+# lowww-geometries
+Adds geometries for the [lowww](https://github.com/andrevenancio/lowww) engine.
 
-This package is part of a [lowww](https://github.com/andrevenancio/lowww) webgl engine.
+## Installation
+`npm install --save lowww-geometries`
 
-## Platonic Solids ##
-* Tetrahedron `Fire`
-* Octahedron `Air`
-* Hexahedron `Earth`
-* Icosahedron `Water`
-* Dodecahedron `The Universe`
 
-## Other geometries ##
-* Plane
-* Box
-* Sphere
-* Torus
-* TorusKnot
+## Usage
+```javascript
+import { Renderer, Scene, cameras, Mesh } from 'lowww-core';
+import { Icosahedron } from 'lowww-geometries';
 
-## Special geometries
-* Suzanne
+let renderer;
+let camera;
+let scene;
+let mesh;
 
-## Read further ##
-* http://paulbourke.net/geometry/platonic/
-* https://stemkoski.github.io/Three.js/Polyhedra.html
-* http://www.blackpawn.com/texts/pqtorus/
+init();
+update();
+
+const init = () => {
+    renderer = new Renderer();
+    renderer.setSize(400, 300);
+    document.body.appendChild(renderer.domElement);
+
+    camera = new cameras.Perspective();
+    camera.position.set(0, 0, 500);
+
+    scene = new Scene();
+
+    const geometry = new Icosahedron(10, 1);
+    mesh = new Mesh({ geometry });
+    scene.add(mesh);
+};
+
+const update = () => {
+    renderer.render(scene, camera);
+    requestAnimationFrame(update.bind(this));
+};
+```
+
+
+## License
+MIT
