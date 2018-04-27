@@ -51,7 +51,7 @@
         "lint:postprocessing": "eslint packages/postprocessing/**/*.js --quiet",
         "lint:all": "npm run lint:core&&npm run lint:controls&&npm run lint:geometries&&npm run lint:postprocessing",
         "test": "echo \"no test specified\" && exit 0",
-        "t": "sed -i \"\" '/gh-pages/d' ./.gitignore&&git add .&&git commit -m \"Edit .gitignore to publish\"&&git push origin&&git subtree push --prefix dev origin gh-pages&&git reset HEAD~&&git checkout .gitignore"
+        "t": "sed -i \"\" '/gh-pages/d' ./.gitignore&&git add .&&git commit -m \"Edit .gitignore to publish\"&&git push origin `git subtree split --prefix dev master`:gh-pages --force&&git reset HEAD~&&git checkout .gitignore"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",
