@@ -47,3 +47,34 @@ a.source {
     bottom: 20px;
     right: 20px;
 }
+
+a.thumb {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #333;
+    margin: 10px;
+}
+a.thumb img {
+    width: 200px;
+    height: 150px;
+    opacity: 1;
+    transition: all 0.15s ease-in-out;
+}
+a.thumb p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%);
+    text-align: center;
+    transition: all 0.15s ease-in-out;
+}
+
+a.thumb:hover img {
+    opacity: 0.25;
+}
+
+a.thumb:hover p {
+    top: 50%;
+    opacity: 1;
+}

@@ -11,6 +11,8 @@ export default function replace(options = {}) {
         },
         js = [],
         css = [],
+        examples = [],
+        isIndex = false,
     } = options;
     const min = options.minify || false;
 
@@ -51,15 +53,28 @@ export default function replace(options = {}) {
 
     html.push('   </head>');
     html.push('   <body>');
-    html.push('       <a href="./" class="back">back</a>');
-    html.push(`       <a href="https://github.com/andrevenancio/lowww/blob/master/src/${metadata.title}/index.js" class="source">source</a>`);
 
-    // inject array of javascript files
-    js.forEach((file) => {
-        html.push(`       <script src="${file}"></script>`);
-    });
+    if (isIndex) {
+        // inject array of examples
+        html.push('       <nav>');
+        examples.forEach((file) => {
+            html.push(`          <a href="${file.url}" class="thumb">`);
+            html.push(`             <img src="${file.thumb}" />`);
+            html.push(`             <p>${file.name}</p>`);
+            html.push('          </a>');
+        });
+        html.push('</nav>');
+    } else {
+        html.push('       <a href="./" class="back">back</a>');
+        html.push(`       <a href="https://github.com/andrevenancio/lowww/blob/master/src/${metadata.title}/index.js" class="source">source</a>`);
 
-    html.push('       <script>var example = new example.Main();</script>');
+        // inject array of javascript files
+        js.forEach((file) => {
+            html.push(`       <script src="${file}"></script>`);
+        });
+        html.push('       <script>var example = new example.Main();</script>');
+    }
+
     html.push('   </body>');
     html.push('</html>');
 

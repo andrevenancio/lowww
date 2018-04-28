@@ -22,9 +22,21 @@ const files = glob.sync(path.join(SRC, '**/*.js')).filter((entry) => {
     return false;
 });
 
+const examples = files.map((entry) => {
+    const temp = entry.replace(SRC, '').split('/');
+    const name = temp[1];
+
+    return {
+        name,
+        thumb: `img/thumbnails/${name}.jpg`,
+        url: `${name}.html`,
+    };
+});
+
+
 // 2)
 // create a rollup config for each example
-const examples = files.map((entry) => {
+const configs = files.map((entry) => {
     const temp = entry.replace(SRC, '').split('/');
     const name = temp[1];
 
@@ -47,7 +59,7 @@ const examples = files.map((entry) => {
             html({
                 output: path.join(DEV, `${name}.html`),
                 metadata: {
-                    title: `DEVELOPMENT | ${name}`,
+                    title: name,
                 },
                 css: [
                     'css/style.css',
@@ -61,6 +73,17 @@ const examples = files.map((entry) => {
                     `js/${name}.js`,
                 ],
             }),
+            html({
+                output: path.join(DEV, 'index.html'),
+                isIndex: true,
+                metadata: {
+                    title: 'DEVELOPMENT',
+                },
+                css: [
+                    'css/style.css',
+                ],
+                examples,
+            }),
         ],
     };
 
@@ -69,4 +92,4 @@ const examples = files.map((entry) => {
 
 // 3)
 // export an array of configs
-export default examples;
+export default configs;
