@@ -1,6 +1,10 @@
+/* global dat */
 class Template {
     constructor() {
         window.addEventListener('resize', this.handleResize.bind(this), false);
+
+        this.gui = new dat.GUI();
+        this.gui.close();
 
         this.setup();
         this.init();

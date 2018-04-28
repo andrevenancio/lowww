@@ -110,9 +110,11 @@
       Renderer = _lowww$core.Renderer,
       Scene = _lowww$core.Scene,
       cameras = _lowww$core.cameras,
-      chunks = _lowww$core.chunks,
-      Model = _lowww$core.Model;
-  var UBO = chunks.UBO;
+      Mesh = _lowww$core.Mesh,
+      constants = _lowww$core.constants;
+  var Orbit = lowww.controls.Orbit;
+  var Box = lowww.geometries.Box;
+  var SIDE = constants.SIDE;
 
   var Main = function (_Template) {
       inherits(Main, _Template);
@@ -132,19 +134,36 @@
 
               this.camera = new cameras.Perspective();
               this.camera.position.set(0, 0, 500);
+
+              this.controls = new Orbit(this.camera, this.renderer.domElement);
           }
       }, {
           key: 'init',
           value: function init() {
-              var vertex = '#version 300 es\n            in vec3 a_position;\n\n            ' + UBO.scene() + '\n            ' + UBO.model() + '\n\n            void main() {\n                gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(a_position, 1.0);\n            }\n        ';
-
-              var fragment = '#version 300 es\n            precision highp float;\n            precision highp int;\n\n            out vec4 outColor;\n\n            void main() {\n                outColor = vec4(1.0);\n            }\n        ';
+              var _this2 = this;
 
               var size = 20;
-              var model = new Model();
-              model.setAttribute('a_position', 'vec3', new Float32Array([-size, -size, 0, size, -size, 0, 0, size, 0]));
-              model.setShader(vertex, fragment);
-              this.scene.add(model);
+
+              var geometry = new Box(size, size, size);
+              this.model = new Mesh({ geometry: geometry });
+              this.model.side = SIDE.BOTH;
+              this.scene.add(this.model);
+
+              // global clipping
+              this.scene.clipping.enable = false;
+              this.scene.clipping.planes[0] = [0, 1, 0, 10];
+
+              // local clipping
+              this.model.clipping.enable = true;
+              this.model.clipping.planes[0] = [0.5, 1, 0, 10];
+
+              // gui
+              this.gui.add(this.scene.clipping, 'enable').name('global clipping').onChange(function (e) {
+                  return _this2.scene.clipping.enable = e;
+              });
+              this.gui.add(this.model.clipping, 'enable').name('local clipping').onChange(function (e) {
+                  return _this2.model.clipping.enable = e;
+              });
           }
       }, {
           key: 'resize',
@@ -155,6 +174,7 @@
       }, {
           key: 'update',
           value: function update() {
+              this.controls.update();
               this.renderer.render(this.scene, this.camera);
           }
       }]);

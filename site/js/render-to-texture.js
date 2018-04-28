@@ -110,8 +110,13 @@
       Renderer = _lowww$core.Renderer,
       Scene = _lowww$core.Scene,
       cameras = _lowww$core.cameras,
-      chunks = _lowww$core.chunks,
-      Model = _lowww$core.Model;
+      Mesh = _lowww$core.Mesh,
+      RenderTarget = _lowww$core.RenderTarget,
+      chunks = _lowww$core.chunks;
+  var Orbit = lowww.controls.Orbit;
+  var _lowww$geometries = lowww.geometries,
+      Plane = _lowww$geometries.Plane,
+      Icosahedron = _lowww$geometries.Icosahedron;
   var UBO = chunks.UBO;
 
   var Main = function (_Template) {
@@ -128,34 +133,77 @@
               this.renderer = new Renderer();
               document.body.appendChild(this.renderer.domElement);
 
-              this.scene = new Scene();
+              // first scene to render
+              this.scene1 = new Scene();
 
-              this.camera = new cameras.Perspective();
-              this.camera.position.set(0, 0, 500);
+              this.camera1 = new cameras.Perspective();
+              this.camera1.position.set(0, 0, 500);
+
+              // second scene rendering plane with 1st scene as texture.
+              this.scene2 = new Scene();
+              this.camera2 = new cameras.Orthographic();
+              this.camera2.position.z = 100;
+
+              this.controls = new Orbit(this.camera1, this.renderer.domElement);
           }
       }, {
           key: 'init',
           value: function init() {
-              var vertex = '#version 300 es\n            in vec3 a_position;\n\n            ' + UBO.scene() + '\n            ' + UBO.model() + '\n\n            void main() {\n                gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(a_position, 1.0);\n            }\n        ';
+              // original scene
+              var geometry1 = new Icosahedron(100, 1);
+              var model1 = new Mesh({ geometry: geometry1 });
+              this.scene1.add(model1);
 
-              var fragment = '#version 300 es\n            precision highp float;\n            precision highp int;\n\n            out vec4 outColor;\n\n            void main() {\n                outColor = vec4(1.0);\n            }\n        ';
+              // render texture
+              this.rt = new RenderTarget({
+                  width: 512,
+                  height: 512,
+                  ratio: window.devicePixelRatio
+              });
 
-              var size = 20;
-              var model = new Model();
-              model.setAttribute('a_position', 'vec3', new Float32Array([-size, -size, 0, size, -size, 0, 0, size, 0]));
-              model.setShader(vertex, fragment);
-              this.scene.add(model);
+              var geometry2 = new Plane(1, 1);
+              var shader = {
+                  vertex: '#version 300 es\n                in vec3 a_position;\n                in vec3 a_normal;\n                in vec2 a_uv;\n\n                ' + UBO.scene() + '\n                ' + UBO.model() + '\n\n                out vec2 v_uv;\n\n                void main() {\n                    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(a_position, 1.0);\n                    v_uv = a_uv;\n                }\n            ',
+
+                  fragment: '#version 300 es\n                precision highp float;\n                precision highp int;\n\n                in vec2 v_uv;\n\n                uniform sampler2D u_image;\n                uniform sampler2D u_depth;\n\n                out vec4 outColor;\n\n                void main() {\n                    if (v_uv.x < 0.5) {\n                        outColor = texture(u_image, v_uv);\n                    } else {\n                        float z = texture(u_depth, v_uv).r;\n                        float n = 1.0;\n                        float f = 1000.0;\n                        float c = (2.0 * n) / (f + n - z * (f - n));\n                        outColor = vec4(vec3(c), 1.0);\n                    }\n                }\n            ',
+
+                  uniforms: {
+                      u_image: {
+                          type: 'sampler2D',
+                          value: this.rt.texture
+                      },
+                      u_depth: {
+                          type: 'sampler2D',
+                          value: this.rt.depthTexture
+                      }
+                  }
+              };
+
+              this.plane = new Mesh({ geometry: geometry2, shader: shader });
+              this.scene2.add(this.plane);
           }
       }, {
           key: 'resize',
           value: function resize(width, height, ratio) {
               this.renderer.setSize(width, height);
               this.renderer.setRatio(ratio);
+              this.rt.setSize(width, height);
           }
       }, {
           key: 'update',
           value: function update() {
-              this.renderer.render(this.scene, this.camera);
+              this.controls.update();
+
+              // render original scene to a texture
+              this.renderer.rtt({
+                  renderTarget: this.rt, // the texture to render to
+                  scene: this.scene1, // the scene
+                  camera: this.camera1, // the camera
+                  clearColor: [0, 0, 0, 1] // clear colour
+              });
+
+              // render the second scene
+              this.renderer.render(this.scene2, this.camera2);
           }
       }]);
       return Main;

@@ -53,6 +53,7 @@ const examples = files.map((entry) => {
                     'css/style.css',
                 ],
                 js: [
+                    'https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.1/dat.gui.min.js',
                     '../packages/controls/build/controls.js',
                     '../packages/core/build/core.js',
                     '../packages/geometries/build/geometries.js',

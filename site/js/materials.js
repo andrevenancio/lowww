@@ -110,9 +110,15 @@
       Renderer = _lowww$core.Renderer,
       Scene = _lowww$core.Scene,
       cameras = _lowww$core.cameras,
-      chunks = _lowww$core.chunks,
-      Model = _lowww$core.Model;
-  var UBO = chunks.UBO;
+      Mesh = _lowww$core.Mesh,
+      shaders = _lowww$core.shaders;
+  var Orbit = lowww.controls.Orbit;
+  var _lowww$geometries = lowww.geometries,
+      Icosahedron = _lowww$geometries.Icosahedron,
+      Suzanne = _lowww$geometries.Suzanne;
+  var Basic = shaders.Basic,
+      Default = shaders.Default,
+      Sem = shaders.Sem;
 
   var Main = function (_Template) {
       inherits(Main, _Template);
@@ -132,19 +138,32 @@
 
               this.camera = new cameras.Perspective();
               this.camera.position.set(0, 0, 500);
+
+              this.controls = new Orbit(this.camera, this.renderer.domElement);
           }
       }, {
           key: 'init',
           value: function init() {
-              var vertex = '#version 300 es\n            in vec3 a_position;\n\n            ' + UBO.scene() + '\n            ' + UBO.model() + '\n\n            void main() {\n                gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(a_position, 1.0);\n            }\n        ';
-
-              var fragment = '#version 300 es\n            precision highp float;\n            precision highp int;\n\n            out vec4 outColor;\n\n            void main() {\n                outColor = vec4(1.0);\n            }\n        ';
-
               var size = 20;
-              var model = new Model();
-              model.setAttribute('a_position', 'vec3', new Float32Array([-size, -size, 0, size, -size, 0, 0, size, 0]));
-              model.setShader(vertex, fragment);
-              this.scene.add(model);
+              var space = 50;
+              var geometry = new Icosahedron(size, 1);
+
+              var wireframe = new Mesh({ geometry: geometry, shader: new Basic({ wireframe: true }) });
+              wireframe.position.set(-space, 0, 0);
+              this.scene.add(wireframe);
+
+              var basic = new Mesh({ geometry: geometry, shader: new Basic() });
+              basic.position.set(0, 0, 0);
+              this.scene.add(basic);
+
+              var d = new Mesh({ geometry: geometry, shader: new Default() });
+              d.position.set(space, 0, 0);
+              this.scene.add(d);
+
+              geometry = new Suzanne(size);
+              var sem = new Mesh({ geometry: geometry, shader: new Sem({ map: './img/matcap/black-gloss.jpg' }) });
+              sem.position.set(0, space, 0);
+              this.scene.add(sem);
           }
       }, {
           key: 'resize',
@@ -155,6 +174,7 @@
       }, {
           key: 'update',
           value: function update() {
+              this.controls.update();
               this.renderer.render(this.scene, this.camera);
           }
       }]);
