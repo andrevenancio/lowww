@@ -168,7 +168,7 @@ var constants = /*#__PURE__*/Object.freeze({
 });
 
 var library = "lowww-" + "core";
-var version = "1.1.2";
+var version = "1.1.3";
 
 // per session
 var gl = null;
@@ -2109,18 +2109,15 @@ var GENERIC = [{
 var VERTEX_RULES = [].concat(GENERIC, VERTEX);
 var FRAGMENT_RULES = [].concat(GENERIC, FRAGMENT);
 
-/**
- *
- */
-var transform = function transform(code) {
-    return code
-    // removes //
-    .replace(/[ \t]*\/\/.*\n/g, '')
-    // remove /* */
-    .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '')
-    // removes multiple white spaces
-    .replace(/^\s+|\s+$|\s+(?=\s)/g, '');
-};
+// const transform = (code) => {
+//     return code
+//         // removes //
+//         .replace(/[ \t]*\/\/.*\n/g, '')
+//         // remove /* */
+//         .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '')
+//         // removes multiple white spaces
+//         .replace(/^\s+|\s+$|\s+(?=\s)/g, '');
+// };
 
 /**
  * Replaces es300 syntax to es100
@@ -2139,7 +2136,7 @@ function parse(shader, shaderType) {
         }
     });
 
-    return transform(shader);
+    return shader;
 }
 
 
