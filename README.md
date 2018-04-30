@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://cdn.rawgit.com/andrevenancio/lowww/master/src/logo.svg" width="60px" alt="icon" />
+    <img src="https://cdn.rawgit.com/andrevenancio/lowww/master/src/static/img/logo.svg" width="60px" alt="icon" />
 </p>
 <p align="center">lowww `WebGL2.0` engine</p>
 
