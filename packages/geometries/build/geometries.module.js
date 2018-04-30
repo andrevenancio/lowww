@@ -801,6 +801,175 @@ var forEach$2 = function () {
  * @version 2.4.0
  */
 
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+var inherits = function (subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+var possibleConstructorReturn = function (self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+var toConsumableArray = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+};
+
+var Modify = function Modify() {
+    classCallCheck(this, Modify);
+};
+
+Modify.getData = function (index, step, array) {
+    var i = index * step;
+    var data = [];
+    for (var j = 0; j < step; j++) {
+        data.push(array[i + j]);
+    }
+
+    return data;
+};
+
+Modify.detach = function (geometry) {
+    var positions = [];
+    var normals = [];
+    var uvs = [];
+
+    for (var i = 0; i < geometry.indices.length; i += 3) {
+        var fa = geometry.indices[i + 0];
+        var fb = geometry.indices[i + 1];
+        var fc = geometry.indices[i + 2];
+
+        // gets faces
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fa, 3, geometry.positions)));
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fb, 3, geometry.positions)));
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fc, 3, geometry.positions)));
+
+        // gets normals
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fa, 3, geometry.normals)));
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fb, 3, geometry.normals)));
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fc, 3, geometry.normals)));
+
+        // gets uvs
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fa, 2, geometry.uvs)));
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fb, 2, geometry.uvs)));
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fc, 2, geometry.uvs)));
+    }
+
+    return {
+        positions: positions,
+        normals: normals,
+        uvs: uvs
+    };
+};
+
+Modify.modify = function (geometry) {
+    var positions = [];
+    var normals = [];
+    var uvs = [];
+
+    for (var i = 0; i < geometry.indices.length; i += 3) {
+        var fa = geometry.indices[i + 0];
+        var fb = geometry.indices[i + 1];
+        var fc = geometry.indices[i + 2];
+
+        // gets faces CBA order
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fa, 3, geometry.positions)));
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fb, 3, geometry.positions)));
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fc, 3, geometry.positions)));
+
+        // gets normals
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fa, 3, geometry.normals)));
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fb, 3, geometry.normals)));
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fc, 3, geometry.normals)));
+
+        // gets uvs
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fa, 2, geometry.uvs)));
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fb, 2, geometry.uvs)));
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fc, 2, geometry.uvs)));
+
+        // EXTRAS
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fa, 3, geometry.positions)));
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fc, 3, geometry.positions)));
+        positions.push(0, 0, 0);
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fc, 3, geometry.positions)));
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fb, 3, geometry.positions)));
+        positions.push(0, 0, 0);
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fb, 3, geometry.positions)));
+        positions.push.apply(positions, toConsumableArray(Modify.getData(fa, 3, geometry.positions)));
+        positions.push(0, 0, 0);
+
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fa, 3, geometry.normals)));
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fc, 3, geometry.normals)));
+        normals.push(0, 0, 0);
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fc, 3, geometry.normals)));
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fb, 3, geometry.normals)));
+        normals.push(0, 0, 0);
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fb, 3, geometry.normals)));
+        normals.push.apply(normals, toConsumableArray(Modify.getData(fa, 3, geometry.normals)));
+        normals.push(0, 0, 0);
+
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fa, 2, geometry.uvs)));
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fc, 2, geometry.uvs)));
+        uvs.push(0, 0);
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fc, 2, geometry.uvs)));
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fb, 2, geometry.uvs)));
+        uvs.push(0, 0);
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fb, 2, geometry.uvs)));
+        uvs.push.apply(uvs, toConsumableArray(Modify.getData(fa, 2, geometry.uvs)));
+        uvs.push(0, 0);
+    }
+
+    return {
+        positions: positions,
+        normals: normals,
+        uvs: uvs
+    };
+};
+
 function flatten(arr) {
     var output = [];
     for (var i = 0; i < arr.length; i++) {
@@ -947,66 +1116,9 @@ var index = /*#__PURE__*/Object.freeze({
   flatten: flatten,
   unflatten: unflatten,
   generateVertexNormals: generateVertexNormals,
-  mergeVertices: mergeVertices
+  mergeVertices: mergeVertices,
+  Modify: Modify
 });
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
-
-var toConsumableArray = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  } else {
-    return Array.from(arr);
-  }
-};
 
 var Polyhedra = function () {
     function Polyhedra(positions, faces, radius) {

@@ -168,7 +168,7 @@ var constants = /*#__PURE__*/Object.freeze({
 });
 
 var library = "lowww-" + "core";
-var version = "1.1.3";
+var version = "1.1.4";
 
 // per session
 var gl = null;
