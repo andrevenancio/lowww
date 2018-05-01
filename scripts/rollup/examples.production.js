@@ -70,6 +70,7 @@ const configs = files.map((entry) => {
                     'https://rawgit.com/andrevenancio/lowww/master/packages/core/build/core.min.js',
                     'https://rawgit.com/andrevenancio/lowww/master/packages/geometries/build/geometries.min.js',
                     'https://rawgit.com/andrevenancio/lowww/master/packages/postprocessing/build/postprocessing.min.js',
+                    'https://rawgit.com/andrevenancio/lowww/master/packages/physics/build/physics.min.js',
                     `js/${name}.js`,
                 ],
             }),

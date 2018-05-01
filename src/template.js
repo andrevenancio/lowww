@@ -2,6 +2,8 @@
 class Template {
     constructor() {
         window.addEventListener('resize', this.handleResize.bind(this), false);
+        window.addEventListener('focus', this.handleStart.bind(this), false);
+        window.addEventListener('blur', this.handleStop.bind(this), false);
 
         this.gui = new dat.GUI();
         this.gui.close();
@@ -9,16 +11,25 @@ class Template {
         this.setup();
         this.init();
         this.handleResize();
-        this.handleUpdate();
+        this.handleStart();
     }
 
     handleResize() {
         this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
     }
 
+    handleStart() {
+        this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+    }
+
+    handleStop() {
+        cancelAnimationFrame(this.raf);
+        this.update();
+    }
+
     handleUpdate() {
         this.update();
-        requestAnimationFrame(this.handleUpdate.bind(this));
+        this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
     }
 
     // to be overriden

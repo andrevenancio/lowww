@@ -2,13 +2,14 @@
     "parser": "babel-eslint",
     "extends": "airbnb",
     "globals": {
-        "window": true,
-        "requestAnimationFrame": true,
         "__LIBRARY__": true,
         "__VERSION__": true,
+        "cancelAnimationFrame": true,
         "document": true,
         "Image": true,
-        "lowww": true
+        "lowww": true,
+        "requestAnimationFrame": true,
+        "window": true
     },
     "rules": {
         "arrow-body-style": [0],

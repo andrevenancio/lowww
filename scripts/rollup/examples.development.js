@@ -70,6 +70,7 @@ const configs = files.map((entry) => {
                     '../packages/core/build/core.js',
                     '../packages/geometries/build/geometries.js',
                     '../packages/postprocessing/build/postprocessing.js',
+                    '../packages/physics/build/physics.js',
                     `js/${name}.js`,
                 ],
             }),
