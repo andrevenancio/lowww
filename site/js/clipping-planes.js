@@ -58,6 +58,8 @@
           classCallCheck(this, Template);
 
           window.addEventListener('resize', this.handleResize.bind(this), false);
+          window.addEventListener('focus', this.handleResume.bind(this), false);
+          window.addEventListener('blur', this.handlePause.bind(this), false);
 
           this.gui = new dat.GUI();
           this.gui.close();
@@ -65,7 +67,7 @@
           this.setup();
           this.init();
           this.handleResize();
-          this.handleUpdate();
+          this.handleResume();
       }
 
       createClass(Template, [{
@@ -74,10 +76,23 @@
               this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
           }
       }, {
+          key: 'handleResume',
+          value: function handleResume() {
+              this.resume();
+              this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+          }
+      }, {
+          key: 'handlePause',
+          value: function handlePause() {
+              this.pause();
+              cancelAnimationFrame(this.raf);
+              this.update();
+          }
+      }, {
           key: 'handleUpdate',
           value: function handleUpdate() {
               this.update();
-              requestAnimationFrame(this.handleUpdate.bind(this));
+              this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
           }
 
           // to be overriden
@@ -96,6 +111,16 @@
           key: 'resize',
           value: function resize() {
               console.warn('please add the resize() method');
+          }
+      }, {
+          key: 'pause',
+          value: function pause() {
+              console.warn('please add pause() method');
+          }
+      }, {
+          key: 'resume',
+          value: function resume() {
+              console.warn('please add resume() method');
           }
       }, {
           key: 'update',

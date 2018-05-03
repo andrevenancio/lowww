@@ -16,7 +16,7 @@
         "es5:geometries": "export PACKAGE=geometries&&rollup -c scripts/rollup/rollup.es5.js",
         "es5:postprocessing": "export PACKAGE=postprocessing&&rollup -c scripts/rollup/rollup.es5.js",
         "es5:physics": "export PACKAGE=physics&&rollup -c scripts/rollup/rollup.es5.js",
-        "es5:all": "npm run es5:core&&npm run es5:controls&&npm run es5:geometries&&npm run es5:postprocessing&&npm run es5:es5:physics",
+        "es5:all": "npm run es5:core&&npm run es5:controls&&npm run es5:geometries&&npm run es5:postprocessing&&npm run es5:physics",
         "es6:controls": "export PACKAGE=controls&&rollup -c scripts/rollup/rollup.es6.js",
         "es6:core": "export PACKAGE=core&&rollup -c scripts/rollup/rollup.es6.js",
         "es6:geometries": "export PACKAGE=geometries&&rollup -c scripts/rollup/rollup.es6.js",

@@ -137,12 +137,12 @@
       cameras = _lowww$core.cameras,
       Mesh = _lowww$core.Mesh;
   var Orbit = lowww.controls.Orbit;
-  var _lowww$geometries = lowww.geometries,
-      Tetrahedron = _lowww$geometries.Tetrahedron,
-      Octahedron = _lowww$geometries.Octahedron,
-      Hexahedron = _lowww$geometries.Hexahedron,
-      Icosahedron = _lowww$geometries.Icosahedron,
-      Dodecahedron = _lowww$geometries.Dodecahedron;
+  var Icosahedron = lowww.geometries.Icosahedron;
+  var _lowww$physics = lowww.physics,
+      World = _lowww$physics.World,
+      Force = _lowww$physics.Force,
+      RigidBody = _lowww$physics.RigidBody,
+      SphereCollider = _lowww$physics.SphereCollider;
 
   var Main = function (_Template) {
       inherits(Main, _Template);
@@ -161,120 +161,40 @@
               this.scene = new Scene();
 
               this.camera = new cameras.Perspective();
-              this.camera.position.set(0, 100, 500);
+              this.camera.position.set(0, 0, 300);
 
               this.controls = new Orbit(this.camera, this.renderer.domElement);
           }
       }, {
           key: 'init',
           value: function init() {
-              var size = 20;
-              var space = 50;
+              this.world = new World();
+              // this.world.add(new Force(0, -1, 0)); // fake gravity
+              this.world.add(new Force(0, -9.81, 0)); // gravity
+              // this.world.add(new Force(0, -19.62, 0)); // high-gravity
 
-              var geometry = void 0;
+              // common
+              var radius = 1;
+              var geometry = new Icosahedron(radius, 1);
+              var collider = new SphereCollider(radius);
               var mesh = void 0;
-              var meshes = [];
+              var body = void 0;
 
-              // Tetrahedron
-              geometry = new Tetrahedron(size, 0);
+              // A
               mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -0);
-              meshes.push(mesh);
+              mesh.position.x = -10;
+              this.scene.add(mesh);
 
-              geometry = new Tetrahedron(size, 1);
+              body = new RigidBody({ collider: collider, mesh: mesh });
+              this.world.add(body);
+
+              // B
               mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -1);
-              meshes.push(mesh);
+              mesh.position.x = 10;
+              this.scene.add(mesh);
 
-              geometry = new Tetrahedron(size, 2);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -2);
-              meshes.push(mesh);
-
-              // Octahedron
-              geometry = new Octahedron(size, 0);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -0);
-              meshes.push(mesh);
-
-              geometry = new Octahedron(size, 1);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -1);
-              meshes.push(mesh);
-
-              geometry = new Octahedron(size, 2);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -2);
-              meshes.push(mesh);
-
-              // Hexahedron
-              geometry = new Hexahedron(size, 0);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -0);
-              meshes.push(mesh);
-
-              geometry = new Hexahedron(size, 1);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -1);
-              meshes.push(mesh);
-
-              geometry = new Hexahedron(size, 2);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -2);
-              meshes.push(mesh);
-
-              // Icosahedron
-              geometry = new Icosahedron(size, 0);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -0);
-              meshes.push(mesh);
-
-              geometry = new Icosahedron(size, 1);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -1);
-              meshes.push(mesh);
-
-              geometry = new Icosahedron(size, 2);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -2);
-              meshes.push(mesh);
-
-              // Dodecahedron
-              geometry = new Dodecahedron(size, 0);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -0);
-              meshes.push(mesh);
-
-              geometry = new Dodecahedron(size, 1);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -1);
-              meshes.push(mesh);
-
-              geometry = new Dodecahedron(size, 2);
-              mesh = new Mesh({ geometry: geometry });
-              mesh.position.set(0, 0, space * -2);
-              meshes.push(mesh);
-
-              var cols = 5;
-              var rows = 3;
-              var index = 0;
-
-              for (var i = 0; i < cols; i++) {
-                  // X
-                  for (var j = 0; j < rows; j++) {
-                      // Z
-                      var x = Math.floor(index / rows);
-                      var y = 0;
-                      var z = index % rows;
-
-                      var sx = (cols - 1) * space / -2;
-                      var sz = (rows - 1) * space / 2;
-
-                      meshes[index].position.set(sx + x * space, y, sz - z * space);
-                      this.scene.add(meshes[index]);
-                      index++;
-                  }
-              }
+              body = new RigidBody({ collider: collider, mesh: mesh });
+              this.world.add(body);
           }
       }, {
           key: 'resize',
@@ -283,8 +203,19 @@
               this.renderer.setRatio(ratio);
           }
       }, {
+          key: 'pause',
+          value: function pause() {
+              this.world.pause();
+          }
+      }, {
+          key: 'resume',
+          value: function resume() {
+              this.world.resume();
+          }
+      }, {
           key: 'update',
           value: function update() {
+              this.world.update();
               this.controls.update();
               this.renderer.render(this.scene, this.camera);
           }
