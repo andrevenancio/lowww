@@ -1,10 +1,7 @@
-export const types = {
-    AABB: 'aabb',
-    SPHERE: 'sphere',
-    FORCE: 'force',
-};
+export const SPHERE_COLLIDER = 'sphere-collider';
+export const AABB_COLLIDER = 'aabb-collider';
+export const PLANE_COLLIDER = 'plane-collider';
 
-let bodyId = 0;
-export const getID = () => {
-    return bodyId++;
-};
+export const RIGID_BODY = 'rigid-body';
+
+export const FORCE = 'force';

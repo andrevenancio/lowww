@@ -48,7 +48,10 @@ const configs = files.map((entry) => {
             file: path.join(DEV, 'js', `${name}.js`),
         },
         watch: {
-            include: path.join(SRC, name, '**'),
+            include: [
+                path.join(SRC, 'template.js'),
+                path.join(SRC, name, '**'),
+            ],
         },
         plugins: [
             resolve(),

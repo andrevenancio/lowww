@@ -5,15 +5,17 @@ const {
     Scene,
     cameras,
     Mesh,
-    shaders,
 } = lowww.core;
 const { Orbit } = lowww.controls;
 const {
     Icosahedron,
-    Box,
 } = lowww.geometries;
-
-const { World, Sphere, AABB } = lowww.physics;
+const {
+    World,
+    Force,
+    RigidBody,
+    SphereCollider,
+} = lowww.physics;
 
 class Main extends Template {
     setup() {
@@ -23,65 +25,38 @@ class Main extends Template {
         this.scene = new Scene();
 
         this.camera = new cameras.Perspective();
-        this.camera.position.set(0, 0, 500);
+        this.camera.position.set(0, 0, 300);
 
         this.controls = new Orbit(this.camera, this.renderer.domElement);
     }
 
     init() {
         this.world = new World();
-        this.world.start(Date.now() / 1000);
+        // this.world.add(new Force(0, -1, 0)); // fake gravity
+        this.world.add(new Force(0, -9.81, 0)); // gravity
+        // this.world.add(new Force(0, -19.62, 0)); // high-gravity
 
-        // adds bounds
-        const width = 100;
-        const height = 100;
-        const depth = 100;
-        const thickness = 10;
+        // common
+        const radius = 1;
+        const geometry = new Icosahedron(radius, 1);
+        const collider = new SphereCollider(radius);
+        let mesh;
+        let body;
 
-        this.addBounds(0, -height, 0, width, thickness, depth, true); // bottom
-        this.addBounds(0, 0, -depth, width, height, thickness); // back
-        this.addBounds(0, height, 0, width, thickness, depth, true); // top
-        this.addBounds(-width, 0, 0, thickness, height, depth); // left
-        this.addBounds(width, 0, 0, thickness, height, depth); // right
-        this.addBounds(0, 0, depth, width, height, thickness, true); // front
-
-        // add spheres
-        const amount = 2;
-        const radius = 10;
-
-        for (let i = 0; i < amount; i++) {
-            const geometry = new Icosahedron(radius, 1);
-            const mesh = new Mesh({ geometry });
-            this.scene.add(mesh);
-
-            const body = new Sphere({
-                x: Math.random(), // (Math.random() * width) - (width / 2),
-                // y: Math.random(), // (Math.random() * height) - (height / 2),
-                // z: Math.random(), // (Math.random() * depth) - (depth / 2),
-                restitution: 0.9,
-                radius,
-                mesh,
-            });
-            this.world.add(body);
-        }
-    }
-
-    addBounds(x, y, z, width, height, depth, wireframe = false) {
-        const geometry = new Box(width, height, depth);
-        const shader = new shaders.Basic({ wireframe });
-        const mesh = new Mesh({ geometry, shader });
-        mesh.position.set(x, y, z);
+        // A
+        mesh = new Mesh({ geometry });
+        mesh.position.x = -10;
         this.scene.add(mesh);
 
-        const body = new AABB({
-            x,
-            y,
-            z,
-            width,
-            height,
-            depth,
-            restitution: 0.3,
-        });
+        body = new RigidBody({ collider, mesh });
+        this.world.add(body);
+
+        // B
+        mesh = new Mesh({ geometry });
+        mesh.position.x = 10;
+        this.scene.add(mesh);
+
+        body = new RigidBody({ collider, mesh });
         this.world.add(body);
     }
 
@@ -90,10 +65,16 @@ class Main extends Template {
         this.renderer.setRatio(ratio);
     }
 
-    update() {
-        const timeStep = 1 / 30;
-        this.world.step(timeStep, Date.now() / 1000);
+    pause() {
+        this.world.pause();
+    }
 
+    resume() {
+        this.world.resume();
+    }
+
+    update() {
+        this.world.update();
         this.controls.update();
         this.renderer.render(this.scene, this.camera);
     }

@@ -1,15 +1,17 @@
+// world
 import World from './core/world';
-import Body from './core/body';
 
-import AABB from './bodies/aabb';
-import Sphere from './bodies/sphere';
+// bodies
+import RigidBody from './bodies/rigid-body';
 
-import LinearAccelerator from './linear-accelerator';
+// colliders
+import SphereCollider from './colliders/sphere-collider';
+
+import Force from './core/force';
 
 export {
     World,
-    Body,
-    Sphere,
-    AABB,
-    LinearAccelerator,
+    RigidBody,
+    SphereCollider,
+    Force,
 };

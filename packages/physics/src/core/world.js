@@ -1,156 +1,139 @@
-// inspired on microphysics
-import { types } from '../constants';
-/* eslint-disable */
-const byLeft = (b1, b2) => {
-    return b1.left - b2.left;
-};
+import { vec3 } from 'gl-matrix';
+import { RIGID_BODY, FORCE } from '../constants';
+
+let time = 0;
+let timestep = 0;
+
+let currenttime = 0;
+let accumulator = 0;
+let newtime = 0;
+let frametime = 0;
 
 class World {
-    constructor() {
-        this.u = 0;
+    constructor(params = {}) {
+        timestep = params.timestep || 1 / 180;
+        currenttime = params.time || Date.now() / 1000;
+
+        this.force = vec3.create();
         this.bodies = [];
         this.forces = [];
-        this.managed = [this.bodies, this.forces];
+
+        this.paused = true;
     }
 
-    add() {
-        for (let i = 0; i < arguments.length; i++) {
-            const obj = arguments[i];
-            obj.world = this;
+    add(body) {
+        if (body.type === RIGID_BODY) {
+            this.bodies.push(body);
+        }
 
-            if (obj.type === types.FORCE) {
-                this.forces.push(obj);
-            } else {
-                this.bodies.push(obj);
+        if (body.type === FORCE) {
+            this.forces.push(body);
+        }
+    }
+
+    remove(body) {
+        if (body.type === RIGID_BODY) {
+            const index = this.bodies.indexOf(body);
+            if (index !== -1) {
+                this.bodies.splice(index, 1);
             }
         }
-        return this;
-    }
 
-    remove() {
-        for (let i = 0; i < arguments.length; i++) {
-            const obj = arguments[i];
-            obj.remove();
-        }
-    }
-
-    onContact(body1, body2) {
-        // TODO: empty
-    }
-
-    momentum() {
-        for (let i = 0; i < this.bodies.length; i++) {
-            this.bodies[i].momentum();
-        }
-    }
-
-    applyAcceleration(delta) {
-        const sdelta = delta * delta;
-        for (let i = 0; i < this.bodies.length; i++) {
-            this.bodies[i].applyAcceleration(sdelta);
-        }
-    }
-
-    collide(restitute) {
-        this.updateBoundingVolumes();
-        this.bodies.sort(byLeft);
-
-        for (let i = 0; i < this.bodies.length - 1; i++) {
-            const b1 = this.bodies[i];
-            for (let j = i + 1; j < this.bodies.length; j++) {
-                const b2 = this.bodies[j];
-
-                if (b1.dynamic || b2.dynamic) {
-                    if (b1.right > b2.left) {
-                        // console.log('back', b1.back, 'front', b2.front); // && b1.front > b2.back && b1.bottom < b2.top && b1.top > b2.bottom);
-                        if (b1.back < b2.front && b1.front > b2.back && b1.bottom < b2.top && b1.top > b2.bottom) {
-                            b1.collide(b2, restitute);
-                        }
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        // debugger;
-    }
-
-    getCollection() {
-        var c = [];
-        this.managed.push(c);
-        return c;
-    }
-
-    cleanupCollection(c) {
-        for (let i = 0; i < c.length; i++) {
-            if (c[i].to_remove) {
-                c.splice(i, 1);
-                i--;
+        if (body.type === FORCE) {
+            const index = this.forces.indexOf(body);
+            if (index !== -1) {
+                this.forces.splice(index, 1);
             }
         }
     }
 
-    cleanup() {
-        const managed = this.managed;
-        const l = managed.length;
-        for (let i = 0; i < l; i++) {
-            this.cleanupCollection(managed[i]);
+    pause() {
+        if (this.paused === false) {
+            this.paused = true;
         }
     }
 
-    updateBoundingVolumes() {
-        for (let i = 0; i < this.bodies.length; i++) {
-            this.bodies[i].updateBoundingVolume();
+    resume() {
+        if (this.paused === true) {
+            this.paused = false;
         }
     }
 
-    onestep(delta) {
-        this.time += delta;
-        this.accelerate(delta);
-        this.applyAcceleration(delta);
-        this.collide(false);
-        this.momentum();
-        this.collide(true);
-        this.updateMeshPosition();
-        this.cleanup();
-    }
+    update() {
+        if (this.paused) {
+            return;
+        }
+        newtime = Date.now() / 1000;
+        frametime = newtime - currenttime;
 
-    step(timestep, now) {
-        if (now - this.time > 0.25) {
-            this.time = now - 0.25;
+        if (frametime > 0.25) {
+            frametime = 0.25;
         }
 
-        while (this.time < now) {
-            this.onestep(timestep);
+        currenttime = newtime;
+        accumulator += frametime;
+
+        while (accumulator >= timestep) {
+            this.step();
+            time += timestep;
+            accumulator -= timestep;
         }
 
-        const diff = this.time - now;
-        if (diff > 0){
-            this.u = (timestep - diff) / timestep;
-        } else {
-            this.u = 1.0;
-        }
+        this.render();
     }
 
-    start(time) {
-        this.time = time;
+    // calculates physics
+    step() {
+        this.handleForces();
+        this.handleVelocity();
+        this.handleCollision();// false
+        this.handleMomentum();
+        // this.handleCollision(); // true
     }
 
-    accelerate(delta) {
+    handleForces() {
+        // calculates all forces in the world
+        this.force[0] = 0;
+        this.force[1] = 0;
+        this.force[2] = 0;
+
         for (let i = 0; i < this.forces.length; i++) {
-            this.forces[i].perform(this.bodies, delta);
+            this.force[0] += this.forces[i].data[0];
+            this.force[1] += this.forces[i].data[1];
+            this.force[2] += this.forces[i].data[2];
+        }
+
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].handleForces(this.force);
         }
     }
 
-    updateMeshPosition() {
-        let mesh;
-        let position;
+    handleVelocity() {
         for (let i = 0; i < this.bodies.length; i++) {
-            mesh = this.bodies[i].mesh;
-            if (mesh) {
-                const position = this.bodies[i].getPosition();
-                mesh.position.set(position[0], position[1], position[2]);
-            }
+            this.bodies[i].handleVelocity(timestep);
+        }
+    }
+
+    handleMomentum() {
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].handleMomentum(timestep);
+        }
+    }
+
+    handleCollision() {
+        // const total = this.bodies.length;
+        // for (let i = 0; i < total - 1; i++) {
+        //     for (let j = i + 1; j < total; j++) {
+        //         // console.log('integrate', i, j);
+        //     }
+        // }
+    }
+
+    // updates bodies
+    render() {
+        // console.log('render', this.time);
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].render(time);
         }
     }
 }
