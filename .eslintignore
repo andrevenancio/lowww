@@ -3,5 +3,6 @@ packages/controls/build
 packages/core/build
 packages/geometries/build
 packages/postprocessing/build
+packages/physics/build
 site/
 dev/
