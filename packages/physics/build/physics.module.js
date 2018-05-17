@@ -1,85 +1,10 @@
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
+/**
+ * Common utilities
+ * @module glMatrix
+ */
 var ARRAY_TYPE = typeof Float32Array !== 'undefined' ? Float32Array : Array;
 
 var degree = Math.PI / 180;
-
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
-
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
-
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
 
 /**
  * 3x3 Matrix
@@ -104,46 +29,6 @@ function create$2() {
   out[8] = 1;
   return out;
 }
-
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
-
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
 
 /**
  * 3 Dimensional Vector
@@ -207,6 +92,21 @@ function copy$4(out, a) {
 }
 
 /**
+ * Subtracts vector b from vector a
+ *
+ * @param {vec3} out the receiving vector
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {vec3} out
+ */
+function subtract$4(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  return out;
+}
+
+/**
  * Adds two vec3's after scaling the second operand by a scalar value
  *
  * @param {vec3} out the receiving vector
@@ -220,6 +120,20 @@ function scaleAndAdd(out, a, b, scale) {
   out[1] = a[1] + b[1] * scale;
   out[2] = a[2] + b[2] * scale;
   return out;
+}
+
+/**
+ * Calculates the squared euclidian distance between two vec3's
+ *
+ * @param {vec3} a the first operand
+ * @param {vec3} b the second operand
+ * @returns {Number} squared distance between a and b
+ */
+function squaredDistance(a, b) {
+  var x = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  return x * x + y * y + z * z;
 }
 
 /**
@@ -325,26 +239,6 @@ var forEach = function () {
   };
 }();
 
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
-
 /**
  * 4 Dimensional Vector
  * @module vec4
@@ -429,26 +323,6 @@ var forEach$1 = function () {
   };
 }();
 
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
-
 /**
  * Quaternion
  * @module quat
@@ -493,7 +367,7 @@ function setAxisAngle(out, axis, rad) {
  * @param {quat} out the receiving quaternion
  * @param {quat} a the first operand
  * @param {quat} b the second operand
- * @param {Number} t interpolation amount between the two inputs
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
  * @returns {quat} out
  */
 function slerp(out, a, b, t) {
@@ -649,7 +523,7 @@ var rotationTo = function () {
  * @param {quat} b the second operand
  * @param {quat} c the third operand
  * @param {quat} d the fourth operand
- * @param {Number} t interpolation amount
+ * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
  * @returns {quat} out
  */
 var sqlerp = function () {
@@ -694,46 +568,6 @@ var setAxes = function () {
     return normalize$2(out, fromMat3(out, matr));
   };
 }();
-
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
-
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
 
 /**
  * 2 Dimensional Vector
@@ -794,18 +628,61 @@ var forEach$2 = function () {
   };
 }();
 
-/**
- * @fileoverview gl-matrix - High performance matrix and vector operations
- * @author Brandon Jones
- * @author Colin MacKenzie IV
- * @version 2.4.0
- */
-
+// id's
 var SPHERE_COLLIDER = 'sphere-collider';
-
+var AABB_COLLIDER = 'aabb-collider';
 var RIGID_BODY = 'rigid-body';
-
 var FORCE = 'force';
+
+// default values
+var DEFAULT_TIMESTEP = 1 / 180;
+
+var tempDirection = create$4();
+
+var handleContact = function handleContact(a, b, depth, direction) {
+    var mt = a.inversemass() + b.inversemass();
+    var f1 = a.inversemass() / mt;
+    var f2 = b.inversemass() / mt;
+
+    var off1 = depth * f1;
+    var off2 = depth * f2;
+
+    a.velocity[0] += direction[0] * off1;
+    a.velocity[1] += direction[1] * off1;
+    a.velocity[2] += direction[2] * off1;
+
+    b.velocity[0] -= direction[0] * off2;
+    b.velocity[1] -= direction[1] * off2;
+    b.velocity[2] -= direction[2] * off2;
+
+    // restitute
+};
+
+var sphereIntersectSphere = function sphereIntersectSphere(a, b) {
+    var r = a.collider.radius * 2 + b.collider.radius * 2;
+    var target = r * r;
+    var length$$1 = squaredDistance(a.position, b.position);
+
+    if (length$$1 < target) {
+        subtract$4(tempDirection, a.position, b.position);
+        normalize(tempDirection, tempDirection);
+
+        handleContact(a, b, target - length$$1, tempDirection);
+    }
+};
+
+var checkContacts = function checkContacts(a, b) {
+    switch (a.collider.type) {
+        case SPHERE_COLLIDER:
+            // surely there's a better way
+            if (b.collider.type === SPHERE_COLLIDER) {
+                sphereIntersectSphere(a, b);
+            } else if (b.collider.type === AABB_COLLIDER) ;
+            break;
+        default:
+
+    }
+};
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -831,30 +708,6 @@ var createClass = function () {
   };
 }();
 
-var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
-
 var time = 0;
 var timestep = 0;
 
@@ -868,7 +721,7 @@ var World = function () {
         var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         classCallCheck(this, World);
 
-        timestep = params.timestep || 1 / 180;
+        timestep = params.timestep || DEFAULT_TIMESTEP;
         currenttime = params.time || Date.now() / 1000;
 
         this.force = create$4();
@@ -950,15 +803,20 @@ var World = function () {
     }, {
         key: 'step',
         value: function step() {
-            this.handleForces();
-            this.handleVelocity();
-            this.handleCollision(); // false
-            this.handleMomentum();
-            // this.handleCollision(); // true
+            this.calculateWorldForces();
+
+            // update bounding volumes (used later for collision detection)
+            this.updateBounds();
+
+            // check for collisions
+            this.collision();
+
+            // sort which bodies are awake and integrate them
+            this.integrate();
         }
     }, {
-        key: 'handleForces',
-        value: function handleForces() {
+        key: 'calculateWorldForces',
+        value: function calculateWorldForces() {
             // calculates all forces in the world
             this.force[0] = 0;
             this.force[1] = 0;
@@ -971,36 +829,40 @@ var World = function () {
             }
 
             for (var _i = 0; _i < this.bodies.length; _i++) {
-                this.bodies[_i].handleForces(this.force);
+                this.bodies[_i].addForce(this.force);
             }
         }
     }, {
-        key: 'handleVelocity',
-        value: function handleVelocity() {
+        key: 'updateBounds',
+        value: function updateBounds() {
             for (var i = 0; i < this.bodies.length; i++) {
-                this.bodies[i].handleVelocity(timestep);
+                this.bodies[i].updateBounds();
             }
         }
     }, {
-        key: 'handleMomentum',
-        value: function handleMomentum() {
+        key: 'collision',
+        value: function collision() {
+            var a = void 0;
+            var b = void 0;
+            for (var i = 0; i < this.bodies.length - 1; i++) {
+                for (var j = i + 1; j < this.bodies.length; j++) {
+                    a = this.bodies[i];
+                    b = this.bodies[j];
+                    checkContacts(a, b);
+
+                    if (i === 0 && j === 1) {
+                        console.log(a.collider);
+                    }
+                }
+            }
+        }
+    }, {
+        key: 'integrate',
+        value: function integrate() {
             for (var i = 0; i < this.bodies.length; i++) {
-                this.bodies[i].handleMomentum(timestep);
+                this.bodies[i].integrate(timestep);
             }
         }
-    }, {
-        key: 'handleCollision',
-        value: function handleCollision() {}
-        // const total = this.bodies.length;
-        // for (let i = 0; i < total - 1; i++) {
-        //     for (let j = i + 1; j < total; j++) {
-        //         // console.log('integrate', i, j);
-        //     }
-        // }
-
-
-        // updates bodies
-
     }, {
         key: 'render',
         value: function render() {
@@ -1009,67 +871,18 @@ var World = function () {
                 this.bodies[i].render(time);
             }
         }
+    }, {
+        key: 'debug',
+        value: function debug() {
+            // TODO: debugs the world in a canvas 2d
+        }
     }]);
     return World;
 }();
 
-var Body = function () {
-    function Body() {
-        classCallCheck(this, Body);
-
-        this.position = create$4(); // center of mass
-        this.velocity = create$4();
-        this.acceleration = create$4();
-        this.force = create$4();
-        this.awake = false;
-    }
-
-    createClass(Body, [{
-        key: 'handleForces',
-        value: function handleForces(force) {
-            copy$4(this.force, force);
-        }
-    }, {
-        key: 'handleVelocity',
-        value: function handleVelocity(delta) {
-            // calculate acceleration
-            this.acceleration[0] = this.force[0] / this.mass;
-            this.acceleration[1] = this.force[1] / this.mass;
-            this.acceleration[2] = this.force[2] / this.mass;
-
-            // adding acceleration to velocity
-            scaleAndAdd(this.velocity, this.velocity, this.acceleration, delta);
-
-            // changing position
-            scaleAndAdd(this.position, this.position, this.velocity, delta);
-
-            // this.velocity[0] = 0;
-            // this.velocity[1] = 0;
-            // this.velocity[2] = 0;
-        }
-    }, {
-        key: 'handleMomentum',
-        value: function handleMomentum() {
-            //
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            // updates mesh center and quaternion
-            copy$4(this.mesh.position.data, this.position);
-        }
-    }]);
-    return Body;
-}();
-
-var RigidBody = function (_Body) {
-    inherits(RigidBody, _Body);
-
-    function RigidBody() {
-        var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+var RigidBody = function () {
+    function RigidBody(params) {
         classCallCheck(this, RigidBody);
-
-        var _this = possibleConstructorReturn(this, (RigidBody.__proto__ || Object.getPrototypeOf(RigidBody)).call(this));
 
         if (!params.collider) {
             throw new Error('Please provide a collider');
@@ -1079,73 +892,139 @@ var RigidBody = function (_Body) {
             throw new Error('Please provide a mesh');
         }
 
-        Object.assign(_this, {
+        Object.assign(this, {
             type: RIGID_BODY,
-            mass: 1
+            awake: true,
+            lineardrag: 0.999,
+            mass: 1,
+            velocity: create$4(),
+            acceleration: create$4(),
+            position: create$4(),
+            force: create$4()
         }, params);
 
-        copy$4(_this.position, _this.mesh.position.data);
-        return _this;
+        // copy mesh position
+        copy$4(this.position, this.mesh.position.data);
     }
 
-    return RigidBody;
-}(Body);
+    createClass(RigidBody, [{
+        key: 'inversemass',
+        value: function inversemass() {
+            return 1 / this.mass;
+        }
 
-var Collider = function () {
-    function Collider(type) {
-        classCallCheck(this, Collider);
+        // copies world force into body
 
-        this.type = type;
-    }
-
-    createClass(Collider, [{
-        key: 'collideSphere',
-        value: function collideSphere() {
-            // to be overriden
+    }, {
+        key: 'addForce',
+        value: function addForce(force) {
+            copy$4(this.force, force);
         }
     }, {
-        key: 'collideAABB',
-        value: function collideAABB() {
-            // to be overriden
-        }
-    }, {
-        key: 'collide',
-        value: function collide(other) {
-            if (other.type === SPHERE_COLLIDER) {
-                // two spheres colliding
-                this.collideSphere();
+        key: 'integrate',
+        value: function integrate(deltatime) {
+            if (!this.awake) {
+                return;
             }
+
+            // calculate acceleration
+            this.acceleration[0] = this.force[0] / this.mass;
+            this.acceleration[1] = this.force[1] / this.mass;
+            this.acceleration[2] = this.force[2] / this.mass;
+
+            // adding acceleration to velocity
+            scaleAndAdd(this.velocity, this.velocity, this.acceleration, deltatime);
+
+            // adding velocity to position
+            scaleAndAdd(this.position, this.position, this.velocity, deltatime);
+
+            // add drag to velocity
+            this.velocity[0] *= this.lineardrag;
+            this.velocity[1] *= this.lineardrag;
+            this.velocity[2] *= this.lineardrag;
+        }
+    }, {
+        key: 'updateBounds',
+        value: function updateBounds() {
+            this.collider.updateBounds(this.position);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            copy$4(this.mesh.position.data, this.position);
         }
     }]);
-    return Collider;
+    return RigidBody;
 }();
 
-var SphereCollider = function (_Collider) {
-    inherits(SphereCollider, _Collider);
-
+var SphereCollider = function () {
     function SphereCollider() {
         var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         classCallCheck(this, SphereCollider);
 
-        var _this = possibleConstructorReturn(this, (SphereCollider.__proto__ || Object.getPrototypeOf(SphereCollider)).call(this, SPHERE_COLLIDER));
-
-        _this.radius = params.radius || 1;
-        return _this;
+        Object.assign(this, {
+            type: SPHERE_COLLIDER,
+            radius: 1
+        }, params);
     }
 
+    createClass(SphereCollider, [{
+        key: 'updateBounds',
+        value: function updateBounds(position) {
+            this.left = position[0] - this.radius;
+            this.right = position[0] + this.radius;
+
+            this.top = position[1] + this.radius;
+            this.bottom = position[1] - this.radius;
+
+            this.front = position[2] + this.radius;
+            this.back = position[2] - this.radius;
+        }
+    }]);
     return SphereCollider;
-}(Collider);
+}();
+
+var AABBCollider = function () {
+    function AABBCollider() {
+        var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        classCallCheck(this, AABBCollider);
+
+        Object.assign(this, {
+            type: AABB_COLLIDER,
+            width: 1,
+            height: 1,
+            depth: 1
+        }, params);
+    }
+
+    createClass(AABBCollider, [{
+        key: 'updateBounds',
+        value: function updateBounds(position) {
+            var width = this.width / 2;
+            var height = this.height / 2;
+            var depth = this.depth / 2;
+
+            this.left = position[0] - width;
+            this.right = position[0] + width;
+
+            this.top = position[1] + height;
+            this.bottom = position[1] - height;
+
+            this.front = position[2] + depth;
+            this.back = position[2] - depth;
+        }
+    }]);
+    return AABBCollider;
+}();
 
 var Force = function Force() {
-    var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-    var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-    var z = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+    var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : create$4();
     classCallCheck(this, Force);
 
     this.type = FORCE;
-    this.data = fromValues$4(x, y, z);
+    this.data = fromValues$4(force[0], force[1], force[2]);
 };
 
 // world
 
-export { World, RigidBody, SphereCollider, Force };
+export { World, RigidBody, SphereCollider, AABBCollider, Force };

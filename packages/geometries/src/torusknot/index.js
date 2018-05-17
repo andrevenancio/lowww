@@ -4,9 +4,9 @@ class TorusKnot {
     constructor(props) {
         const settings = Object.assign({}, {
             radius: 0.5,
-            tube: 0.375,
+            tube: 0.2,
             tubularSegments: 64,
-            radialSegments: 8,
+            radialSegments: 6,
             p: 2,
             q: 3,
         }, props);

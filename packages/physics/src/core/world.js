@@ -1,5 +1,6 @@
 import { vec3 } from 'gl-matrix';
-import { RIGID_BODY, FORCE } from '../constants';
+import { RIGID_BODY, FORCE, DEFAULT_TIMESTEP } from '../constants';
+import { checkContacts } from './contacts';
 
 let time = 0;
 let timestep = 0;
@@ -11,7 +12,7 @@ let frametime = 0;
 
 class World {
     constructor(params = {}) {
-        timestep = params.timestep || 1 / 180;
+        timestep = params.timestep || DEFAULT_TIMESTEP;
         currenttime = params.time || Date.now() / 1000;
 
         this.force = vec3.create();
@@ -84,14 +85,19 @@ class World {
 
     // calculates physics
     step() {
-        this.handleForces();
-        this.handleVelocity();
-        this.handleCollision();// false
-        this.handleMomentum();
-        // this.handleCollision(); // true
+        this.calculateWorldForces();
+
+        // update bounding volumes (used later for collision detection)
+        this.updateBounds();
+
+        // check for collisions
+        this.collision();
+
+        // sort which bodies are awake and integrate them
+        this.integrate();
     }
 
-    handleForces() {
+    calculateWorldForces() {
         // calculates all forces in the world
         this.force[0] = 0;
         this.force[1] = 0;
@@ -104,37 +110,47 @@ class World {
         }
 
         for (let i = 0; i < this.bodies.length; i++) {
-            this.bodies[i].handleForces(this.force);
+            this.bodies[i].addForce(this.force);
         }
     }
 
-    handleVelocity() {
+    updateBounds() {
         for (let i = 0; i < this.bodies.length; i++) {
-            this.bodies[i].handleVelocity(timestep);
+            this.bodies[i].updateBounds();
         }
     }
 
-    handleMomentum() {
+    collision() {
+        let a;
+        let b;
+        for (let i = 0; i < this.bodies.length - 1; i++) {
+            for (let j = i + 1; j < this.bodies.length; j++) {
+                a = this.bodies[i];
+                b = this.bodies[j];
+                checkContacts(a, b);
+
+                if (i === 0 && j === 1) {
+                    console.log(a.collider);
+                }
+            }
+        }
+    }
+
+    integrate() {
         for (let i = 0; i < this.bodies.length; i++) {
-            this.bodies[i].handleMomentum(timestep);
+            this.bodies[i].integrate(timestep);
         }
     }
 
-    handleCollision() {
-        // const total = this.bodies.length;
-        // for (let i = 0; i < total - 1; i++) {
-        //     for (let j = i + 1; j < total; j++) {
-        //         // console.log('integrate', i, j);
-        //     }
-        // }
-    }
-
-    // updates bodies
     render() {
         // console.log('render', this.time);
         for (let i = 0; i < this.bodies.length; i++) {
             this.bodies[i].render(time);
         }
+    }
+
+    debug() {
+        // TODO: debugs the world in a canvas 2d
     }
 }
 

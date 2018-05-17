@@ -34,7 +34,7 @@ class Main extends Template {
 
     init() {
         // original scene
-        const geometry1 = new Icosahedron(100, 1);
+        const geometry1 = new Icosahedron({ radius: 50, detail: 1 });
         const model1 = new Mesh({ geometry: geometry1 });
         this.scene1.add(model1);
 
@@ -45,7 +45,7 @@ class Main extends Template {
             ratio: window.devicePixelRatio,
         });
 
-        const geometry2 = new Plane(1, 1);
+        const geometry2 = new Plane();
         const shader = {
             vertex: `#version 300 es
                 in vec3 a_position;

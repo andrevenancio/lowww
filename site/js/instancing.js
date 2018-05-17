@@ -74,19 +74,19 @@
           key: 'handleResize',
           value: function handleResize() {
               this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+              this.update();
           }
       }, {
           key: 'handleResume',
           value: function handleResume() {
-              this.resume();
               this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+              this.resume();
           }
       }, {
           key: 'handlePause',
           value: function handlePause() {
-              this.pause();
               cancelAnimationFrame(this.raf);
-              this.update();
+              this.pause();
           }
       }, {
           key: 'handleUpdate',
@@ -114,14 +114,10 @@
           }
       }, {
           key: 'pause',
-          value: function pause() {
-              console.warn('please add pause() method');
-          }
+          value: function pause() {}
       }, {
           key: 'resume',
-          value: function resume() {
-              console.warn('please add resume() method');
-          }
+          value: function resume() {}
       }, {
           key: 'update',
           value: function update() {

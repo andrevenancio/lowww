@@ -74,19 +74,19 @@
           key: 'handleResize',
           value: function handleResize() {
               this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+              this.update();
           }
       }, {
           key: 'handleResume',
           value: function handleResume() {
-              this.resume();
               this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+              this.resume();
           }
       }, {
           key: 'handlePause',
           value: function handlePause() {
-              this.pause();
               cancelAnimationFrame(this.raf);
-              this.update();
+              this.pause();
           }
       }, {
           key: 'handleUpdate',
@@ -114,14 +114,10 @@
           }
       }, {
           key: 'pause',
-          value: function pause() {
-              console.warn('please add pause() method');
-          }
+          value: function pause() {}
       }, {
           key: 'resume',
-          value: function resume() {
-              console.warn('please add resume() method');
-          }
+          value: function resume() {}
       }, {
           key: 'update',
           value: function update() {
@@ -138,9 +134,7 @@
       Mesh = _lowww$core.Mesh,
       shaders = _lowww$core.shaders;
   var Orbit = lowww.controls.Orbit;
-  var _lowww$geometries = lowww.geometries,
-      Icosahedron = _lowww$geometries.Icosahedron,
-      Suzanne = _lowww$geometries.Suzanne;
+  var TorusKnot = lowww.geometries.TorusKnot;
   var Basic = shaders.Basic,
       Default = shaders.Default,
       Sem = shaders.Sem;
@@ -162,33 +156,21 @@
               this.scene = new Scene();
 
               this.camera = new cameras.Perspective();
-              this.camera.position.set(0, 0, 500);
+              this.camera.position.set(0, 10, 20);
 
               this.controls = new Orbit(this.camera, this.renderer.domElement);
           }
       }, {
           key: 'init',
           value: function init() {
-              var size = 20;
-              var space = 50;
-              var geometry = new Icosahedron(size, 1);
+              var materials = [new Basic({ wireframe: true }), new Basic(), new Default(), new Sem({ map: './img/matcap/black-gloss.jpg' })];
 
-              var wireframe = new Mesh({ geometry: geometry, shader: new Basic({ wireframe: true }) });
-              wireframe.position.set(-space, 0, 0);
-              this.scene.add(wireframe);
-
-              var basic = new Mesh({ geometry: geometry, shader: new Basic() });
-              basic.position.set(0, 0, 0);
-              this.scene.add(basic);
-
-              var d = new Mesh({ geometry: geometry, shader: new Default() });
-              d.position.set(space, 0, 0);
-              this.scene.add(d);
-
-              geometry = new Suzanne(size);
-              var sem = new Mesh({ geometry: geometry, shader: new Sem({ map: './img/matcap/black-gloss.jpg' }) });
-              sem.position.set(0, space, 0);
-              this.scene.add(sem);
+              var geometry = new TorusKnot();
+              for (var i = 0; i < materials.length; i++) {
+                  var mesh = new Mesh({ geometry: geometry, shader: materials[i] });
+                  mesh.position.set(3 * i - 3 * (materials.length - 1) / 2, 0, 0);
+                  this.scene.add(mesh);
+              }
           }
       }, {
           key: 'resize',

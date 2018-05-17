@@ -72,7 +72,6 @@ class Box {
             0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
         ];
 
-        console.log('box', positions.length, indices.length);
         return {
             positions,
             indices,

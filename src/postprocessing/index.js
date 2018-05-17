@@ -8,6 +8,7 @@ const {
     Pass,
     shaders,
 } = lowww.core;
+const { Orbit } = lowww.controls;
 const { Icosahedron } = lowww.geometries;
 const { Noise, tiltShift } = lowww.postprocessing;
 
@@ -20,25 +21,26 @@ class Main extends Template {
         this.scene.fog.enable = true;
 
         this.camera = new cameras.Perspective();
-        this.camera.position.set(0, 0, 500);
+        this.camera.position.set(0, 0, 20);
+
+        this.controls = new Orbit(this.camera, this.composer.domElement);
     }
 
     init() {
-        const area = 100;
-        const quantity = 10;
+        const area = 5;
+        const quantity = 4;
         for (let i = 0; i < quantity; i++) {
             const x = (Math.random() * area * 2) - area;
             const y = (Math.random() * area * 2) - area;
             const z = (Math.random() * area * 2) - area;
 
-            const size = 15 + (Math.random() * 15);
             const color = [1, 1, Math.random()];
 
-            const geometry = new Icosahedron(size, 1);
+            const geometry = new Icosahedron({ detail: 1 });
             const shader = new shaders.Default({ color });
-            const model = new Mesh({ geometry, shader });
-            model.position.set(x, y, z);
-            this.scene.add(model);
+            const mesh = new Mesh({ geometry, shader });
+            mesh.position.set(x, y, z);
+            this.scene.add(mesh);
         }
 
         // add post processing
@@ -134,6 +136,7 @@ class Main extends Template {
     }
 
     update() {
+        this.controls.update();
         this.composer.render(this.scene, this.camera);
     }
 }

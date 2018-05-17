@@ -20,26 +20,24 @@ class Main extends Template {
         this.scene = new Scene();
 
         this.camera = new cameras.Perspective();
-        this.camera.position.set(0, 0, 500);
+        this.camera.position.set(0, 0, 10);
 
         this.controls = new Orbit(this.camera, this.renderer.domElement);
     }
 
     init() {
-        const size = 20;
-
-        const geometry = new Box(size, size, size);
+        const geometry = new Box();
         this.model = new Mesh({ geometry });
         this.model.side = SIDE.BOTH;
         this.scene.add(this.model);
 
         // global clipping
         this.scene.clipping.enable = false;
-        this.scene.clipping.planes[0] = [0, 1, 0, 10];
+        this.scene.clipping.planes[0] = [0, 1, 0, 0.5];
 
         // local clipping
         this.model.clipping.enable = true;
-        this.model.clipping.planes[0] = [0.5, 1, 0, 10];
+        this.model.clipping.planes[0] = [0.5, 1, 0, 0.5];
 
         // gui
         this.gui.add(this.scene.clipping, 'enable').name('global clipping').onChange(e => this.scene.clipping.enable = e);

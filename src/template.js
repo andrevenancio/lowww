@@ -16,17 +16,17 @@ class Template {
 
     handleResize() {
         this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+        this.update();
     }
 
     handleResume() {
-        this.resume();
         this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+        this.resume();
     }
 
     handlePause() {
-        this.pause();
         cancelAnimationFrame(this.raf);
-        this.update();
+        this.pause();
     }
 
     handleUpdate() {
@@ -38,8 +38,8 @@ class Template {
     setup() { console.warn('please add the setup() method'); }
     init() { console.warn('please add the init() method'); }
     resize() { console.warn('please add the resize() method'); }
-    pause() { console.warn('please add pause() method'); }
-    resume() { console.warn('please add resume() method'); }
+    pause() { }
+    resume() { }
     update() { console.warn('please add the update() method'); }
 }
 

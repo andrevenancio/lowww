@@ -74,19 +74,19 @@
           key: 'handleResize',
           value: function handleResize() {
               this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+              this.update();
           }
       }, {
           key: 'handleResume',
           value: function handleResume() {
-              this.resume();
               this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+              this.resume();
           }
       }, {
           key: 'handlePause',
           value: function handlePause() {
-              this.pause();
               cancelAnimationFrame(this.raf);
-              this.update();
+              this.pause();
           }
       }, {
           key: 'handleUpdate',
@@ -114,14 +114,10 @@
           }
       }, {
           key: 'pause',
-          value: function pause() {
-              console.warn('please add pause() method');
-          }
+          value: function pause() {}
       }, {
           key: 'resume',
-          value: function resume() {
-              console.warn('please add resume() method');
-          }
+          value: function resume() {}
       }, {
           key: 'update',
           value: function update() {
@@ -175,7 +171,7 @@
           key: 'init',
           value: function init() {
               // original scene
-              var geometry1 = new Icosahedron(100, 1);
+              var geometry1 = new Icosahedron({ radius: 50, detail: 1 });
               var model1 = new Mesh({ geometry: geometry1 });
               this.scene1.add(model1);
 
@@ -186,7 +182,7 @@
                   ratio: window.devicePixelRatio
               });
 
-              var geometry2 = new Plane(1, 1);
+              var geometry2 = new Plane();
               var shader = {
                   vertex: '#version 300 es\n                in vec3 a_position;\n                in vec3 a_normal;\n                in vec2 a_uv;\n\n                ' + UBO.scene() + '\n                ' + UBO.model() + '\n\n                out vec2 v_uv;\n\n                void main() {\n                    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(a_position, 1.0);\n                    v_uv = a_uv;\n                }\n            ',
 

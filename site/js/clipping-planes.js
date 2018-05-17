@@ -74,19 +74,19 @@
           key: 'handleResize',
           value: function handleResize() {
               this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+              this.update();
           }
       }, {
           key: 'handleResume',
           value: function handleResume() {
-              this.resume();
               this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+              this.resume();
           }
       }, {
           key: 'handlePause',
           value: function handlePause() {
-              this.pause();
               cancelAnimationFrame(this.raf);
-              this.update();
+              this.pause();
           }
       }, {
           key: 'handleUpdate',
@@ -114,14 +114,10 @@
           }
       }, {
           key: 'pause',
-          value: function pause() {
-              console.warn('please add pause() method');
-          }
+          value: function pause() {}
       }, {
           key: 'resume',
-          value: function resume() {
-              console.warn('please add resume() method');
-          }
+          value: function resume() {}
       }, {
           key: 'update',
           value: function update() {
@@ -158,7 +154,7 @@
               this.scene = new Scene();
 
               this.camera = new cameras.Perspective();
-              this.camera.position.set(0, 0, 500);
+              this.camera.position.set(0, 0, 10);
 
               this.controls = new Orbit(this.camera, this.renderer.domElement);
           }
@@ -167,20 +163,18 @@
           value: function init() {
               var _this2 = this;
 
-              var size = 20;
-
-              var geometry = new Box(size, size, size);
+              var geometry = new Box();
               this.model = new Mesh({ geometry: geometry });
               this.model.side = SIDE.BOTH;
               this.scene.add(this.model);
 
               // global clipping
               this.scene.clipping.enable = false;
-              this.scene.clipping.planes[0] = [0, 1, 0, 10];
+              this.scene.clipping.planes[0] = [0, 1, 0, 0.5];
 
               // local clipping
               this.model.clipping.enable = true;
-              this.model.clipping.planes[0] = [0.5, 1, 0, 10];
+              this.model.clipping.planes[0] = [0.5, 1, 0, 0.5];
 
               // gui
               this.gui.add(this.scene.clipping, 'enable').name('global clipping').onChange(function (e) {

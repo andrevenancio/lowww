@@ -18,7 +18,7 @@ class Main extends Template {
         this.scene = new Scene();
 
         this.camera = new cameras.Perspective();
-        this.camera.position.set(0, 0, 500);
+        this.camera.position.set(0, 0, 10);
     }
 
     init() {
@@ -44,9 +44,8 @@ class Main extends Template {
             }
         `;
 
-        const size = 20;
         const model = new Model();
-        model.setAttribute('a_position', 'vec3', new Float32Array([-size, -size, 0, size, -size, 0, 0, size, 0]));
+        model.setAttribute('a_position', 'vec3', new Float32Array([-1, -1, 0, 1, -1, 0, 0, 1, 0]));
         model.setShader(vertex, fragment);
         this.scene.add(model);
     }

@@ -5,11 +5,14 @@ const {
     Scene,
     cameras,
     Mesh,
+    constants,
 } = lowww.core;
 const {
     Icosahedron,
     utils,
 } = lowww.geometries;
+
+const { SIDE } = constants;
 
 class Main extends Template {
     setup() {
@@ -20,7 +23,7 @@ class Main extends Template {
         this.scene.fog.enable = true;
 
         this.camera = new cameras.Perspective();
-        this.camera.position.set(0, 0, 500);
+        this.camera.position.set(0, 0, 10);
     }
 
     init() {
@@ -36,7 +39,7 @@ class Main extends Template {
             this.random.push(Math.random() * 0.2);
         }
 
-        this.original = new Icosahedron(60, 2);
+        this.original = new Icosahedron({ detail: 2 });
         this.rebuild();
     }
 
@@ -69,6 +72,8 @@ class Main extends Template {
         }
 
         this.mesh = new Mesh({ geometry });
+        this.mesh.side = SIDE.BOTH;
+
         this.scene.add(this.mesh);
     }
 

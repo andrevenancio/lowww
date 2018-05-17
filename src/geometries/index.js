@@ -13,6 +13,11 @@ const {
     Hexahedron,
     Icosahedron,
     Dodecahedron,
+    Box,
+    Plane,
+    Sphere,
+    Torus,
+    TorusKnot,
 } = lowww.geometries;
 
 class Main extends Template {
@@ -23,120 +28,39 @@ class Main extends Template {
         this.scene = new Scene();
 
         this.camera = new cameras.Perspective();
-        this.camera.position.set(0, 100, 500);
+        this.camera.position.set(0, 10, 20);
 
         this.controls = new Orbit(this.camera, this.renderer.domElement);
     }
 
     init() {
-        const size = 20;
-        const space = 50;
+        const geometries = [
+            Tetrahedron,
+            Octahedron,
+            Hexahedron,
+            Icosahedron,
+            Dodecahedron,
+            Box,
+            Plane,
+            Sphere,
+            Torus,
+            TorusKnot,
+        ];
 
-        let geometry;
-        let mesh;
-        const meshes = [];
+        const radius = 4;
+        const step = -(2 * Math.PI) / geometries.length;
+        let angle = 0;
 
-        // Tetrahedron
-        geometry = new Tetrahedron(size, 0);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -0);
-        meshes.push(mesh);
-
-        geometry = new Tetrahedron(size, 1);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -1);
-        meshes.push(mesh);
-
-        geometry = new Tetrahedron(size, 2);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -2);
-        meshes.push(mesh);
-
-        // Octahedron
-        geometry = new Octahedron(size, 0);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -0);
-        meshes.push(mesh);
-
-        geometry = new Octahedron(size, 1);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -1);
-        meshes.push(mesh);
-
-        geometry = new Octahedron(size, 2);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -2);
-        meshes.push(mesh);
-
-        // Hexahedron
-        geometry = new Hexahedron(size, 0);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -0);
-        meshes.push(mesh);
-
-        geometry = new Hexahedron(size, 1);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -1);
-        meshes.push(mesh);
-
-        geometry = new Hexahedron(size, 2);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -2);
-        meshes.push(mesh);
-
-        // Icosahedron
-        geometry = new Icosahedron(size, 0);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -0);
-        meshes.push(mesh);
-
-        geometry = new Icosahedron(size, 1);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -1);
-        meshes.push(mesh);
-
-        geometry = new Icosahedron(size, 2);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -2);
-        meshes.push(mesh);
-
-        // Dodecahedron
-        geometry = new Dodecahedron(size, 0);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -0);
-        meshes.push(mesh);
-
-        geometry = new Dodecahedron(size, 1);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -1);
-        meshes.push(mesh);
-
-        geometry = new Dodecahedron(size, 2);
-        mesh = new Mesh({ geometry });
-        mesh.position.set(0, 0, space * -2);
-        meshes.push(mesh);
-
-        const cols = 5;
-        const rows = 3;
-        let index = 0;
-
-        for (let i = 0; i < cols; i++) { // X
-            for (let j = 0; j < rows; j++) { // Z
-                const x = Math.floor(index / rows);
-                const y = 0;
-                const z = index % rows;
-
-                const sx = ((cols - 1) * space) / -2;
-                const sz = ((rows - 1) * space) / 2;
-
-                meshes[index].position.set(
-                    sx + (x * space),
-                    y,
-                    sz - (z * space),
-                );
-                this.scene.add(meshes[index]);
-                index++;
-            }
+        for (let i = 0; i < geometries.length; i++) {
+            const geometry = new geometries[i]();
+            const mesh = new Mesh({ geometry });
+            mesh.position.set(
+                radius * Math.cos(angle),
+                0,
+                radius * Math.sin(angle),
+            );
+            this.scene.add(mesh);
+            angle += step;
         }
     }
 

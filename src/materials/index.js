@@ -8,7 +8,9 @@ const {
     shaders,
 } = lowww.core;
 const { Orbit } = lowww.controls;
-const { Icosahedron, Suzanne } = lowww.geometries;
+const {
+    TorusKnot,
+} = lowww.geometries;
 
 const { Basic, Default, Sem } = shaders;
 
@@ -20,32 +22,29 @@ class Main extends Template {
         this.scene = new Scene();
 
         this.camera = new cameras.Perspective();
-        this.camera.position.set(0, 0, 500);
+        this.camera.position.set(0, 10, 20);
 
         this.controls = new Orbit(this.camera, this.renderer.domElement);
     }
 
     init() {
-        const size = 20;
-        const space = 50;
-        let geometry = new Icosahedron(size, 1);
+        const materials = [
+            new Basic({ wireframe: true }),
+            new Basic(),
+            new Default(),
+            new Sem({ map: './img/matcap/black-gloss.jpg' }),
+        ];
 
-        const wireframe = new Mesh({ geometry, shader: new Basic({ wireframe: true }) });
-        wireframe.position.set(-space, 0, 0);
-        this.scene.add(wireframe);
-
-        const basic = new Mesh({ geometry, shader: new Basic() });
-        basic.position.set(0, 0, 0);
-        this.scene.add(basic);
-
-        const d = new Mesh({ geometry, shader: new Default() });
-        d.position.set(space, 0, 0);
-        this.scene.add(d);
-
-        geometry = new Suzanne(size);
-        const sem = new Mesh({ geometry, shader: new Sem({ map: './img/matcap/black-gloss.jpg' }) });
-        sem.position.set(0, space, 0);
-        this.scene.add(sem);
+        const geometry = new TorusKnot();
+        for (let i = 0; i < materials.length; i++) {
+            const mesh = new Mesh({ geometry, shader: materials[i] });
+            mesh.position.set(
+                (3 * i) - ((3 * (materials.length - 1)) / 2),
+                0,
+                0,
+            );
+            this.scene.add(mesh);
+        }
     }
 
     resize(width, height, ratio) {

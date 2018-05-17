@@ -100,7 +100,7 @@ class Plane {
             positions,
             indices,
             normals,
-            // uvs,
+            uvs,
         };
     }
 }
