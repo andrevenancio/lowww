@@ -74,19 +74,19 @@
           key: 'handleResize',
           value: function handleResize() {
               this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+              this.update();
           }
       }, {
           key: 'handleResume',
           value: function handleResume() {
-              this.resume();
               this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+              this.resume();
           }
       }, {
           key: 'handlePause',
           value: function handlePause() {
-              this.pause();
               cancelAnimationFrame(this.raf);
-              this.update();
+              this.pause();
           }
       }, {
           key: 'handleUpdate',
@@ -114,14 +114,10 @@
           }
       }, {
           key: 'pause',
-          value: function pause() {
-              console.warn('please add pause() method');
-          }
+          value: function pause() {}
       }, {
           key: 'resume',
-          value: function resume() {
-              console.warn('please add resume() method');
-          }
+          value: function resume() {}
       }, {
           key: 'update',
           value: function update() {
@@ -135,10 +131,12 @@
       Renderer = _lowww$core.Renderer,
       Scene = _lowww$core.Scene,
       cameras = _lowww$core.cameras,
-      Mesh = _lowww$core.Mesh;
+      Mesh = _lowww$core.Mesh,
+      constants = _lowww$core.constants;
   var _lowww$geometries = lowww.geometries,
       Icosahedron = _lowww$geometries.Icosahedron,
       utils = _lowww$geometries.utils;
+  var SIDE = constants.SIDE;
 
   var Main = function (_Template) {
       inherits(Main, _Template);
@@ -158,7 +156,7 @@
               this.scene.fog.enable = true;
 
               this.camera = new cameras.Perspective();
-              this.camera.position.set(0, 0, 500);
+              this.camera.position.set(0, 0, 10);
           }
       }, {
           key: 'init',
@@ -175,7 +173,7 @@
                   this.random.push(Math.random() * 0.2);
               }
 
-              this.original = new Icosahedron(60, 2);
+              this.original = new Icosahedron({ detail: 2 });
               this.rebuild();
           }
       }, {
@@ -209,6 +207,8 @@
               }
 
               this.mesh = new Mesh({ geometry: geometry });
+              this.mesh.side = SIDE.BOTH;
+
               this.scene.add(this.mesh);
           }
       }, {

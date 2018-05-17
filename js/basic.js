@@ -74,19 +74,19 @@
           key: 'handleResize',
           value: function handleResize() {
               this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+              this.update();
           }
       }, {
           key: 'handleResume',
           value: function handleResume() {
-              this.resume();
               this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+              this.resume();
           }
       }, {
           key: 'handlePause',
           value: function handlePause() {
-              this.pause();
               cancelAnimationFrame(this.raf);
-              this.update();
+              this.pause();
           }
       }, {
           key: 'handleUpdate',
@@ -114,14 +114,10 @@
           }
       }, {
           key: 'pause',
-          value: function pause() {
-              console.warn('please add pause() method');
-          }
+          value: function pause() {}
       }, {
           key: 'resume',
-          value: function resume() {
-              console.warn('please add resume() method');
-          }
+          value: function resume() {}
       }, {
           key: 'update',
           value: function update() {
@@ -156,7 +152,7 @@
               this.scene = new Scene();
 
               this.camera = new cameras.Perspective();
-              this.camera.position.set(0, 0, 500);
+              this.camera.position.set(0, 0, 10);
           }
       }, {
           key: 'init',
@@ -165,9 +161,8 @@
 
               var fragment = '#version 300 es\n            precision highp float;\n            precision highp int;\n\n            out vec4 outColor;\n\n            void main() {\n                outColor = vec4(1.0);\n            }\n        ';
 
-              var size = 20;
               var model = new Model();
-              model.setAttribute('a_position', 'vec3', new Float32Array([-size, -size, 0, size, -size, 0, 0, size, 0]));
+              model.setAttribute('a_position', 'vec3', new Float32Array([-1, -1, 0, 1, -1, 0, 0, 1, 0]));
               model.setShader(vertex, fragment);
               this.scene.add(model);
           }

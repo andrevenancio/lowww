@@ -80,19 +80,19 @@
           key: 'handleResize',
           value: function handleResize() {
               this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+              this.update();
           }
       }, {
           key: 'handleResume',
           value: function handleResume() {
-              this.resume();
               this.raf = requestAnimationFrame(this.handleUpdate.bind(this));
+              this.resume();
           }
       }, {
           key: 'handlePause',
           value: function handlePause() {
-              this.pause();
               cancelAnimationFrame(this.raf);
-              this.update();
+              this.pause();
           }
       }, {
           key: 'handleUpdate',
@@ -120,14 +120,10 @@
           }
       }, {
           key: 'pause',
-          value: function pause() {
-              console.warn('please add pause() method');
-          }
+          value: function pause() {}
       }, {
           key: 'resume',
-          value: function resume() {
-              console.warn('please add resume() method');
-          }
+          value: function resume() {}
       }, {
           key: 'update',
           value: function update() {
@@ -144,6 +140,7 @@
       Composer = _lowww$core.Composer,
       Pass = _lowww$core.Pass,
       shaders = _lowww$core.shaders;
+  var Orbit = lowww.controls.Orbit;
   var Icosahedron = lowww.geometries.Icosahedron;
   var _lowww$postprocessing = lowww.postprocessing,
       Noise = _lowww$postprocessing.Noise,
@@ -167,28 +164,29 @@
               this.scene.fog.enable = true;
 
               this.camera = new cameras.Perspective();
-              this.camera.position.set(0, 0, 500);
+              this.camera.position.set(0, 0, 20);
+
+              this.controls = new Orbit(this.camera, this.composer.domElement);
           }
       }, {
           key: 'init',
           value: function init() {
               var _this2 = this;
 
-              var area = 100;
-              var quantity = 10;
+              var area = 5;
+              var quantity = 4;
               for (var i = 0; i < quantity; i++) {
                   var x = Math.random() * area * 2 - area;
                   var y = Math.random() * area * 2 - area;
                   var z = Math.random() * area * 2 - area;
 
-                  var size = 15 + Math.random() * 15;
                   var color = [1, 1, Math.random()];
 
-                  var geometry = new Icosahedron(size, 1);
+                  var geometry = new Icosahedron({ detail: 1 });
                   var shader = new shaders.Default({ color: color });
-                  var model = new Mesh({ geometry: geometry, shader: shader });
-                  model.position.set(x, y, z);
-                  this.scene.add(model);
+                  var mesh = new Mesh({ geometry: geometry, shader: shader });
+                  mesh.position.set(x, y, z);
+                  this.scene.add(mesh);
               }
 
               // add post processing
@@ -284,6 +282,7 @@
       }, {
           key: 'update',
           value: function update() {
+              this.controls.update();
               this.composer.render(this.scene, this.camera);
           }
       }]);
