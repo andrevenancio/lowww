@@ -1,8 +1,14 @@
 import Polyhedra from '../polyhedra';
 
 class Icosahedron extends Polyhedra {
-    constructor(radius = 1, detail = 0) {
+    constructor(props) {
+        const settings = Object.assign({}, {
+            radius: 0.5,
+            detail: 0,
+        }, props);
+
         const t = 0.5 + (Math.sqrt(5) / 2);
+        const r = settings.radius * 2;
 
         const positions = [
             -1, +t, 0,
@@ -42,7 +48,7 @@ class Icosahedron extends Polyhedra {
             9, 8, 1,
         ];
 
-        super(positions, indices, radius, detail);
+        super(positions, indices, r, settings.detail);
 
         return this.geometry;
     }

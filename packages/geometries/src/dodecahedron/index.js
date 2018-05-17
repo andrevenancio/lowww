@@ -1,7 +1,12 @@
 import Polyhedra from '../polyhedra';
 
 class Dodecahedron extends Polyhedra {
-    constructor(radius = 1, detail = 0) {
+    constructor(props) {
+        const settings = Object.assign({}, {
+            radius: 0.5,
+            detail: 0,
+        }, props);
+
         const t = (1 + Math.sqrt(5)) / 2;
         const r = 1 / t;
 
@@ -40,7 +45,7 @@ class Dodecahedron extends Polyhedra {
             1, 12, 14, 1, 14, 5, 1, 5, 9,
         ];
 
-        super(positions, indices, radius, detail);
+        super(positions, indices, settings.radius * 2, settings.detail);
 
         return this.geometry;
     }

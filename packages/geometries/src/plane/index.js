@@ -1,29 +1,37 @@
 class Plane {
-    constructor(width = 1, height = 1, subdivisionsX = 1, subdivisionsY = 1, axis = 'XY') {
+    constructor(props) {
+        const settings = Object.assign({}, {
+            width: 1,
+            height: 1,
+            subdivisionsX: 1,
+            subdivisionsY: 1,
+            axis: 'XY',
+        }, props);
+
         let positions = [];
         const indices = [];
         let normals = [];
         let uvs = [];
         let index = 0;
 
-        const w = width * 2;
-        const h = height * 2;
-        const spacerX = w / subdivisionsX;
-        const spacerY = h / subdivisionsY;
+        const w = settings.width * 2;
+        const h = settings.height * 2;
+        const spacerX = w / settings.subdivisionsX;
+        const spacerY = h / settings.subdivisionsY;
         const offsetX = -w * 0.5;
         const offsetY = -h * 0.5;
-        const spacerU = 1 / subdivisionsX;
-        const spacerV = 1 / subdivisionsY;
+        const spacerU = 1 / settings.subdivisionsX;
+        const spacerV = 1 / settings.subdivisionsY;
 
-        for (let y = 0; y < subdivisionsY; y++) {
-            for (let x = 0; x < subdivisionsX; x++) {
+        for (let y = 0; y < settings.subdivisionsY; y++) {
+            for (let x = 0; x < settings.subdivisionsX; x++) {
                 const triangleX = (spacerX * x) + offsetX;
                 const triangleY = (spacerY * y) + offsetY;
 
-                const u = x / subdivisionsX;
-                const v = y / subdivisionsY;
+                const u = x / settings.subdivisionsX;
+                const v = y / settings.subdivisionsY;
 
-                switch (axis) {
+                switch (settings.axis) {
                 case 'XZ':
                     // Facing towards y
                     positions = positions.concat([triangleX, 0, triangleY]);
@@ -92,7 +100,7 @@ class Plane {
             positions,
             indices,
             normals,
-            uvs,
+            // uvs,
         };
     }
 }

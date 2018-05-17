@@ -1,5 +1,11 @@
 class Box {
-    constructor(width = 1, height = 1, depth = 1) {
+    constructor(props) {
+        const settings = Object.assign({}, {
+            width: 1,
+            height: 1,
+            depth: 1,
+        }, props);
+
         const positions = [
             // Front face
             -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
@@ -16,9 +22,9 @@ class Box {
         ];
 
         for (let i = 0; i < positions.length; i += 3) {
-            positions[i + 0] *= width;
-            positions[i + 1] *= height;
-            positions[i + 2] *= depth;
+            positions[i + 0] *= settings.width;
+            positions[i + 1] *= settings.height;
+            positions[i + 2] *= settings.depth;
         }
 
         const indices = [
@@ -66,6 +72,7 @@ class Box {
             0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
         ];
 
+        console.log('box', positions.length, indices.length);
         return {
             positions,
             indices,

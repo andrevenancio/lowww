@@ -1,7 +1,16 @@
 import { vec3 } from 'gl-matrix';
 
 class TorusKnot {
-    constructor(radius = 1, tube = 0.375, tubularSegments = 64, radialSegments = 8, p = 2, q = 3) {
+    constructor(props) {
+        const settings = Object.assign({}, {
+            radius: 0.5,
+            tube: 0.375,
+            tubularSegments: 64,
+            radialSegments: 8,
+            p: 2,
+            q: 3,
+        }, props);
+
         const positions = [];
         const indices = [];
         const normals = [];
@@ -17,10 +26,10 @@ class TorusKnot {
         const T = vec3.create();
         const N = vec3.create();
 
-        for (let i = 0; i <= tubularSegments; i++) {
-            const u = (i / tubularSegments) * p * Math.PI * 2;
-            this.calculatePositionOnCurve(u, p, q, radius, P1);
-            this.calculatePositionOnCurve(u + 0.01, p, q, radius, P2);
+        for (let i = 0; i <= settings.tubularSegments; i++) {
+            const u = (i / settings.tubularSegments) * settings.p * Math.PI * 2;
+            this.calculatePositionOnCurve(u, settings.p, settings.q, settings.radius, P1);
+            this.calculatePositionOnCurve(u + 0.01, settings.p, settings.q, settings.radius, P2);
 
             vec3.subtract(T, P2, P1);
             vec3.add(N, P2, P1);
@@ -30,10 +39,10 @@ class TorusKnot {
             vec3.normalize(B, B);
             vec3.normalize(N, N);
 
-            for (let j = 0; j <= radialSegments; j++) {
-                const v = (j / radialSegments) * Math.PI * 2;
-                const cx = -tube * Math.cos(v);
-                const cy = tube * Math.sin(v);
+            for (let j = 0; j <= settings.radialSegments; j++) {
+                const v = (j / settings.radialSegments) * Math.PI * 2;
+                const cx = -settings.tube * Math.cos(v);
+                const cy = settings.tube * Math.sin(v);
 
                 vertex[0] = P1[0] + ((cx * N[0]) + (cy * B[0]));
                 vertex[1] = P1[1] + ((cx * N[1]) + (cy * B[1]));
@@ -44,16 +53,16 @@ class TorusKnot {
                 vec3.normalize(normal, normal);
                 normals.push(...normal);
 
-                uvs.push(i / tubularSegments, j / radialSegments);
+                uvs.push(i / settings.tubularSegments, j / settings.radialSegments);
             }
         }
 
-        for (let j = 1; j <= tubularSegments; j++) {
-            for (let i = 1; i <= radialSegments; i++) {
-                const a = ((radialSegments + 1) * (j - 1)) + (i - 1);
-                const b = ((radialSegments + 1) * j) + (i - 1);
-                const c = ((radialSegments + 1) * j) + i;
-                const d = ((radialSegments + 1) * (j - 1)) + i;
+        for (let j = 1; j <= settings.tubularSegments; j++) {
+            for (let i = 1; i <= settings.radialSegments; i++) {
+                const a = ((settings.radialSegments + 1) * (j - 1)) + (i - 1);
+                const b = ((settings.radialSegments + 1) * j) + (i - 1);
+                const c = ((settings.radialSegments + 1) * j) + i;
+                const d = ((settings.radialSegments + 1) * (j - 1)) + i;
 
                 indices.push(a, b, d);
                 indices.push(b, c, d);

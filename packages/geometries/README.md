@@ -28,7 +28,7 @@ const init = () => {
 
     scene = new Scene();
 
-    const geometry = new Icosahedron(10, 1);
+    const geometry = new Icosahedron({ radius: 10, detail: 1 });
     mesh = new Mesh({ geometry });
     scene.add(mesh);
 };

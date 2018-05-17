@@ -12,8 +12,6 @@ import Sphere from './sphere';
 import Torus from './torus';
 import TorusKnot from './torusknot';
 
-import Suzanne from './suzanne';
-
 export {
     utils,
 
@@ -30,5 +28,4 @@ export {
     Sphere,
     Torus,
     TorusKnot,
-    Suzanne,
 };

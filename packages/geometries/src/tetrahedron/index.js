@@ -1,7 +1,12 @@
 import Polyhedra from '../polyhedra';
 
 class Tetrahedron extends Polyhedra {
-    constructor(radius = 1, detail = 0) {
+    constructor(props) {
+        const settings = Object.assign({}, {
+            radius: 0.5,
+            detail: 0,
+        }, props);
+
         const positions = [
             1, 1, 1,
             -1, -1, 1,
@@ -16,7 +21,7 @@ class Tetrahedron extends Polyhedra {
             2, 3, 1,
         ];
 
-        super(positions, indices, radius, detail);
+        super(positions, indices, settings.radius * 2, settings.detail);
 
         return this.geometry;
     }

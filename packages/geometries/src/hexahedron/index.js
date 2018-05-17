@@ -1,7 +1,14 @@
 import Polyhedra from '../polyhedra';
 
 class Hexahedron extends Polyhedra {
-    constructor(size = 1, detail = 0) {
+    constructor(props) {
+        const settings = Object.assign({}, {
+            radius: 0.5,
+            detail: 0,
+        }, props);
+
+        const r = settings.radius * 2;
+
         const positions = [
             // Front face
             -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
@@ -18,9 +25,9 @@ class Hexahedron extends Polyhedra {
         ];
 
         for (let i = 0; i < positions.length; i += 3) {
-            positions[i + 0] *= size;
-            positions[i + 1] *= size;
-            positions[i + 2] *= size;
+            positions[i + 0] *= r;
+            positions[i + 1] *= r;
+            positions[i + 2] *= r;
         }
 
         const indices = [
@@ -38,7 +45,7 @@ class Hexahedron extends Polyhedra {
             20, 21, 22, 20, 22, 23,
         ];
 
-        super(positions, indices, size, detail);
+        super(positions, indices, r, settings.detail);
 
         return this.geometry;
     }
