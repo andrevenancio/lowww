@@ -1,0 +1,14 @@
+{
+    "source": {
+        "include": [
+            "packages/controls/src/index.js",
+            "packages/core/src/index.js",
+            "packages/geometries/src/index.js",
+            "packages/postprocessing/src/index.js"
+        ]
+    },
+    "opts": {
+        "recurse": true,
+        "destination": "./docs/"
+    }
+}

@@ -1,5 +1,15 @@
+/**
+ * Utilities
+ * @module geometries/utils
+ */
+
 import { vec3 } from 'gl-matrix';
 
+/**
+ * flattens an array or vertices
+ *
+ * @param {Type} type Array type, such as Float32Array or Array
+ */
 export function flatten(arr) {
     let output = [];
     for (let i = 0; i < arr.length; i++) {

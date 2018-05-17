@@ -1,3 +1,7 @@
+/**
+ * Core
+ * @module core
+ */
 import * as chunks from './shaders/chunks';
 import * as utils from './utils';
 import * as cameras from './cameras';

@@ -44,7 +44,7 @@
         "dev:all": "concurrently --kill-others --names \"rollup-controls,rollup-core,rollup-geometries,rollup-postprocessing,rollup-physics,rollup-examples,http-server\" -c \"black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite,black.bgWhite\" \"npm run dev:core\" \"npm run dev:controls\" \"npm run dev:geometries\" \"npm run dev:postprocessing\" \"npm run dev:physics\" \"npm run dev:examples\" \"npm run server\"",
         "build:packages": "npm run es5:all&&npm run es6:all&&npm run minify:all&&npm run package:all",
         "build:examples": "rollup -c scripts/rollup/examples.production.js",
-        "build:docs": "",
+        "build:docs": "jsdoc -c jsdoc.config.json",
         "build:all": "npm run build:packages&&npm run build:examples",
         "server": "./node_modules/.bin/http-server ./ -s & opener http://localhost:8080/dev/",
         "start": "npm run dev:all",
@@ -73,6 +73,7 @@
         "eslint-plugin-jsx-a11y": "^6.0.3",
         "eslint-plugin-react": "^7.8.2",
         "http-server": "^0.11.1",
+        "jsdoc": "^3.5.5",
         "opener": "^1.4.3",
         "rollup": "^0.59.1",
         "uglify-js": "^3.3.25"
