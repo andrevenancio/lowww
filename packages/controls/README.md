@@ -32,7 +32,7 @@ const init = () => {
 
     controls = new Orbit(camera, renderer.domElement);
 
-    const geometry = new Box(10, 10, 10);
+    const geometry = new Box({ width: 10, height: 10, depth: 10 });
     mesh = new Mesh({ geometry });
     scene.add(mesh);
 };

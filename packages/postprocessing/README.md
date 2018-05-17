@@ -33,7 +33,7 @@ const init = () => {
 
     scene = new Scene();
 
-    const geometry = new Icosahedron(100, 1);
+    const geometry = new Icosahedron({ radius: 100, detail: 1 });
     mesh = new Mesh({ geometry });
     scene.add(mesh);
 
