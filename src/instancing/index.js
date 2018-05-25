@@ -105,7 +105,6 @@ class Main extends Template {
         `;
 
         // settings
-        const size = 1;
         const distance = 1000; // distance of random generated x, y, z;
         const instances = 100 * 1000; // 100k
 
@@ -121,7 +120,7 @@ class Main extends Template {
         }
 
         // geometry
-        const geometry = new Box(size, size, size);
+        const geometry = new Box();
         this.model = new Model();
         this.model.setAttribute('a_position', 'vec3', new Float32Array(geometry.positions));
         this.model.setIndex(new Uint16Array(geometry.indices));

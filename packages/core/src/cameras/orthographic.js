@@ -21,6 +21,13 @@ class OrthographicCamera extends Object3 {
         vec3.copy(this.target, v);
     }
 
+    /**
+     * updates projection matrix
+     *
+     * @param {Number} a The first number to test.
+     * @param {Number} b The second number to test.
+     * @returns {Boolean} True if the numbers are approximately equal, false otherwise.
+     */
     updateCameraMatrix() {
         // left, right, bottom, top, near, far
         mat4.ortho(

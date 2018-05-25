@@ -1,5 +1,5 @@
 import { vec3 } from 'gl-matrix';
-import { RIGID_BODY } from '../constants';
+import { RIGID_BODY, SPHERE_COLLIDER, AABB_COLLIDER } from '../constants';
 
 class RigidBody {
     constructor(params) {
@@ -15,7 +15,7 @@ class RigidBody {
             type: RIGID_BODY,
             awake: true,
             lineardrag: 0.999,
-            mass: 1,
+            dynamic: true,
             velocity: vec3.create(),
             acceleration: vec3.create(),
             position: vec3.create(),
@@ -26,8 +26,20 @@ class RigidBody {
         vec3.copy(this.position, this.mesh.position.data);
     }
 
-    inversemass() {
-        return 1 / this.mass;
+    getInversemass() {
+        return 1 / this.getMass();
+    }
+
+    getMass() {
+        switch (this.collider.type) {
+        case SPHERE_COLLIDER:
+            return this.collider.radius;
+        case AABB_COLLIDER:
+            return 1;
+        default:
+            console.warn('unknown collider');
+            return 1;
+        }
     }
 
     // copies world force into body
@@ -36,14 +48,15 @@ class RigidBody {
     }
 
     integrate(deltatime) {
-        if (!this.awake) {
+        if (!this.awake || !this.dynamic) {
             return;
         }
 
         // calculate acceleration
-        this.acceleration[0] = this.force[0] / this.mass;
-        this.acceleration[1] = this.force[1] / this.mass;
-        this.acceleration[2] = this.force[2] / this.mass;
+        const mass = this.getMass();
+        this.acceleration[0] = this.force[0] / mass;
+        this.acceleration[1] = this.force[1] / mass;
+        this.acceleration[2] = this.force[2] / mass;
 
         // adding acceleration to velocity
         vec3.scaleAndAdd(this.velocity, this.velocity, this.acceleration, deltatime);

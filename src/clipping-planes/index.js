@@ -37,7 +37,7 @@ class Main extends Template {
 
         // local clipping
         this.model.clipping.enable = true;
-        this.model.clipping.planes[0] = [0.5, 1, 0, 0.5];
+        this.model.clipping.planes[0] = [1.5, 2.5, 0, 0.5];
 
         // gui
         this.gui.add(this.scene.clipping, 'enable').name('global clipping').onChange(e => this.scene.clipping.enable = e);

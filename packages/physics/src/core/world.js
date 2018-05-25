@@ -112,6 +112,8 @@ class World {
         for (let i = 0; i < this.bodies.length; i++) {
             this.bodies[i].addForce(this.force);
         }
+
+        // console.log(this.forces[0]);
     }
 
     updateBounds() {
@@ -128,10 +130,6 @@ class World {
                 a = this.bodies[i];
                 b = this.bodies[j];
                 checkContacts(a, b);
-
-                if (i === 0 && j === 1) {
-                    console.log(a.collider);
-                }
             }
         }
     }
@@ -147,10 +145,6 @@ class World {
         for (let i = 0; i < this.bodies.length; i++) {
             this.bodies[i].render(time);
         }
-    }
-
-    debug() {
-        // TODO: debugs the world in a canvas 2d
     }
 }
 
