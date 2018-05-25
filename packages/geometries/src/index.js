@@ -11,6 +11,7 @@ import Box from './box';
 import Sphere from './sphere';
 import Torus from './torus';
 import TorusKnot from './torusknot';
+import Prism from './prism';
 
 export {
     utils,
@@ -28,4 +29,5 @@ export {
     Sphere,
     Torus,
     TorusKnot,
+    Prism,
 };
