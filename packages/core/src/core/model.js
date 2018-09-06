@@ -151,12 +151,20 @@ class Model extends Object3 {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
     }
 
+    updateVertices(data, index) {
+        // index of vertice * 3 (xyz) + 0 for X
+        // index of vertice * 3 (xyz) + 1 for Y
+        // index of vertice * 3 (xyz) + 2 for Z
+        this.dirty.attributes = true;
+        this.attributes.a_position.value.set(data, index);
+    }
+
     update(inShadowMap) {
         const gl = getContext();
 
         if (this.dirty.attributes) {
             updateAttributes(this.attributes);
-            this.dirty.attributes = true;
+            this.dirty.attributes = false;
         }
 
         updateUniforms(this.uniforms);

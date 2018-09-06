@@ -14,7 +14,7 @@ class Mesh extends Model {
             indices,
             normals,
             uvs,
-        } = params.geometry;
+        } = params.geometry || {};
 
         const {
             vertex,

@@ -155,5 +155,5 @@ export function mergeVertices(data) {
         normals: new Float32Array(generateVertexNormals(p, f)),
     };
 }
-
+export * from './merge';
 export { Modify } from './modify';

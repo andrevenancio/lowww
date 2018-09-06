@@ -69,6 +69,7 @@ const configs = files.map((entry) => {
                 ],
                 js: [
                     'https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.1/dat.gui.min.js',
+                    'https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenLite.min.js',
                     '../packages/controls/build/controls.js',
                     '../packages/core/build/core.js',
                     '../packages/geometries/build/geometries.js',
