@@ -74,7 +74,7 @@
         "eslint-plugin-react": "^7.8.2",
         "http-server": "^0.11.1",
         "jsdoc": "^3.6.3",
-        "opener": "^1.4.3",
+        "opener": "^1.5.1",
         "rollup": "^1.20.3",
         "uglify-js": "^3.3.25"
     },
