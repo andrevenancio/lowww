@@ -79,7 +79,7 @@
         "uglify-js": "^3.3.25"
     },
     "dependencies": {
-        "fse": "^4.0.0",
+        "fse": "^4.0.1",
         "gl-matrix": "^2.6.1",
         "glob": "^7.1.2",
         "html-minifier": "^3.5.15",
