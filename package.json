@@ -65,7 +65,7 @@
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-preset-airbnb": "^2.4.0",
         "babel-preset-env": "^1.7.0",
-        "concurrently": "^3.5.1",
+        "concurrently": "^4.1.2",
         "eslint": "^4.19.1",
         "eslint-config-airbnb": "^16.1.0",
         "eslint-loader": "^2.0.0",
