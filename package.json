@@ -71,7 +71,7 @@
         "eslint-loader": "^2.0.0",
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-jsx-a11y": "^6.2.3",
-        "eslint-plugin-react": "^7.8.2",
+        "eslint-plugin-react": "^7.14.3",
         "http-server": "^0.11.1",
         "jsdoc": "^3.6.3",
         "opener": "^1.5.1",
