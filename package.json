@@ -70,7 +70,7 @@
         "eslint-config-airbnb": "^16.1.0",
         "eslint-loader": "^2.0.0",
         "eslint-plugin-import": "^2.18.2",
-        "eslint-plugin-jsx-a11y": "^6.0.3",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-react": "^7.8.2",
         "http-server": "^0.11.1",
         "jsdoc": "^3.6.3",
