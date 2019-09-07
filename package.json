@@ -81,7 +81,7 @@
     "dependencies": {
         "fse": "^4.0.1",
         "gl-matrix": "^2.6.1",
-        "glob": "^7.1.2",
+        "glob": "^7.1.4",
         "html-minifier": "^3.5.15",
         "rollup-plugin-babel": "^3.0.7",
         "rollup-plugin-node-resolve": "^3.3.0",
