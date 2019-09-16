@@ -2,7 +2,7 @@
     "name": "lowww",
     "description": "WebGL2 Engine",
     "author": "Andre Venancio (info@andrevenancio.com)",
-    "version": "1.1.5",
+    "version": "1.2.0",
     "license": "MIT",
     "repository": "git@github.com:andrevenancio/lowww.git",
     "keywords": [
@@ -79,10 +79,12 @@
         "uglify-js": "^3.6.0"
     },
     "dependencies": {
+        "eslint-config-prettier": "^6.3.0",
         "fse": "^4.0.1",
         "gl-matrix": "^3.1.0",
         "glob": "^7.1.4",
         "html-minifier": "^4.0.0",
+        "prettier": "^1.18.2",
         "rollup-plugin-babel": "^3.0.7",
         "rollup-plugin-node-resolve": "^5.2.0",
         "rollup-plugin-replace": "^2.2.0"
