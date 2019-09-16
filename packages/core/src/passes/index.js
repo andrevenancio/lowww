@@ -1,5 +1,3 @@
 import Basic from './basic';
 
-export {
-    Basic,
-};
+export { Basic };

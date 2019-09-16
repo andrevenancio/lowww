@@ -5,11 +5,15 @@ class PerspectiveCamera extends Object3 {
     constructor(params = {}) {
         super();
 
-        Object.assign(this, {
-            near: 1,
-            far: 1000,
-            fov: 35,
-        }, params);
+        Object.assign(
+            this,
+            {
+                near: 1,
+                far: 1000,
+                fov: 35,
+            },
+            params
+        );
 
         this.matrices.projection = mat4.create();
     }
@@ -24,7 +28,7 @@ class PerspectiveCamera extends Object3 {
             this.fov * (Math.PI / 180),
             width / height,
             this.near,
-            this.far,
+            this.far
         );
     }
 }

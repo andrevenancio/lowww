@@ -1,5 +1,4 @@
 const Noise = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
         u_seed: { type: 'float', value: 0.01 },
@@ -35,7 +34,6 @@ const Noise = {
 
         outColor = color;
     }`,
-
 };
 
 export default Noise;

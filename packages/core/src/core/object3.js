@@ -67,19 +67,41 @@ class Object3 {
 
         if (this.parent) {
             mat4.copy(this.matrices.parent, this.parent.matrices.model);
-            mat4.multiply(this.matrices.model, this.matrices.model, this.matrices.parent);
+            mat4.multiply(
+                this.matrices.model,
+                this.matrices.model,
+                this.matrices.parent
+            );
         }
 
         if (this.lookToTarget) {
-            mat4.targetTo(this.matrices.lookAt, this.position.data, this.target, this.up);
-            mat4.multiply(this.matrices.model, this.matrices.model, this.matrices.lookAt);
+            mat4.targetTo(
+                this.matrices.lookAt,
+                this.position.data,
+                this.target,
+                this.up
+            );
+            mat4.multiply(
+                this.matrices.model,
+                this.matrices.model,
+                this.matrices.lookAt
+            );
         } else {
-            mat4.translate(this.matrices.model, this.matrices.model, this.position.data);
+            mat4.translate(
+                this.matrices.model,
+                this.matrices.model,
+                this.position.data
+            );
             quat.rotateX(this.quaternion, this.quaternion, this.rotation.x);
             quat.rotateY(this.quaternion, this.quaternion, this.rotation.y);
             quat.rotateZ(this.quaternion, this.quaternion, this.rotation.z);
             axisAngle = quat.getAxisAngle(quaternionAxisAngle, this.quaternion);
-            mat4.rotate(this.matrices.model, this.matrices.model, axisAngle, quaternionAxisAngle);
+            mat4.rotate(
+                this.matrices.model,
+                this.matrices.model,
+                axisAngle,
+                quaternionAxisAngle
+            );
         }
         mat4.scale(this.matrices.model, this.matrices.model, this.scale.data);
     }
@@ -125,8 +147,7 @@ class Object3 {
         // if any element gets added / removed from scene
         // or if its transparency changes, we need to sort them again into
         // opaque / transparent arrays
-        if (object.dirty.sorting ||
-            object.dirty.transparent) {
+        if (object.dirty.sorting || object.dirty.transparent) {
             object.dirty.transparent = false;
             this.sceneGraphSorter = true;
         }

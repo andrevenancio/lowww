@@ -1,11 +1,7 @@
 import Template from '../template';
 import { L } from './letters';
 
-const {
-    Renderer,
-    Scene,
-    cameras,
-} = lowww.core;
+const { Renderer, Scene, cameras } = lowww.core;
 const { Orbit } = lowww.controls;
 
 class Main extends Template {
@@ -22,16 +18,20 @@ class Main extends Template {
 
         this.show = false;
 
-        window.addEventListener('click', () => {
-            console.log('toggle');
-            if (this.show) {
-                this.mesh.hide();
-                this.show = false;
-            } else {
-                this.mesh.show();
-                this.show = true;
-            }
-        }, false);
+        window.addEventListener(
+            'click',
+            () => {
+                console.log('toggle');
+                if (this.show) {
+                    this.mesh.hide();
+                    this.show = false;
+                } else {
+                    this.mesh.show();
+                    this.show = true;
+                }
+            },
+            false
+        );
     }
 
     init() {
@@ -44,11 +44,9 @@ class Main extends Template {
         this.renderer.setRatio(ratio);
     }
 
-    pause() {
-    }
+    pause() {}
 
-    resume() {
-    }
+    resume() {}
 
     update() {
         // const y = Math.cos(Date.now() / 500) * 0.5;

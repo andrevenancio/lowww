@@ -27,6 +27,4 @@ const LIGHT = {
     },
 };
 
-export {
-    LIGHT,
-};
+export { LIGHT };

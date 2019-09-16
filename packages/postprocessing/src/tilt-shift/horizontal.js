@@ -1,5 +1,4 @@
 const Horizontal = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
         u_amount: { type: 'float', value: 128 },
@@ -36,7 +35,6 @@ const Horizontal = {
 
         outColor = sum;
     }`,
-
 };
 
 export default Horizontal;

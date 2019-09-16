@@ -1,5 +1,4 @@
 const Vertical = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
         u_amount: { type: 'float', value: 512 },
@@ -34,7 +33,6 @@ const Vertical = {
 
         outColor = sum;
     }`,
-
 };
 
 export default Vertical;

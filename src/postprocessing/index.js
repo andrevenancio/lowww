@@ -1,13 +1,6 @@
 import Template from '../template';
 
-const {
-    Scene,
-    cameras,
-    Mesh,
-    Composer,
-    Pass,
-    shaders,
-} = lowww.core;
+const { Scene, cameras, Mesh, Composer, Pass, shaders } = lowww.core;
 const { Orbit } = lowww.controls;
 const { Icosahedron } = lowww.geometries;
 const { Noise, tiltShift } = lowww.postprocessing;
@@ -30,9 +23,9 @@ class Main extends Template {
         const area = 5;
         const quantity = 4;
         for (let i = 0; i < quantity; i++) {
-            const x = (Math.random() * area * 2) - area;
-            const y = (Math.random() * area * 2) - area;
-            const z = (Math.random() * area * 2) - area;
+            const x = Math.random() * area * 2 - area;
+            const y = Math.random() * area * 2 - area;
+            const z = Math.random() * area * 2 - area;
 
             const color = [1, 1, Math.random()];
 
@@ -77,14 +70,15 @@ class Main extends Template {
         };
 
         // and finally automatically add parameters based on settings object
-        Object.keys(this.settings).forEach((key) => {
+        Object.keys(this.settings).forEach(key => {
             const folder = this.gui.addFolder(key);
 
-            Object.keys(this.settings[key]).forEach((prop) => {
+            Object.keys(this.settings[key]).forEach(prop => {
                 const shader = this.settings[key];
 
                 if (typeof shader[prop] === 'boolean') {
-                    folder.add(this.settings[key], String(prop))
+                    folder
+                        .add(this.settings[key], String(prop))
                         .onChange(this.updateUniforms.bind(this));
                     if (shader[prop] === true) {
                         folder.open();
@@ -92,22 +86,40 @@ class Main extends Template {
                 }
 
                 if (typeof shader[prop] === 'object') {
-                    if (shader[prop].min !== undefined && shader[prop].max !== undefined) {
-                        folder.add(shader[prop], 'value', shader[prop].min, shader[prop].max).name(prop)
+                    if (
+                        shader[prop].min !== undefined &&
+                        shader[prop].max !== undefined
+                    ) {
+                        folder
+                            .add(
+                                shader[prop],
+                                'value',
+                                shader[prop].min,
+                                shader[prop].max
+                            )
+                            .name(prop)
                             .onChange(this.updateUniforms.bind(this));
                     } else if (shader[prop].values !== undefined) {
-                        folder.add(shader[prop], 'value', shader[prop].values).name(prop)
+                        folder
+                            .add(shader[prop], 'value', shader[prop].values)
+                            .name(prop)
                             .onChange(this.updateUniforms.bind(this));
                     } else {
                         // has neither `min / max` or `values`
-                        folder.add(shader[prop], 'value').name(prop)
+                        folder
+                            .add(shader[prop], 'value')
+                            .name(prop)
                             .onChange(this.updateUniforms.bind(this));
                     }
                 }
             });
         });
 
-        this.composer.domElement.addEventListener('mousemove', this.mapMouseToScreen.bind(this), false);
+        this.composer.domElement.addEventListener(
+            'mousemove',
+            this.mapMouseToScreen.bind(this),
+            false
+        );
         this.updateUniforms();
     }
 
@@ -116,15 +128,21 @@ class Main extends Template {
         this.noise.setUniform('u_amount', this.settings.noise.amount.value);
 
         this.tiltshiftHorizontal.enable = this.settings.tiltshift.enable;
-        this.tiltshiftHorizontal.setUniform('u_amount', this.settings.tiltshift.amount.value);
+        this.tiltshiftHorizontal.setUniform(
+            'u_amount',
+            this.settings.tiltshift.amount.value
+        );
 
         this.tiltshiftVertical.enable = this.settings.tiltshift.enable;
-        this.tiltshiftVertical.setUniform('u_amount', this.settings.tiltshift.amount.value);
+        this.tiltshiftVertical.setUniform(
+            'u_amount',
+            this.settings.tiltshift.amount.value
+        );
     }
 
     mapMouseToScreen(e) {
         const x = e.clientX / window.innerWidth;
-        const y = 1 - (e.clientY / window.innerHeight);
+        const y = 1 - e.clientY / window.innerHeight;
 
         this.tiltshiftHorizontal.setUniform('u_xscreenpos', x);
         this.tiltshiftVertical.setUniform('u_yscreenpos', y);

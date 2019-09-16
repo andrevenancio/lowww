@@ -18,8 +18,10 @@ class Polyhedra {
         // generate uvs
         for (let i = 0; i < complex.positions.length; i++) {
             const position = this.normalize(complex.positions[i]);
-            const u = 0.5 * (-(Math.atan2(position[2], -position[0]) / Math.PI) + 1.0);
-            const v = 0.5 + (Math.asin(position[1]) / Math.PI);
+            const u =
+                0.5 *
+                (-(Math.atan2(position[2], -position[0]) / Math.PI) + 1.0);
+            const v = 0.5 + Math.asin(position[1]) / Math.PI;
             uvs.push([1 - u, 1 - v]);
         }
 
@@ -43,7 +45,10 @@ class Polyhedra {
         this.geometry = {
             positions: geometry.positions,
             indices: geometry.indices,
-            normals: generateVertexNormals(geometry.positions, geometry.indices),
+            normals: generateVertexNormals(
+                geometry.positions,
+                geometry.indices
+            ),
             uvs: flatten(uvs, 2),
         };
     }
@@ -107,7 +112,10 @@ class Polyhedra {
 
         // avoid dividing by zero
         if (mag === 0) {
-            return Array.apply(null, new Array(vec.length)).map(Number.prototype.valueOf, 0); // eslint-disable-line
+            return Array.apply(null, new Array(vec.length)).map(
+                Number.prototype.valueOf,
+                0
+            ); // eslint-disable-line
         }
 
         for (let n = 0; n < vec.length; n++) {
@@ -133,13 +141,13 @@ class Polyhedra {
         let l = 0;
 
         function midpoint(a, b) {
-            return [
-                (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2,
-            ];
+            return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2];
         }
 
         function pointToKey(point) {
-            return `${point[0].toPrecision(6)},${point[1].toPrecision(6)},${point[2].toPrecision(6)}`;
+            return `${point[0].toPrecision(6)},${point[1].toPrecision(
+                6
+            )},${point[2].toPrecision(6)}`;
         }
 
         function getMidpoint(a, b) {

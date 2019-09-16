@@ -39,6 +39,4 @@ const FOG = {
     },
 };
 
-export {
-    FOG,
-};
+export { FOG };

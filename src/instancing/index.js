@@ -1,12 +1,6 @@
 import Template from '../template';
 
-const {
-    Renderer,
-    Scene,
-    cameras,
-    chunks,
-    Model,
-} = lowww.core;
+const { Renderer, Scene, cameras, chunks, Model } = lowww.core;
 const { Box } = lowww.geometries;
 
 const { UBO, FOG, LIGHT } = chunks;
@@ -112,9 +106,9 @@ class Main extends Template {
         const offsets = [];
         const colors = [];
         for (let i = 0; i < instances; i++) {
-            const x = (Math.random() * distance) - (distance / 2);
-            const y = (Math.random() * distance) - (distance / 2);
-            const z = (Math.random() * distance) - (distance / 2);
+            const x = Math.random() * distance - distance / 2;
+            const y = Math.random() * distance - distance / 2;
+            const z = Math.random() * distance - distance / 2;
             offsets.push(x, y, z);
             colors.push(Math.random(), Math.random(), Math.random());
         }
@@ -122,12 +116,28 @@ class Main extends Template {
         // geometry
         const geometry = new Box();
         this.model = new Model();
-        this.model.setAttribute('a_position', 'vec3', new Float32Array(geometry.positions));
+        this.model.setAttribute(
+            'a_position',
+            'vec3',
+            new Float32Array(geometry.positions)
+        );
         this.model.setIndex(new Uint16Array(geometry.indices));
-        this.model.setAttribute('a_normal', 'vec3', new Float32Array(geometry.normals));
+        this.model.setAttribute(
+            'a_normal',
+            'vec3',
+            new Float32Array(geometry.normals)
+        );
         this.model.setUniform('u_distance', 'float', distance);
-        this.model.setInstanceAttribute('a_offset', 'vec3', new Float32Array(offsets));
-        this.model.setInstanceAttribute('a_color', 'vec3', new Float32Array(colors));
+        this.model.setInstanceAttribute(
+            'a_offset',
+            'vec3',
+            new Float32Array(offsets)
+        );
+        this.model.setInstanceAttribute(
+            'a_color',
+            'vec3',
+            new Float32Array(colors)
+        );
         this.model.setInstanceCount(instances);
         this.model.setShader(vertex, fragment);
         this.scene.add(this.model);

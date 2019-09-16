@@ -1,11 +1,11 @@
 import { getContextType } from '../session';
 import { CONTEXT } from '../constants';
 
-const WORD_REGX = (word) => {
+const WORD_REGX = word => {
     return new RegExp(`\\b${word}\\b`, 'gi');
 };
 
-const LINE_REGX = (word) => {
+const LINE_REGX = word => {
     return new RegExp(`${word}`, 'gi');
 };
 
@@ -13,7 +13,8 @@ const VERTEX = [
     {
         match: WORD_REGX('in'),
         replace: 'attribute',
-    }, {
+    },
+    {
         match: WORD_REGX('out'),
         replace: 'varying',
     },
@@ -23,16 +24,20 @@ const FRAGMENT = [
     {
         match: WORD_REGX('in'),
         replace: 'varying',
-    }, {
+    },
+    {
         match: LINE_REGX('out vec4 outColor;'),
         replace: '',
-    }, {
+    },
+    {
         match: WORD_REGX('outColor'),
         replace: 'gl_FragColor',
-    }, {
+    },
+    {
         match: WORD_REGX('textureProj'),
         replace: 'texture2DProj',
-    }, {
+    },
+    {
         match: WORD_REGX('texture'),
         replace(shader) {
             // Find all texture defintions
@@ -42,7 +47,10 @@ const FRAGMENT = [
             const textureSingleRegx = new RegExp('\\btexture\\b', 'i');
 
             // Gets the texture call signature e.g texture(uTexture1, vUv);
-            const textureUniformNameRegx = new RegExp(/texture\(([^)]+)\)/, 'i');
+            const textureUniformNameRegx = new RegExp(
+                /texture\(([^)]+)\)/,
+                'i'
+            );
 
             // Get all matching occurances
             const matches = shader.match(textureGlobalRegx);
@@ -56,19 +64,23 @@ const FRAGMENT = [
             for (const i of matches) {
                 const match = shader.match(textureUniformNameRegx)[0];
                 if (match) {
-                    const uniformName = match.replace('texture(', '').split(',')[0];
-                    let uniformType = shader.match(`(.*?) ${uniformName}`, 'i')[1].replace(/^\s+|\s+$/gm, '');
+                    const uniformName = match
+                        .replace('texture(', '')
+                        .split(',')[0];
+                    let uniformType = shader
+                        .match(`(.*?) ${uniformName}`, 'i')[1]
+                        .replace(/^\s+|\s+$/gm, '');
                     uniformType = uniformType.split(' ')[1];
 
                     switch (uniformType) {
-                    case 'sampler2D':
-                        replacement = 'texture2D';
-                        break;
-                    case 'samplerCube':
-                        replacement = 'textureCube';
-                        break;
-                    default:
-                        break;
+                        case 'sampler2D':
+                            replacement = 'texture2D';
+                            break;
+                        case 'samplerCube':
+                            replacement = 'textureCube';
+                            break;
+                        default:
+                            break;
                     }
                 }
                 shader = shader.replace(textureSingleRegx, replacement);
@@ -76,12 +88,15 @@ const FRAGMENT = [
             /* eslint-enable */
             return shader;
         },
-    }];
+    },
+];
 
-const GENERIC = [{
-    match: LINE_REGX('#version 300 es'),
-    replace: '',
-}];
+const GENERIC = [
+    {
+        match: LINE_REGX('#version 300 es'),
+        replace: '',
+    },
+];
 
 const VERTEX_RULES = [...GENERIC, ...VERTEX];
 const FRAGMENT_RULES = [...GENERIC, ...FRAGMENT];
@@ -105,7 +120,7 @@ export default function parse(shader, shaderType) {
     }
 
     const rules = shaderType === 'vertex' ? VERTEX_RULES : FRAGMENT_RULES;
-    rules.forEach((rule) => {
+    rules.forEach(rule => {
         if (typeof rule.replace === 'function') {
             shader = rule.replace(shader);
         } else {

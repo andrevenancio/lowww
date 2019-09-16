@@ -18,10 +18,22 @@ class ShadowMapRenderer {
             view: mat4.create(),
             shadow: mat4.create(),
             bias: mat4.fromValues(
-                0.5, 0.0, 0.0, 0.0,
-                0.0, 0.5, 0.0, 0.0,
-                0.0, 0.0, 0.5, 0.0,
-                0.5, 0.5, 0.5, 1.0,
+                0.5,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.5,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.5,
+                0.0,
+                0.5,
+                0.5,
+                0.5,
+                1.0
             ),
         };
 
@@ -50,13 +62,21 @@ class ShadowMapRenderer {
             this.matrices.view,
             this.camera.position.data,
             this.camera.target,
-            this.camera.up,
+            this.camera.up
         );
 
         // SHADOW
         mat4.identity(this.matrices.shadow);
-        mat4.multiply(this.matrices.shadow, this.camera.matrices.projection, this.matrices.view);
-        mat4.multiply(this.matrices.shadow, this.matrices.bias, this.matrices.shadow);
+        mat4.multiply(
+            this.matrices.shadow,
+            this.camera.matrices.projection,
+            this.matrices.view
+        );
+        mat4.multiply(
+            this.matrices.shadow,
+            this.matrices.bias,
+            this.matrices.shadow
+        );
     }
 
     /*

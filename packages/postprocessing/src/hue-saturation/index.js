@@ -1,5 +1,4 @@
 const HueSaturation = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
         u_hue: { type: 'float', value: 0.0 }, // -1 to 1
@@ -41,7 +40,6 @@ const HueSaturation = {
 
         outColor = color;
     }`,
-
 };
 
 export default HueSaturation;

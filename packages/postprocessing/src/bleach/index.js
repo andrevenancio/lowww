@@ -1,5 +1,4 @@
 const Bleach = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
         u_opacity: { type: 'float', value: 1.0 },
@@ -39,7 +38,6 @@ const Bleach = {
 
         outColor = vec4(mixRGB, base.a);
     }`,
-
 };
 
 export default Bleach;

@@ -3,13 +3,17 @@ import { AABB_COLLIDER } from '../constants';
 
 class AABBCollider {
     constructor(params = {}) {
-        Object.assign(this, {
-            type: AABB_COLLIDER,
-            width: 1,
-            height: 1,
-            depth: 1,
-            bounds: vec3.create(),
-        }, params);
+        Object.assign(
+            this,
+            {
+                type: AABB_COLLIDER,
+                width: 1,
+                height: 1,
+                depth: 1,
+                bounds: vec3.create(),
+            },
+            params
+        );
     }
 
     updateBounds(position) {

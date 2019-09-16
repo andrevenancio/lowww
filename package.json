@@ -68,9 +68,11 @@
         "concurrently": "^4.1.2",
         "eslint": "^4.19.1",
         "eslint-config-airbnb": "^17.1.1",
+        "eslint-config-prettier": "^6.3.0",
         "eslint-loader": "^2.0.0",
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-prettier": "^3.1.0",
         "eslint-plugin-react": "^7.14.3",
         "http-server": "^0.11.1",
         "jsdoc": "^3.6.3",
@@ -79,7 +81,6 @@
         "uglify-js": "^3.6.0"
     },
     "dependencies": {
-        "eslint-config-prettier": "^6.3.0",
         "fse": "^4.0.1",
         "gl-matrix": "^3.1.0",
         "glob": "^7.1.4",

@@ -32,11 +32,7 @@ class Model extends Object3 {
         // clipping planes
         this.clipping = {
             enable: false,
-            planes: [
-                vec4.create(),
-                vec4.create(),
-                vec4.create(),
-            ],
+            planes: [vec4.create(), vec4.create(), vec4.create()],
         };
 
         // instancing
@@ -112,7 +108,12 @@ class Model extends Object3 {
                 this.fragment = glsl3to1(this.fragment, 'fragment');
             }
 
-            this.program = createProgram(gl, this.vertex, this.fragment, this.type);
+            this.program = createProgram(
+                gl,
+                this.vertex,
+                this.fragment,
+                this.type
+            );
             gl.useProgram(this.program);
 
             this.vao = new Vao();
@@ -142,7 +143,11 @@ class Model extends Object3 {
 
         if (this.indices) {
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indices.buffer);
-            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.indices.value, gl.STATIC_DRAW);
+            gl.bufferData(
+                gl.ELEMENT_ARRAY_BUFFER,
+                this.indices.value,
+                gl.STATIC_DRAW
+            );
         }
     }
 
@@ -223,7 +228,7 @@ class Model extends Object3 {
                     this.indices.value.length,
                     gl.UNSIGNED_SHORT,
                     0,
-                    this.instanceCount,
+                    this.instanceCount
                 );
             } else {
                 supports().instancedArrays.drawElementsInstancedANGLE(
@@ -231,13 +236,22 @@ class Model extends Object3 {
                     this.indices.value.length,
                     gl.UNSIGNED_SHORT,
                     0,
-                    this.instanceCount,
+                    this.instanceCount
                 );
             }
         } else if (this.indices) {
-            gl.drawElements(this.mode, this.indices.value.length, gl.UNSIGNED_SHORT, 0);
+            gl.drawElements(
+                this.mode,
+                this.indices.value.length,
+                gl.UNSIGNED_SHORT,
+                0
+            );
         } else {
-            gl.drawArrays(this.mode, 0, this.attributes.a_position.value.length / 3);
+            gl.drawArrays(
+                this.mode,
+                0,
+                this.attributes.a_position.value.length / 3
+            );
         }
     }
 }

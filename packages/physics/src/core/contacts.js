@@ -23,7 +23,7 @@ export const handleContact = (a, b, depth, direction) => {
 };
 
 export const sphereIntersectSphere = (a, b) => {
-    const r = (a.collider.radius * 2) + (b.collider.radius * 2);
+    const r = a.collider.radius * 2 + b.collider.radius * 2;
     const target = r * r;
     const length = vec3.squaredDistance(a.position, b.position);
 
@@ -36,23 +36,41 @@ export const sphereIntersectSphere = (a, b) => {
 };
 
 export const clamp = (min, max, value) => {
-    return value < min ? min : (value > max ? max : value); // eslint-disable-line
+    return value < min ? min : value > max ? max : value; // eslint-disable-line
 };
 
 export const AABBIntersectAABB = (a, b) => {
     // TODO: is this the fastest thing I can do?
-    const amin = vec3.fromValues(a.collider.left, a.collider.bottom, a.collider.back);
-    const amax = vec3.fromValues(a.collider.right, a.collider.top, a.collider.front);
+    const amin = vec3.fromValues(
+        a.collider.left,
+        a.collider.bottom,
+        a.collider.back
+    );
+    const amax = vec3.fromValues(
+        a.collider.right,
+        a.collider.top,
+        a.collider.front
+    );
 
-    const bmin = vec3.fromValues(b.collider.left, b.collider.bottom, b.collider.back);
-    const bmax = vec3.fromValues(b.collider.right, b.collider.top, b.collider.front);
+    const bmin = vec3.fromValues(
+        b.collider.left,
+        b.collider.bottom,
+        b.collider.back
+    );
+    const bmax = vec3.fromValues(
+        b.collider.right,
+        b.collider.top,
+        b.collider.front
+    );
 
-    if (amax[0] > bmin[0] &&
+    if (
+        amax[0] > bmin[0] &&
         amin[0] < bmax[0] &&
         amax[1] > bmin[1] &&
         amin[1] < bmax[1] &&
         amax[2] > bmin[2] &&
-        amin[2] < bmax[2]) {
+        amin[2] < bmax[2]
+    ) {
         // when colliding check how much
         vec3.subtract(tempDirection, a.position, b.position);
         vec3.normalize(tempDirection, tempDirection);

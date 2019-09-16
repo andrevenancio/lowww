@@ -1,5 +1,4 @@
 const Brightness = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
         u_treshold: { type: 'float', value: 0.0 },
@@ -30,7 +29,6 @@ const Brightness = {
 
         outColor = c;
     }`,
-
 };
 
 export default Brightness;

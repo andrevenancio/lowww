@@ -9,20 +9,11 @@ class Mesh extends Model {
 
         this._shader = null;
 
-        const {
-            positions,
-            indices,
-            normals,
-            uvs,
-        } = params.geometry || {};
+        const { positions, indices, normals, uvs } = params.geometry || {};
 
-        const {
-            vertex,
-            fragment,
-            uniforms,
-            type,
-            mode,
-        } = params.shader || new Default({ color: params.color, map: params.map });
+        const { vertex, fragment, uniforms, type, mode } =
+            params.shader ||
+            new Default({ color: params.color, map: params.map });
 
         // if there's a type, assign it, so we can sort by type in the renderer.
         if (type !== undefined) {
@@ -46,7 +37,7 @@ class Mesh extends Model {
             this.setAttribute('a_uv', 'vec2', new Float32Array(uvs));
         }
 
-        Object.keys(uniforms).forEach((key) => {
+        Object.keys(uniforms).forEach(key => {
             this.setUniform(key, uniforms[key].type, uniforms[key].value);
         });
 

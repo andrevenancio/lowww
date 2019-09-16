@@ -1,5 +1,13 @@
 import { vec4, mat4 } from 'gl-matrix';
-import { library, version, setContext, getContext, setContextType, getContextType, supports } from '../session';
+import {
+    library,
+    version,
+    setContext,
+    getContext,
+    setContextType,
+    getContextType,
+    supports,
+} from '../session';
 import { CONTEXT, MAX_DIRECTIONAL } from '../constants';
 import { resize, unsupported } from '../utils/dom';
 import { Ubo } from '../gl';
@@ -49,25 +57,40 @@ class Renderer {
         this.domElement = props.canvas || document.createElement('canvas');
 
         const contextType = setContextType(props.contextType);
-        const gl = this.domElement.getContext(contextType, Object.assign({}, {
-            antialias: false,
-        }, props));
+        const gl = this.domElement.getContext(
+            contextType,
+            Object.assign(
+                {},
+                {
+                    antialias: false,
+                },
+                props
+            )
+        );
 
         const session = supports();
 
-        if (gl &&
+        if (
+            gl &&
             ((session.vertexArrayObject &&
-            session.instancedArrays &&
-            session.standardDerivatives &&
-            session.depthTextures) || window.gli !== null)
+                session.instancedArrays &&
+                session.standardDerivatives &&
+                session.depthTextures) ||
+                window.gli !== null)
         ) {
             if (props.greeting !== false) {
                 const lib = 'color:#666;font-size:x-small;font-weight:bold;';
                 const parameters = 'color:#777;font-size:x-small';
                 const values = 'color:#f33;font-size:x-small';
                 const args = [
-                    `%c${library} - %cversion: %c${version} %crunning: %c${gl.getParameter(gl.VERSION)}`,
-                    lib, parameters, values, parameters, values,
+                    `%c${library} - %cversion: %c${version} %crunning: %c${gl.getParameter(
+                        gl.VERSION
+                    )}`,
+                    lib,
+                    parameters,
+                    values,
+                    parameters,
+                    values,
                 ];
 
                 console.log(...args);
@@ -87,28 +110,37 @@ class Renderer {
         this.supported = true;
 
         if (WEBGL2) {
-            this.perScene = new Ubo([
-                ...mat4.create(), // projection matrix
-                ...mat4.create(), // view matrix
-                ...fog, // fog vec4(use_fog, start, end, density)
-                ...vec4.create(), // fog color
-                ...time, // vec4(iGlobalTime, EMPTY, EMPTY, EMPTY)
-                ...vec4.create(), // global clip settings (use_clipping, EMPTY, EMPTY, EMPTY);
-                ...vec4.create(), // global clipping plane 0
-                ...vec4.create(), // global clipping plane 1
-                ...vec4.create(), // global clipping plane 2
-            ], 0);
+            this.perScene = new Ubo(
+                [
+                    ...mat4.create(), // projection matrix
+                    ...mat4.create(), // view matrix
+                    ...fog, // fog vec4(use_fog, start, end, density)
+                    ...vec4.create(), // fog color
+                    ...time, // vec4(iGlobalTime, EMPTY, EMPTY, EMPTY)
+                    ...vec4.create(), // global clip settings (use_clipping, EMPTY, EMPTY, EMPTY);
+                    ...vec4.create(), // global clipping plane 0
+                    ...vec4.create(), // global clipping plane 1
+                    ...vec4.create(), // global clipping plane 2
+                ],
+                0
+            );
 
-            this.perModel = new Ubo([
-                ...mat4.create(), // model matrix
-                ...mat4.create(), // normal matrix
-                ...vec4.create(), // local clip settings (use_clipping, EMPTY, EMPTY, EMPTY);
-                ...vec4.create(), // local clipping plane 0
-                ...vec4.create(), // local clipping plane 1
-                ...vec4.create(), // local clipping plane 2
-            ], 1);
+            this.perModel = new Ubo(
+                [
+                    ...mat4.create(), // model matrix
+                    ...mat4.create(), // normal matrix
+                    ...vec4.create(), // local clip settings (use_clipping, EMPTY, EMPTY, EMPTY);
+                    ...vec4.create(), // local clipping plane 0
+                    ...vec4.create(), // local clipping plane 1
+                    ...vec4.create(), // local clipping plane 2
+                ],
+                1
+            );
 
-            this.directional = new Ubo(new Float32Array(MAX_DIRECTIONAL * 12), 2);
+            this.directional = new Ubo(
+                new Float32Array(MAX_DIRECTIONAL * 12),
+                2
+            );
         }
 
         // shadows
@@ -132,12 +164,24 @@ class Renderer {
             const sLocation = gl.getUniformBlockIndex(program, 'perScene');
             const mLocation = gl.getUniformBlockIndex(program, 'perModel');
             const dLocation = gl.getUniformBlockIndex(program, 'directional');
-            gl.uniformBlockBinding(program, sLocation, this.perScene.boundLocation);
-            gl.uniformBlockBinding(program, mLocation, this.perModel.boundLocation);
+            gl.uniformBlockBinding(
+                program,
+                sLocation,
+                this.perScene.boundLocation
+            );
+            gl.uniformBlockBinding(
+                program,
+                mLocation,
+                this.perModel.boundLocation
+            );
 
             // is directional light in shader
             if (dLocation === this.directional.boundLocation) {
-                gl.uniformBlockBinding(program, dLocation, this.directional.boundLocation);
+                gl.uniformBlockBinding(
+                    program,
+                    dLocation,
+                    this.directional.boundLocation
+                );
             }
         }
     }
@@ -158,7 +202,12 @@ class Renderer {
 
         // common matrices
         mat4.identity(matrices.view);
-        mat4.lookAt(matrices.view, camera.position.data, camera.target, camera.up);
+        mat4.lookAt(
+            matrices.view,
+            camera.position.data,
+            camera.target,
+            camera.up
+        );
 
         // check if sorting is needed whilst traversing through the scene graph
         sort = scene.traverse();
@@ -205,11 +254,14 @@ class Renderer {
             ]);
 
             for (let i = 0; i < scene.lights.directional.length; i++) {
-                this.directional.update([
-                    ...[...scene.lights.directional[i].position, 0],
-                    ...[...scene.lights.directional[i].color, 0],
-                    ...[scene.lights.directional[i].intensity, 0, 0, 0],
-                ], i * 12);
+                this.directional.update(
+                    [
+                        ...[...scene.lights.directional[i].position, 0],
+                        ...[...scene.lights.directional[i].color, 0],
+                        ...[scene.lights.directional[i].intensity, 0, 0, 0],
+                    ],
+                    i * 12
+                );
             }
         }
 
@@ -219,36 +271,42 @@ class Renderer {
         // 1) render objects to shadowmap
         if (this.renderShadow) {
             for (let i = 0; i < this.sorted.shadow.length; i++) {
-                this.renderObject(this.sorted.shadow[i], this.sorted.shadow[i].program, true);
+                this.renderObject(
+                    this.sorted.shadow[i],
+                    this.sorted.shadow[i].program,
+                    true
+                );
             }
             // return;
         }
 
         // 2) render opaque objects
         for (let i = 0; i < this.sorted.opaque.length; i++) {
-            this.renderObject(this.sorted.opaque[i], this.sorted.opaque[i].program);
+            this.renderObject(
+                this.sorted.opaque[i],
+                this.sorted.opaque[i].program
+            );
         }
 
         // 3) sort and render transparent objects
         // expensive to sort transparent items per z-index.
         this.sorted.transparent.sort((a, b) => {
-            return (a.position.z - b.position.z);
+            return a.position.z - b.position.z;
         });
 
         for (let i = 0; i < this.sorted.transparent.length; i++) {
-            this.renderObject(this.sorted.transparent[i], this.sorted.transparent[i].program);
+            this.renderObject(
+                this.sorted.transparent[i],
+                this.sorted.transparent[i].program
+            );
         }
 
         // 4) render gui
         // TODO
     }
 
-    rtt({
-        renderTarget,
-        scene,
-        camera,
-        clearColor = [0, 0, 0, 1],
-    }) { // maybe order is important
+    rtt({ renderTarget, scene, camera, clearColor = [0, 0, 0, 1] }) {
+        // maybe order is important
         if (!this.supported) return;
 
         const gl = getContext();
@@ -327,7 +385,8 @@ class Renderer {
 
             // count vertice number
             if (object.attributes.a_position) {
-                this.performance.vertices += object.attributes.a_position.value.length / 3;
+                this.performance.vertices +=
+                    object.attributes.a_position.value.length / 3;
             }
 
             // count instances
@@ -423,20 +482,34 @@ class Renderer {
             // because UBO are webgl2 only, we need to manually add everything
             // as uniforms
             // per scene uniforms update
-            object.uniforms.projectionMatrix.value = cachedCamera.matrices.projection;
+            object.uniforms.projectionMatrix.value =
+                cachedCamera.matrices.projection;
             object.uniforms.viewMatrix.value = matrices.view;
             object.uniforms.fogSettings.value = fog;
             object.uniforms.fogColor.value = cachedScene.fog.color;
             object.uniforms.iGlobalTime.value = time[0];
-            object.uniforms.globalClipSettings.value = [cachedScene.clipping.enable, 0, 0, 0];
-            object.uniforms.globalClipPlane0.value = cachedScene.clipping.planes[0];
-            object.uniforms.globalClipPlane1.value = cachedScene.clipping.planes[1];
-            object.uniforms.globalClipPlane2.value = cachedScene.clipping.planes[2];
+            object.uniforms.globalClipSettings.value = [
+                cachedScene.clipping.enable,
+                0,
+                0,
+                0,
+            ];
+            object.uniforms.globalClipPlane0.value =
+                cachedScene.clipping.planes[0];
+            object.uniforms.globalClipPlane1.value =
+                cachedScene.clipping.planes[1];
+            object.uniforms.globalClipPlane2.value =
+                cachedScene.clipping.planes[2];
 
             // per model uniforms update
             object.uniforms.modelMatrix.value = object.matrices.model;
             object.uniforms.normalMatrix.value = matrices.normal;
-            object.uniforms.localClipSettings.value = [object.clipping.enable, 0, 0, 0];
+            object.uniforms.localClipSettings.value = [
+                object.clipping.enable,
+                0,
+                0,
+                0,
+            ];
             object.uniforms.localClipPlane0.value = object.clipping.planes[0];
             object.uniforms.localClipPlane1.value = object.clipping.planes[0];
             object.uniforms.localClipPlane2.value = object.clipping.planes[0];

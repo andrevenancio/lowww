@@ -3,9 +3,4 @@ import Default from './default';
 import Billboard from './billboard';
 import Sem from './sem';
 
-export {
-    Basic,
-    Default,
-    Billboard,
-    Sem,
-};
+export { Basic, Default, Billboard, Sem };

@@ -3,11 +3,15 @@ import { SPHERE_COLLIDER } from '../constants';
 
 class SphereCollider {
     constructor(params = {}) {
-        Object.assign(this, {
-            type: SPHERE_COLLIDER,
-            radius: 1,
-            bounds: vec3.create(),
-        }, params);
+        Object.assign(
+            this,
+            {
+                type: SPHERE_COLLIDER,
+                radius: 1,
+                bounds: vec3.create(),
+            },
+            params
+        );
     }
 
     updateBounds(position) {

@@ -11,10 +11,4 @@ import AABBCollider from './colliders/aabb-collider';
 // forces
 import Force from './core/force';
 
-export {
-    World,
-    RigidBody,
-    SphereCollider,
-    AABBCollider,
-    Force,
-};
+export { World, RigidBody, SphereCollider, AABBCollider, Force };

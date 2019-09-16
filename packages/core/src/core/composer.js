@@ -20,10 +20,7 @@ class Composer {
         this.screen = new Pass(Basic);
         this.screen.compile();
 
-        this.buffers = [
-            new RenderTarget(),
-            new RenderTarget(),
-        ];
+        this.buffers = [new RenderTarget(), new RenderTarget()];
 
         this.read = this.buffers[1];
         this.write = this.buffers[0];
@@ -79,7 +76,11 @@ class Composer {
             if (this.passes[i].enable) {
                 this.swapBuffers();
                 this.passes[i].setUniform('u_input', this.read.texture);
-                this.renderToTexture(this.write, this.passes[i].scene, this.camera);
+                this.renderToTexture(
+                    this.write,
+                    this.passes[i].scene,
+                    this.camera
+                );
             }
         }
 

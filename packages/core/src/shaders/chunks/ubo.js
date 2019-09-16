@@ -80,6 +80,4 @@ const UBO = {
     },
 };
 
-export {
-    UBO,
-};
+export { UBO };

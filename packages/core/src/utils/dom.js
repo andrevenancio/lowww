@@ -7,7 +7,8 @@ export function resize(domElement, width, height, ratio) {
 
 export function unsupported() {
     const div = document.createElement('div');
-    div.innerHTML = 'Your browser doesn\'t support WebGL.<br><a href="https://get.webgl.org">Get WebGL</a>';
+    div.innerHTML =
+        'Your browser doesn\'t support WebGL.<br><a href="https://get.webgl.org">Get WebGL</a>';
     div.style.display = 'table';
     div.style.margin = '20px auto 0 auto';
     div.style.border = '1px solid #333';

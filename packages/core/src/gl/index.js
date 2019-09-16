@@ -8,14 +8,11 @@ import { initUniforms, updateUniforms } from './uniforms';
 export {
     Ubo,
     Vao,
-
     getTypeSize,
     createProgram,
-
     initAttributes,
     bindAttributes,
     updateAttributes,
-
     initUniforms,
     updateUniforms,
 };

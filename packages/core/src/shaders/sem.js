@@ -72,18 +72,21 @@ class Sem {
             }
         `;
 
-        return Object.assign({
-            type: SHADER_SEM,
-        }, {
-            vertex,
-            fragment,
-            uniforms: {
-                u_map: {
-                    type: 'sampler2D',
-                    value: this.map.texture,
-                },
+        return Object.assign(
+            {
+                type: SHADER_SEM,
             },
-        });
+            {
+                vertex,
+                fragment,
+                uniforms: {
+                    u_map: {
+                        type: 'sampler2D',
+                        value: this.map.texture,
+                    },
+                },
+            }
+        );
     }
 }
 

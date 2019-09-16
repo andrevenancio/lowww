@@ -21,11 +21,7 @@ class Scene extends Object3 {
 
         this.clipping = {
             enable: false,
-            planes: [
-                vec4.create(),
-                vec4.create(),
-                vec4.create(),
-            ],
+            planes: [vec4.create(), vec4.create(), vec4.create()],
         };
 
         // add sun
@@ -41,10 +37,10 @@ class Scene extends Object3 {
 
     addLight(light) {
         switch (light.type) {
-        case DIRECTIONAL_LIGHT:
-            this.lights.directional.push(light);
-            break;
-        default:
+            case DIRECTIONAL_LIGHT:
+                this.lights.directional.push(light);
+                break;
+            default:
             // unsupported light
         }
     }

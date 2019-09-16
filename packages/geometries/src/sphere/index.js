@@ -7,10 +7,14 @@ const tmpVec3 = vec3.create();
 
 class Sphere {
     constructor(props) {
-        const settings = Object.assign({}, {
-            radius: 0.5,
-            segments: 8,
-        }, props);
+        const settings = Object.assign(
+            {},
+            {
+                radius: 0.5,
+                segments: 8,
+            },
+            props
+        );
 
         const positions = [];
         const indices = [];
@@ -22,7 +26,7 @@ class Sphere {
 
         for (let zStep = 0; zStep <= heightSegments; zStep++) {
             const v = zStep / heightSegments;
-            const angleZ = (v * Math.PI);
+            const angleZ = v * Math.PI;
 
             for (let yStep = 0; yStep <= widthSegments; yStep++) {
                 const u = yStep / widthSegments;
@@ -48,17 +52,21 @@ class Sphere {
 
             if (zStep > 0) {
                 const vertices = positions.length / 3;
-                let firstIndex = vertices - (2 * (widthSegments + 1));
-                for (; (firstIndex + widthSegments + 2) < vertices; firstIndex++) {
+                let firstIndex = vertices - 2 * (widthSegments + 1);
+                for (
+                    ;
+                    firstIndex + widthSegments + 2 < vertices;
+                    firstIndex++
+                ) {
                     indices.push(
                         firstIndex,
                         firstIndex + 1,
-                        firstIndex + widthSegments + 1,
+                        firstIndex + widthSegments + 1
                     );
                     indices.push(
                         firstIndex + widthSegments + 1,
                         firstIndex + 1,
-                        firstIndex + widthSegments + 2,
+                        firstIndex + widthSegments + 2
                     );
                 }
             }

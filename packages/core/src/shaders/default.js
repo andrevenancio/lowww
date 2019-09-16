@@ -87,24 +87,27 @@ class Default {
             }
         `;
 
-        return Object.assign({
-            type: SHADER_DEFAULT,
-            mode: props.wireframe === true ? DRAW.LINES : DRAW.TRIANGLES,
-        }, {
-            vertex,
-            fragment,
-            uniforms: {
-                u_map: {
-                    type: 'sampler2D',
-                    value: this.map.texture,
-                },
-
-                u_color: {
-                    type: 'vec3',
-                    value: color,
-                },
+        return Object.assign(
+            {
+                type: SHADER_DEFAULT,
+                mode: props.wireframe === true ? DRAW.LINES : DRAW.TRIANGLES,
             },
-        });
+            {
+                vertex,
+                fragment,
+                uniforms: {
+                    u_map: {
+                        type: 'sampler2D',
+                        value: this.map.texture,
+                    },
+
+                    u_color: {
+                        type: 'vec3',
+                        value: color,
+                    },
+                },
+            }
+        );
     }
 }
 

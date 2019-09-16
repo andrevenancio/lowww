@@ -1,12 +1,6 @@
 import Template from '../template';
 
-const {
-    Renderer,
-    Scene,
-    cameras,
-    chunks,
-    Model,
-} = lowww.core;
+const { Renderer, Scene, cameras, chunks, Model } = lowww.core;
 
 const { UBO } = chunks;
 
@@ -45,7 +39,11 @@ class Main extends Template {
         `;
 
         const model = new Model();
-        model.setAttribute('a_position', 'vec3', new Float32Array([-1, -1, 0, 1, -1, 0, 0, 1, 0]));
+        model.setAttribute(
+            'a_position',
+            'vec3',
+            new Float32Array([-1, -1, 0, 1, -1, 0, 0, 1, 0])
+        );
         model.setShader(vertex, fragment);
         this.scene.add(model);
 
@@ -58,8 +56,6 @@ class Main extends Template {
     }
 
     update() {
-        this.model.updateVertice(0, [Math.cos(Date.now() / 100), 0, 0]);
-        console.log(this.model.attributes.a_position.value);
         this.renderer.render(this.scene, this.camera);
     }
 }

@@ -23,6 +23,4 @@ class Directional extends Light {
     }
 }
 
-export {
-    Directional,
-};
+export { Directional };

@@ -1,16 +1,7 @@
 import Template from '../template';
 
-const {
-    Renderer,
-    Scene,
-    cameras,
-    Mesh,
-    constants,
-} = lowww.core;
-const {
-    Icosahedron,
-    utils,
-} = lowww.geometries;
+const { Renderer, Scene, cameras, Mesh, constants } = lowww.core;
+const { Icosahedron, utils } = lowww.geometries;
 
 const { SIDE } = constants;
 
@@ -32,7 +23,9 @@ class Main extends Template {
             modifier: 'modify',
         };
 
-        this.gui.add(this.settings, 'modifier', this.settings.data).onChange(this.rebuild.bind(this));
+        this.gui
+            .add(this.settings, 'modifier', this.settings.data)
+            .onChange(this.rebuild.bind(this));
 
         this.random = [];
         for (let i = 0; i < 3000; i++) {
@@ -54,10 +47,10 @@ class Main extends Template {
 
         if (this.settings.modifier === 'modify') {
             geometry = utils.Modify.modify(this.original);
-            vertices = (3 * 3) * 4; // vertices * XYZ * 4 faces (1 original + 3 generated)
+            vertices = 3 * 3 * 4; // vertices * XYZ * 4 faces (1 original + 3 generated)
         } else if (this.settings.modifier === 'detach') {
             geometry = utils.Modify.detach(this.original);
-            vertices = (3 * 3) * 1; // vertices * XYZ * 1 faces
+            vertices = 3 * 3 * 1; // vertices * XYZ * 1 faces
         }
 
         for (let face = 0; face < geometry.positions.length; face += vertices) {

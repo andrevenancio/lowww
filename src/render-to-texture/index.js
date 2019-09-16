@@ -1,13 +1,6 @@
 import Template from '../template';
 
-const {
-    Renderer,
-    Scene,
-    cameras,
-    Mesh,
-    RenderTarget,
-    chunks,
-} = lowww.core;
+const { Renderer, Scene, cameras, Mesh, RenderTarget, chunks } = lowww.core;
 const { Orbit } = lowww.controls;
 const { Plane, Icosahedron } = lowww.geometries;
 

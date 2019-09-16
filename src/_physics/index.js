@@ -1,25 +1,10 @@
 import { vec3 } from 'gl-matrix';
 import Template from '../template';
 
-const {
-    Renderer,
-    Scene,
-    cameras,
-    Mesh,
-    shaders,
-} = lowww.core;
+const { Renderer, Scene, cameras, Mesh, shaders } = lowww.core;
 const { Orbit } = lowww.controls;
-const {
-    Icosahedron,
-    Box,
-} = lowww.geometries;
-const {
-    World,
-    Force,
-    RigidBody,
-    SphereCollider,
-    AABBCollider,
-} = lowww.physics;
+const { Icosahedron, Box } = lowww.geometries;
+const { World, Force, RigidBody, SphereCollider, AABBCollider } = lowww.physics;
 
 class Main extends Template {
     setup() {
@@ -109,12 +94,24 @@ class Main extends Template {
         this.world.update();
 
         // debug sphere collider
-        vec3.copy(this.sphereBounds.scale.data, this.world.bodies[0].collider.bounds);
-        vec3.copy(this.sphereBounds.position.data, this.world.bodies[0].position);
+        vec3.copy(
+            this.sphereBounds.scale.data,
+            this.world.bodies[0].collider.bounds
+        );
+        vec3.copy(
+            this.sphereBounds.position.data,
+            this.world.bodies[0].position
+        );
 
         // debug floor collider
-        vec3.copy(this.floorBounds.scale.data, this.world.bodies[1].collider.bounds);
-        vec3.copy(this.floorBounds.position.data, this.world.bodies[1].position);
+        vec3.copy(
+            this.floorBounds.scale.data,
+            this.world.bodies[1].collider.bounds
+        );
+        vec3.copy(
+            this.floorBounds.position.data,
+            this.world.bodies[1].position
+        );
 
         this.controls.update();
         this.renderer.render(this.scene, this.camera);

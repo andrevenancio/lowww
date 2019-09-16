@@ -6,12 +6,16 @@ class RenderTarget {
         const gl = getContext();
 
         // some default props
-        Object.assign(this, {
-            width: 512,
-            height: 512,
-            internalformat: gl.DEPTH_COMPONENT,
-            type: gl.UNSIGNED_SHORT,
-        }, props);
+        Object.assign(
+            this,
+            {
+                width: 512,
+                height: 512,
+                internalformat: gl.DEPTH_COMPONENT,
+                type: gl.UNSIGNED_SHORT,
+            },
+            props
+        );
 
         if (getContextType() === CONTEXT.WEBGL2) {
             this.internalformat = gl.DEPTH_COMPONENT24;
@@ -38,7 +42,7 @@ class RenderTarget {
             0,
             gl.RGBA,
             gl.UNSIGNED_BYTE,
-            null,
+            null
         );
 
         // depth texture
@@ -57,7 +61,7 @@ class RenderTarget {
             0,
             gl.DEPTH_COMPONENT,
             this.type,
-            null,
+            null
         );
 
         gl.framebufferTexture2D(
@@ -65,14 +69,14 @@ class RenderTarget {
             gl.COLOR_ATTACHMENT0,
             gl.TEXTURE_2D,
             this.texture,
-            0,
+            0
         );
         gl.framebufferTexture2D(
             gl.FRAMEBUFFER,
             gl.DEPTH_ATTACHMENT,
             gl.TEXTURE_2D,
             this.depthTexture,
-            0,
+            0
         );
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
@@ -93,7 +97,7 @@ class RenderTarget {
             0,
             gl.RGBA,
             gl.UNSIGNED_BYTE,
-            null,
+            null
         );
         gl.bindTexture(gl.TEXTURE_2D, null);
 
@@ -107,7 +111,7 @@ class RenderTarget {
             0,
             gl.DEPTH_COMPONENT,
             this.type,
-            null,
+            null
         );
         gl.bindTexture(gl.TEXTURE_2D, null);
 

@@ -1,11 +1,6 @@
 import Template from '../template';
 
-const {
-    Renderer,
-    Scene,
-    cameras,
-    Mesh,
-} = lowww.core;
+const { Renderer, Scene, cameras, Mesh } = lowww.core;
 const { Orbit } = lowww.controls;
 const {
     Tetrahedron,
@@ -57,7 +52,7 @@ class Main extends Template {
             mesh.position.set(
                 radius * Math.cos(angle),
                 0,
-                radius * Math.sin(angle),
+                radius * Math.sin(angle)
             );
             this.scene.add(mesh);
             angle += step;

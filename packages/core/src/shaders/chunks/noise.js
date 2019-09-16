@@ -4,6 +4,4 @@ const NOISE = () => {
 `;
 };
 
-export {
-    NOISE,
-};
+export { NOISE };

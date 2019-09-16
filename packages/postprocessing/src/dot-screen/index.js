@@ -1,5 +1,4 @@
 const DotScreen = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
         u_size: { type: 'float', value: 256 },
@@ -41,7 +40,6 @@ const DotScreen = {
 
         outColor = vec4(vec3(average * 10.0 - 5.0 + pattern()), color.a);
     }`,
-
 };
 
 export default DotScreen;

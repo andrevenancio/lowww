@@ -1,16 +1,8 @@
 import Template from '../template';
 
-const {
-    Renderer,
-    Scene,
-    cameras,
-    Mesh,
-    shaders,
-} = lowww.core;
+const { Renderer, Scene, cameras, Mesh, shaders } = lowww.core;
 const { Orbit } = lowww.controls;
-const {
-    TorusKnot,
-} = lowww.geometries;
+const { TorusKnot } = lowww.geometries;
 
 const { Basic, Default, Sem } = shaders;
 
@@ -38,11 +30,7 @@ class Main extends Template {
         const geometry = new TorusKnot();
         for (let i = 0; i < materials.length; i++) {
             const mesh = new Mesh({ geometry, shader: materials[i] });
-            mesh.position.set(
-                (3 * i) - ((3 * (materials.length - 1)) / 2),
-                0,
-                0,
-            );
+            mesh.position.set(3 * i - (3 * (materials.length - 1)) / 2, 0, 0);
             this.scene.add(mesh);
         }
     }

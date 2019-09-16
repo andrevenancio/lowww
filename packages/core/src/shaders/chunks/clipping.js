@@ -1,5 +1,4 @@
 const CLIPPING = {
-
     vertex_pre: () => {
         return `
         out vec4 local_eyespace;
@@ -32,9 +31,6 @@ const CLIPPING = {
             if(dot(global_eyespace, globalClipPlane2) < 0.0) discard;
         }`;
     },
-
 };
 
-export {
-    CLIPPING,
-};
+export { CLIPPING };

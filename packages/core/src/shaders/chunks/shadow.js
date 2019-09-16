@@ -98,9 +98,6 @@ const SHADOW = {
         base *= shadow;
         `;
     },
-
 };
 
-export {
-    SHADOW,
-};
+export { SHADOW };

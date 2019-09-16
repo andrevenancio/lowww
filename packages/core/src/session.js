@@ -9,7 +9,9 @@ let contextType = null;
 
 // test context webgl and webgl2
 const testContext1 = document.createElement('canvas').getContext(CONTEXT.WEBGL);
-const testContext2 = document.createElement('canvas').getContext(CONTEXT.WEBGL2);
+const testContext2 = document
+    .createElement('canvas')
+    .getContext(CONTEXT.WEBGL2);
 
 const extensions = {
     // used globally
@@ -25,7 +27,7 @@ const extensions = {
     depthTextures: testContext1.getExtension('WEBGL_depth_texture'),
 };
 
-const setContextType = (preferred) => {
+const setContextType = preferred => {
     const gl2 = testContext2 && CONTEXT.WEBGL2;
     const gl1 = testContext1 && CONTEXT.WEBGL;
     contextType = preferred || gl2 || gl1;
@@ -42,12 +44,16 @@ const setContextType = (preferred) => {
 
 const getContextType = () => contextType;
 
-const setContext = (context) => {
+const setContext = context => {
     gl = context;
     if (getContextType() === CONTEXT.WEBGL) {
-        extensions.vertexArrayObject = gl.getExtension('OES_vertex_array_object');
+        extensions.vertexArrayObject = gl.getExtension(
+            'OES_vertex_array_object'
+        );
         extensions.instancedArrays = gl.getExtension('ANGLE_instanced_arrays');
-        extensions.standardDerivatives = gl.getExtension('OES_standard_derivatives');
+        extensions.standardDerivatives = gl.getExtension(
+            'OES_standard_derivatives'
+        );
         extensions.depthTextures = gl.getExtension('WEBGL_depth_texture');
     }
 };

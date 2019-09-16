@@ -15,14 +15,12 @@ import Prism from './prism';
 
 export {
     utils,
-
     /* PLATONIC SOLIDS */
     Tetrahedron,
     Hexahedron,
     Octahedron,
     Dodecahedron,
     Icosahedron,
-
     /* OTHER */
     Plane,
     Box,

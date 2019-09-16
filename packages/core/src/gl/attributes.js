@@ -24,16 +24,11 @@ export const initAttributes = (attributes, program) => {
     }
 };
 
-export const bindAttributes = (attributes) => {
+export const bindAttributes = attributes => {
     const gl = getContext();
 
-    Object.keys(attributes).forEach((key) => {
-        const {
-            location,
-            buffer,
-            size,
-            instanced,
-        } = attributes[key];
+    Object.keys(attributes).forEach(key => {
+        const { location, buffer, size, instanced } = attributes[key];
 
         if (location !== -1) {
             gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -44,7 +39,10 @@ export const bindAttributes = (attributes) => {
             if (getContextType() === CONTEXT.WEBGL2) {
                 gl.vertexAttribDivisor(location, divisor);
             } else {
-                supports().instancedArrays.vertexAttribDivisorANGLE(location, divisor);
+                supports().instancedArrays.vertexAttribDivisorANGLE(
+                    location,
+                    divisor
+                );
             }
 
             gl.bindBuffer(gl.ARRAY_BUFFER, null);
@@ -52,14 +50,10 @@ export const bindAttributes = (attributes) => {
     });
 };
 
-export const updateAttributes = (attributes) => {
+export const updateAttributes = attributes => {
     const gl = getContext();
-    Object.keys(attributes).forEach((key) => {
-        const {
-            location,
-            buffer,
-            value,
-        } = attributes[key];
+    Object.keys(attributes).forEach(key => {
+        const { location, buffer, value } = attributes[key];
 
         if (location !== -1) {
             gl.enableVertexAttribArray(location);

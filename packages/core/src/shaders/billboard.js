@@ -53,7 +53,8 @@ class Billboard {
 
             out vec4 outColor;
 
-            ${props.fragment || 'void mainImage( out vec4 fragColor, in vec2 fragCoord ) { fragColor = vec4(0.0, 1.0, 1.0, 1.0); }'}
+            ${props.fragment ||
+                'void mainImage( out vec4 fragColor, in vec2 fragCoord ) { fragColor = vec4(0.0, 1.0, 1.0, 1.0); }'}
 
             void main() {
                 vec4 base = vec4(0.0, 0.0, 0.0, 1.0);
@@ -68,14 +69,17 @@ class Billboard {
             }
         `;
 
-        return Object.assign({
-            type: SHADER_BILLBOARD,
-            mode: props.wireframe === true ? DRAW.LINES : DRAW.TRIANGLES,
-        }, {
-            vertex,
-            fragment,
-            uniforms: {},
-        });
+        return Object.assign(
+            {
+                type: SHADER_BILLBOARD,
+                mode: props.wireframe === true ? DRAW.LINES : DRAW.TRIANGLES,
+            },
+            {
+                vertex,
+                fragment,
+                uniforms: {},
+            }
+        );
     }
 }
 

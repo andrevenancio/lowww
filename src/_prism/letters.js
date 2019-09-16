@@ -1,13 +1,7 @@
 /* global TweenLite, Power2 */
-const {
-    Mesh,
-    Model,
-    shaders,
-} = lowww.core;
+const { Mesh, Model, shaders } = lowww.core;
 
-const {
-    Prism,
-} = lowww.geometries;
+const { Prism } = lowww.geometries;
 
 const DURATION = 0.5;
 const HEIGHT = 1;
@@ -106,10 +100,10 @@ class L extends Letter {
             ease: Power2.easeOut,
             onUpdate: () => {
                 const y = t.value;
-                this.mesh1.updateVertices([y], (2 * 3) + 1); // index 0 * xyz + 1 (y)
-                this.mesh1.updateVertices([y], (3 * 3) + 1); // index 0 * xyz + 1 (y)
-                this.mesh2.updateVertices([y], (2 * 3) + 1); // index 0 * xyz + 1 (y)
-                this.mesh2.updateVertices([y], (3 * 3) + 1); // index 0 * xyz + 1 (y)
+                this.mesh1.updateVertices([y], 2 * 3 + 1); // index 0 * xyz + 1 (y)
+                this.mesh1.updateVertices([y], 3 * 3 + 1); // index 0 * xyz + 1 (y)
+                this.mesh2.updateVertices([y], 2 * 3 + 1); // index 0 * xyz + 1 (y)
+                this.mesh2.updateVertices([y], 3 * 3 + 1); // index 0 * xyz + 1 (y)
             },
         });
     }
@@ -121,25 +115,21 @@ class L extends Letter {
             ease: Power2.easeOut,
             onUpdate: () => {
                 const y = t.value;
-                this.mesh1.updateVertices([y], (2 * 3) + 1); // index 0 * xyz + 1 (y)
-                this.mesh1.updateVertices([y], (3 * 3) + 1); // index 0 * xyz + 1 (y)
-                this.mesh2.updateVertices([y], (2 * 3) + 1); // index 0 * xyz + 1 (y)
-                this.mesh2.updateVertices([y], (3 * 3) + 1); // index 0 * xyz + 1 (y)
+                this.mesh1.updateVertices([y], 2 * 3 + 1); // index 0 * xyz + 1 (y)
+                this.mesh1.updateVertices([y], 3 * 3 + 1); // index 0 * xyz + 1 (y)
+                this.mesh2.updateVertices([y], 2 * 3 + 1); // index 0 * xyz + 1 (y)
+                this.mesh2.updateVertices([y], 3 * 3 + 1); // index 0 * xyz + 1 (y)
             },
         });
     }
 }
 
 class O extends Letter {
-    start() { }
+    start() {}
 }
 
 class W extends Letter {
-    start() { }
+    start() {}
 }
 
-export {
-    L,
-    O,
-    W,
-};
+export { L, O, W };

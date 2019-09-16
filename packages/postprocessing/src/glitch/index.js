@@ -1,6 +1,5 @@
 // inspired by: https://www.shadertoy.com/view/4t23Rc
 const Glitch = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
         u_amplitude: { type: 'float', value: 3.0 },

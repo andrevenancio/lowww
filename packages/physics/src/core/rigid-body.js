@@ -11,16 +11,20 @@ class RigidBody {
             throw new Error('Please provide a mesh');
         }
 
-        Object.assign(this, {
-            type: RIGID_BODY,
-            awake: true,
-            lineardrag: 0.999,
-            dynamic: true,
-            velocity: vec3.create(),
-            acceleration: vec3.create(),
-            position: vec3.create(),
-            force: vec3.create(),
-        }, params);
+        Object.assign(
+            this,
+            {
+                type: RIGID_BODY,
+                awake: true,
+                lineardrag: 0.999,
+                dynamic: true,
+                velocity: vec3.create(),
+                acceleration: vec3.create(),
+                position: vec3.create(),
+                force: vec3.create(),
+            },
+            params
+        );
 
         // copy mesh position
         vec3.copy(this.position, this.mesh.position.data);
@@ -32,13 +36,13 @@ class RigidBody {
 
     getMass() {
         switch (this.collider.type) {
-        case SPHERE_COLLIDER:
-            return this.collider.radius;
-        case AABB_COLLIDER:
-            return 1;
-        default:
-            console.warn('unknown collider');
-            return 1;
+            case SPHERE_COLLIDER:
+                return this.collider.radius;
+            case AABB_COLLIDER:
+                return 1;
+            default:
+                console.warn('unknown collider');
+                return 1;
         }
     }
 
@@ -59,10 +63,20 @@ class RigidBody {
         this.acceleration[2] = this.force[2] / mass;
 
         // adding acceleration to velocity
-        vec3.scaleAndAdd(this.velocity, this.velocity, this.acceleration, deltatime);
+        vec3.scaleAndAdd(
+            this.velocity,
+            this.velocity,
+            this.acceleration,
+            deltatime
+        );
 
         // adding velocity to position
-        vec3.scaleAndAdd(this.position, this.position, this.velocity, deltatime);
+        vec3.scaleAndAdd(
+            this.position,
+            this.position,
+            this.velocity,
+            deltatime
+        );
 
         // add drag to velocity
         this.velocity[0] *= this.lineardrag;

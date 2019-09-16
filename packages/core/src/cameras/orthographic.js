@@ -5,14 +5,18 @@ class OrthographicCamera extends Object3 {
     constructor(params = {}) {
         super();
 
-        Object.assign(this, {
-            left: -1,
-            right: 1,
-            top: 1,
-            bottom: -1,
-            near: -1000,
-            far: 1000,
-        }, params);
+        Object.assign(
+            this,
+            {
+                left: -1,
+                right: 1,
+                top: 1,
+                bottom: -1,
+                near: -1000,
+                far: 1000,
+            },
+            params
+        );
 
         this.matrices.projection = mat4.create();
     }
@@ -37,7 +41,7 @@ class OrthographicCamera extends Object3 {
             this.bottom,
             this.top,
             this.near,
-            this.far,
+            this.far
         );
     }
 }

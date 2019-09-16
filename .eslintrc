@@ -1,6 +1,6 @@
 {
     "parser": "babel-eslint",
-    "extends": "airbnb",
+    "extends": ["airbnb", "prettier"],
     "globals": {
         "__LIBRARY__": true,
         "__VERSION__": true,

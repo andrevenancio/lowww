@@ -1,5 +1,4 @@
 const Basic = {
-
     uniforms: {
         u_input: { type: 'sampler2D', value: null },
     },
@@ -19,7 +18,6 @@ const Basic = {
     void main() {
         outColor = texture(u_input, v_uv);
     }`,
-
 };
 
 export default Basic;

@@ -27,13 +27,23 @@ class AxisHelper extends Model {
             const nx = props.model.attributes.a_normal.value[i3 + 0];
             const ny = props.model.attributes.a_normal.value[i3 + 1];
             const nz = props.model.attributes.a_normal.value[i3 + 2];
-            const v1x = v0x + (size * nx);
-            const v1y = v0y + (size * ny);
-            const v1z = v0z + (size * nz);
-            geometry.positions = geometry.positions.concat([v0x, v0y, v0z, v1x, v1y, v1z]);
+            const v1x = v0x + size * nx;
+            const v1y = v0y + size * ny;
+            const v1z = v0z + size * nz;
+            geometry.positions = geometry.positions.concat([
+                v0x,
+                v0y,
+                v0z,
+                v1x,
+                v1y,
+                v1z,
+            ]);
         }
 
-        const shader = new Basic({ color: vec3.fromValues(0, 1, 1), wireframe: true });
+        const shader = new Basic({
+            color: vec3.fromValues(0, 1, 1),
+            wireframe: true,
+        });
         const n = new Mesh({ geometry, shader });
         this.add(n);
 

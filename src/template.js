@@ -15,7 +15,11 @@ class Template {
     }
 
     handleResize() {
-        this.resize(window.innerWidth, window.innerHeight, window.devicePixelRatio);
+        this.resize(
+            window.innerWidth,
+            window.innerHeight,
+            window.devicePixelRatio
+        );
         this.update();
     }
 
@@ -35,12 +39,20 @@ class Template {
     }
 
     // to be overriden
-    setup() { console.warn('please add the setup() method'); }
-    init() { console.warn('please add the init() method'); }
-    resize() { console.warn('please add the resize() method'); }
-    pause() { }
-    resume() { }
-    update() { console.warn('please add the update() method'); }
+    setup() {
+        console.warn('please add the setup() method');
+    }
+    init() {
+        console.warn('please add the init() method');
+    }
+    resize() {
+        console.warn('please add the resize() method');
+    }
+    pause() {}
+    resume() {}
+    update() {
+        console.warn('please add the update() method');
+    }
 }
 
 export default Template;

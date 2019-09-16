@@ -56,7 +56,7 @@ class OrbitControls {
         this.domElement.removeEventListener('wheel', this.onWheel, false);
     }
 
-    onStart = (event) => {
+    onStart = event => {
         event.preventDefault();
 
         this.oy = this.ry;
@@ -66,21 +66,26 @@ class OrbitControls {
         this.startX = event.pageY / this.height;
 
         this.isDown = true;
-    }
+    };
 
-    onMove = (event) => {
+    onMove = event => {
         if (this.isDown) {
             const y = event.pageX / this.width;
             const x = event.pageY / this.height;
-            this.rx = this.ox + (-(this.startX - x) * this.rotationSpeed);
-            this.ry = this.oy + ((this.startY - y) * this.rotationSpeed);
+            this.rx = this.ox + -(this.startX - x) * this.rotationSpeed;
+            this.ry = this.oy + (this.startY - y) * this.rotationSpeed;
             this.rx = clamp(this.rx, -Math.PI * 0.5, Math.PI * 0.5);
 
             // when user uses 2 fingers, zoom in / out.
             if (event.touches && event.changedTouches.length > 1) {
                 const one = event.changedTouches[0];
                 const two = event.changedTouches[1];
-                this.curDiff = this.pinchMode(one.clientX, one.clientY, two.clientX, two.clientY);
+                this.curDiff = this.pinchMode(
+                    one.clientX,
+                    one.clientY,
+                    two.clientX,
+                    two.clientY
+                );
 
                 let amount = 0;
                 if (this.curDiff > this.oldDiff) {
@@ -93,20 +98,20 @@ class OrbitControls {
                 this.oldDiff = this.curDiff;
             }
         }
-    }
+    };
 
     onEnd = () => {
         this.isDown = false;
         this.oldDiff = -1;
-    }
+    };
 
-    onWheel = (event) => {
+    onWheel = event => {
         event.preventDefault();
         this.zoom(-event.deltaY);
-    }
+    };
 
     pinchMode(x1, y1, x2, y2) {
-        return Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
 
     zoom(delta) {

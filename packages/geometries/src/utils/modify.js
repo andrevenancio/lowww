@@ -7,9 +7,9 @@ class Modify {
         }
 
         return data;
-    }
+    };
 
-    static detach = (geometry) => {
+    static detach = geometry => {
         const positions = [];
         const normals = [];
         const uvs = [];
@@ -40,10 +40,10 @@ class Modify {
             normals,
             uvs,
         };
-    }
+    };
 
     // every face (3 points) becomes 1 tetrahedron
-    static modify = (geometry) => {
+    static modify = geometry => {
         const positions = [];
         const normals = [];
         const uvs = [];
@@ -105,7 +105,7 @@ class Modify {
             normals,
             uvs,
         };
-    }
+    };
 }
 
 export { Modify };

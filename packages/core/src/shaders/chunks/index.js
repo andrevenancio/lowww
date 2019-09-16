@@ -6,12 +6,4 @@ import { CLIPPING } from './clipping';
 import { EXTENSIONS } from './extensions';
 import { SHADOW } from './shadow';
 
-export {
-    UBO,
-    LIGHT,
-    FOG,
-    NOISE,
-    CLIPPING,
-    EXTENSIONS,
-    SHADOW,
-};
+export { UBO, LIGHT, FOG, NOISE, CLIPPING, EXTENSIONS, SHADOW };

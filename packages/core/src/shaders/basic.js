@@ -40,19 +40,22 @@ class Basic {
             }
         `;
 
-        return Object.assign({
-            type: SHADER_BASIC,
-            mode: props.wireframe === true ? DRAW.LINES : DRAW.TRIANGLES,
-        }, {
-            vertex,
-            fragment,
-            uniforms: {
-                u_color: {
-                    type: 'vec3',
-                    value: color,
-                },
+        return Object.assign(
+            {
+                type: SHADER_BASIC,
+                mode: props.wireframe === true ? DRAW.LINES : DRAW.TRIANGLES,
             },
-        });
+            {
+                vertex,
+                fragment,
+                uniforms: {
+                    u_color: {
+                        type: 'vec3',
+                        value: color,
+                    },
+                },
+            }
+        );
     }
 }
 
