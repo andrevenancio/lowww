@@ -78,7 +78,7 @@
         "jsdoc": "^3.6.3",
         "opener": "^1.5.1",
         "rollup": "^1.21.2",
-        "uglify-js": "^3.6.0"
+        "uglify-js": "^3.6.3"
     },
     "dependencies": {
         "fse": "^4.0.1",
